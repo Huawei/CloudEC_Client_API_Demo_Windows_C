@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}</ProjectGuid>
+    <RootNamespace>APP_UI</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <ProjectName>AppUI</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\Bin_vs2015\$(Configuration)\</OutDir>
+    <TargetName>$(SolutionName)</TargetName>
+    <IntDir>..\..\..\Bin_vs2015\Debug\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\Bin_vs2015\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\Bin_vs2015\Release\$(ProjectName)\</IntDir>
+    <TargetName>$(SolutionName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\code\src\Common;..\..\code\src\Main;..\..\code\src\Login;..\..\code\src\Call;..\..\code\src\Meeting;..\..\code\src\Contacts;..\..\code\src\Setting;..\..\code\src\Eaddr;..\..\code\include;..\..\..\Service\code\include;..\..\..\Service\code\src\inc;..\..\..\SDK\include;..\..\res;.\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/wd4430 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Ws2_32.lib;IPHlpApi.Lib;Service.lib;tsdk_service.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\SDK\lib;..\..\..\Bin_vs2015\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <HeapReserveSize>1000000</HeapReserveSize>
+      <HeapCommitSize>1000000</HeapCommitSize>
+      <StackReserveSize>1000000</StackReserveSize>
+      <StackCommitSize>1000000</StackCommitSize>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\code\src\Common;..\..\code\src\Main;..\..\code\src\Login;..\..\code\src\Call;..\..\code\src\Meeting;..\..\code\src\Contacts;..\..\code\src\Setting;..\..\code\src\Eaddr;..\..\code\include;..\..\..\Service\code\include;..\..\..\Service\code\src\inc;..\..\..\SDK\include;..\..\res;.\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\..\SDK\lib;..\..\..\Bin_vs2015\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;IPHlpApi.Lib;Service.lib;tsdk_service.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <HeapReserveSize>
+      </HeapReserveSize>
+      <HeapCommitSize>
+      </HeapCommitSize>
+      <StackReserveSize>
+      </StackReserveSize>
+      <StackCommitSize>
+      </StackCommitSize>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\code\src\Call\DemoCallCtrlDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Call\DemoCallDialPadDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Call\DemoCallDlgManager.cpp" />
+    <ClCompile Include="..\..\code\src\Call\DemoCallDtmfDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Call\DemoCallInCommingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Call\DemoCallOutGoingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Call\DemoCallTransferDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Common\DemoCommonTools.cpp" />
+    <ClCompile Include="..\..\code\src\Common\DemoEventProc.cpp" />
+    <ClCompile Include="..\..\code\src\Common\DemoImageStatic.cpp" />
+    <ClCompile Include="..\..\code\src\Common\DemoPromptDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Common\DemoRunInfoDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Common\stdafx.cpp" />
+    <ClCompile Include="..\..\code\src\Login\DemoLoginDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Login\DemoLoginSettingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Main\DemoApp.cpp" />
+    <ClCompile Include="..\..\code\src\Main\DemoMainDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoAudioMeetingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoDataMeetingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingCreateDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDetailDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoShareStatic.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Setting\DemoCallSettingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Setting\DemoMediaSettingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Setting\DemoSettingDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\code\include\DemoShare.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallCtrlDlg.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallDialPadDlg.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallDlgManager.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallDtmfDlg.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallInCommingDlg.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallOutGoingDlg.h" />
+    <ClInclude Include="..\..\code\src\Call\DemoCallTransferDlg.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoCommonTools.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoCustomMessage.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoData.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoEventProc.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoImageStatic.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoPromptDlg.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoRunInfoDlg.h" />
+    <ClInclude Include="..\..\code\src\Common\stdafx.h" />
+    <ClInclude Include="..\..\code\src\Login\DemoLoginDlg.h" />
+    <ClInclude Include="..\..\code\src\Login\DemoLoginSettingDlg.h" />
+    <ClInclude Include="..\..\code\src\Main\DemoApp.h" />
+    <ClInclude Include="..\..\code\src\Main\DemoMainDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoAudioMeetingDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoDataMeetingDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingCreateDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDetailDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoShareStatic.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.h" />
+    <ClInclude Include="..\..\code\src\Setting\DemoCallSettingDlg.h" />
+    <ClInclude Include="..\..\code\src\Setting\DemoMediaSettingDlg.h" />
+    <ClInclude Include="..\..\code\src\Setting\DemoSettingDlg.h" />
+    <ClInclude Include="..\..\resource.h" />
+    <ClInclude Include="..\..\targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\res\EC_SDK_Demo.ico" />
+    <Image Include="..\..\res\face\0.png" />
+    <Image Include="..\..\res\image\welcome.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\res\APP_UI.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\APP_UI.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

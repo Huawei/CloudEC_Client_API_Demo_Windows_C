@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="code">
+      <UniqueIdentifier>{a268e00e-8cc8-4384-a413-721ad905142f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src">
+      <UniqueIdentifier>{1fbb48e8-fbdb-4fc6-8ed5-354b2a87a46b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\include">
+      <UniqueIdentifier>{99a41762-985e-45f0-a704-063cf4cef3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\common">
+      <UniqueIdentifier>{e404f5d6-5b45-467a-85ac-cda7e8836647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\call">
+      <UniqueIdentifier>{005bd9f8-9f0c-4457-93b3-84ffdfa413ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\login">
+      <UniqueIdentifier>{798ccc70-d0d5-419b-b9b5-eee2c2c43000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\manage">
+      <UniqueIdentifier>{135bba37-1980-4b91-b7a4-9703009c19c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\meeting">
+      <UniqueIdentifier>{2e539bf6-feb2-4092-b2d0-d71d907fefd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\inc">
+      <UniqueIdentifier>{7643847c-d003-4711-85fa-3cb817bd004a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\code\include\service_call_interface.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_callback_to_ui.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_conf_interface.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_data_conf_global_data.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_init.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_login.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_logout.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_os_adapt.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_tools.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_uninit.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\inc\service_def.h">
+      <Filter>code\src\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\inc\service_log.h">
+      <Filter>code\src\inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\code\src\call\service_call_interface.cpp">
+      <Filter>code\src\call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\common\service_log.cpp">
+      <Filter>code\src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\common\service_os_adapt.cpp">
+      <Filter>code\src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\login\service_login.cpp">
+      <Filter>code\src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\manage\service_callback_to_ui.cpp">
+      <Filter>code\src\manage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\manage\service_init.cpp">
+      <Filter>code\src\manage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\manage\service_logout.cpp">
+      <Filter>code\src\manage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\manage\service_uninit.cpp">
+      <Filter>code\src\manage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\meeting\service_conf_interface.cpp">
+      <Filter>code\src\meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\meeting\service_data_conf_global_data.cpp">
+      <Filter>code\src\meeting</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

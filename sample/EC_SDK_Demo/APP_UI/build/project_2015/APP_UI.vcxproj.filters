@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{fed78839-261a-404a-b3a2-6873f9e56ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code">
+      <UniqueIdentifier>{aeef2db9-16ec-46e6-aa3e-52177c734c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\include">
+      <UniqueIdentifier>{ed04fa08-91a3-491b-a046-dbaa1765a1f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src">
+      <UniqueIdentifier>{244d0e62-f55e-4e48-bf48-6c0dacca28ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\Call">
+      <UniqueIdentifier>{68b26f66-0971-4a07-a305-21dc1d192846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\Common">
+      <UniqueIdentifier>{0c0410fd-cb9a-4eba-b150-98e610e085a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\Login">
+      <UniqueIdentifier>{3a630cdc-0b3e-4e1f-bd38-91eb74230c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\Main">
+      <UniqueIdentifier>{0abb6ed2-5157-4667-a672-774e3e20f7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\Meeting">
+      <UniqueIdentifier>{9b49d132-a951-45cb-9519-f30e88739fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="code\src\Setting">
+      <UniqueIdentifier>{76fe2878-e46b-40b0-a1f7-18ae7ab38ffe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\code\src\Call\DemoCallCtrlDlg.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Call\DemoCallDialPadDlg.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Call\DemoCallDlgManager.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Call\DemoCallDtmfDlg.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Call\DemoCallInCommingDlg.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Call\DemoCallOutGoingDlg.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Call\DemoCallTransferDlg.cpp">
+      <Filter>code\src\Call</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Common\DemoCommonTools.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Common\DemoEventProc.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Common\DemoImageStatic.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Common\DemoPromptDlg.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Common\DemoRunInfoDlg.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Common\stdafx.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Login\DemoLoginDlg.cpp">
+      <Filter>code\src\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Login\DemoLoginSettingDlg.cpp">
+      <Filter>code\src\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Main\DemoApp.cpp">
+      <Filter>code\src\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Main\DemoMainDlg.cpp">
+      <Filter>code\src\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoAudioMeetingDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoDataMeetingDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingCreateDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDetailDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoShareStatic.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Setting\DemoCallSettingDlg.cpp">
+      <Filter>code\src\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Setting\DemoMediaSettingDlg.cpp">
+      <Filter>code\src\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Setting\DemoSettingDlg.cpp">
+      <Filter>code\src\Setting</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\code\include\DemoShare.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallCtrlDlg.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallDialPadDlg.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallDlgManager.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallDtmfDlg.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallInCommingDlg.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallOutGoingDlg.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Call\DemoCallTransferDlg.h">
+      <Filter>code\src\Call</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoCommonTools.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoCustomMessage.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoData.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoEventProc.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoImageStatic.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoPromptDlg.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\DemoRunInfoDlg.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\stdafx.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Login\DemoLoginDlg.h">
+      <Filter>code\src\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Login\DemoLoginSettingDlg.h">
+      <Filter>code\src\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Main\DemoApp.h">
+      <Filter>code\src\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Main\DemoMainDlg.h">
+      <Filter>code\src\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoAudioMeetingDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoDataMeetingDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingCreateDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDetailDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoShareStatic.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Setting\DemoCallSettingDlg.h">
+      <Filter>code\src\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Setting\DemoMediaSettingDlg.h">
+      <Filter>code\src\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Setting\DemoSettingDlg.h">
+      <Filter>code\src\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\resource.h" />
+    <ClInclude Include="..\..\targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\res\EC_SDK_Demo.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="..\..\res\image\welcome.bmp" />
+    <Image Include="..\..\res\face\0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\res\APP_UI.rc2">
+      <Filter>res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\APP_UI.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
