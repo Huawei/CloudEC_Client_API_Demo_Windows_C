@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -24,7 +24,6 @@ private:
     typedef std::vector<CDemoCallCtrlDlg*> VEC_CALLDLG;
     VEC_CALLDLG m_vecCallDlg;
 
-
 public:
     static CallDlgManager& GetInstance()
     {
@@ -35,6 +34,6 @@ public:
     CDemoCallCtrlDlg* GetCallDlgBySIPnumber(const std::string& sipnumber);
     CDemoCallCtrlDlg* GetCallDlgByNumber(const std::string& sipnumber);
     CDemoCallCtrlDlg* GetCallDlgByCallID(const unsigned int& callid);
-
+    bool IsHasCallDlg();
     void DeleteCallDlgByCallDlg(CDemoCallCtrlDlg* pDlg);
 };

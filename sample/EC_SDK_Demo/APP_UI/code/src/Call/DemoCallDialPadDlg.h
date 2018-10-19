@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -46,6 +46,7 @@ public:
     afx_msg void OnBnClickedButtonAudio();
     afx_msg void OnBnClickedButtonVideo();
     afx_msg void OnBnClickedButtonDel();
+    afx_msg void OnBnClickedButtonPlus();
 
     void StartCall(std::string sipnumber, BOOL isVideo);
 

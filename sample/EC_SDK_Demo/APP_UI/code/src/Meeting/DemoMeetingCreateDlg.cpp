@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -13,6 +13,7 @@
 #include "DemoData.h"
 #include "service_conf_interface.h"
 #include "service_os_adapt.h"
+#include "service_conf_def.h"
 
 extern CString g_loginAccount;
 extern CString g_sipNumber;
@@ -60,11 +61,11 @@ BOOL CDemoMeetingCreateDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
    
-	m_comMeetingType.InsertString(0, _T("Video+Data"));
-	m_comMeetingType.InsertString(0, _T("Voice+Data"));
-	m_comMeetingType.InsertString(0, _T("Video"));
-	m_comMeetingType.InsertString(0, _T("Audio"));
-
+    m_comMeetingType.InsertString(0, _T("Audio"));
+    m_comMeetingType.InsertString(1, _T("Video"));
+	m_comMeetingType.InsertString(2, _T("Voice+Data"));
+    m_comMeetingType.InsertString(3, _T("Video+Data"));
+	
     m_meetingMemberList.ModifyStyle(0, LVS_SINGLESEL);
     m_meetingMemberList.InsertColumn(1, _T("Members"), LVCFMT_LEFT, 100);
 
@@ -114,7 +115,7 @@ void CDemoMeetingCreateDlg::OnBnClickedButtonAdd()
     {
         int iSize = m_meetingMemberList.GetItemCount();
 
-        if(dlg.addMemSipNum != "")
+        if(dlg.addMemSipNum != _T(""))
         { 
             int nRow = m_meetingMemberList.InsertItem(iSize, dlg.addMemSipNum);
             m_meetingMemberList.SetItemText(nRow, 1, dlg.addMemSipNum);
@@ -124,19 +125,12 @@ void CDemoMeetingCreateDlg::OnBnClickedButtonAdd()
 
 void CDemoMeetingCreateDlg::OnBnClickedButtonOk()
 {
-    TSDK_S_BOOK_CONF_INFO bookConfInfo = { 0 };
-
-    //与会者个数
-    unsigned int iSize = (unsigned int)m_meetingMemberList.GetItemCount();
-    bookConfInfo.size = iSize;
+    SERVICE_S_BOOK_CONF_INFO bookConfInfo = { 0 };
 
     //会议标题
     CString strMeetingSubject;
     m_edtMeetingSubject.GetWindowText(strMeetingSubject);
     CTools::CString2Char(strMeetingSubject, bookConfInfo.subject, TSDK_D_MAX_SUBJECT_LEN);
-
-    //会议群组号，默认空
-    strncpy_s(bookConfInfo.group_uri, TSDK_D_MAX_GROUP_URI_LEN + 1, "", TSDK_D_MAX_GROUP_URI_LEN - 1);
 
     //会议开始时间 //会议类型(立即会议or预约会议)
     int radioState = m_radioConfBeginNow.GetCheck();
@@ -177,9 +171,8 @@ void CDemoMeetingCreateDlg::OnBnClickedButtonOk()
     {
         bookConfInfo.conf_media_type = TSDK_E_CONF_MEDIA_VOICE;
     }
-
-    //是否自动闭音
-    bookConfInfo.is_auto_mute = FALSE;
+    else
+    { }
     
     //与会者列表
     CString strChairmanNum = CTools::GetSipNumber(g_sipNumber);
@@ -230,8 +223,6 @@ void CDemoMeetingCreateDlg::OnBnClickedButtonOk()
     {
         AfxMessageBox(_T("book conf is failed"));
     }
-    free(bookConfInfo.attendee_list);
-    bookConfInfo.attendee_list = NULL;
 
     ClearAllControl();
    

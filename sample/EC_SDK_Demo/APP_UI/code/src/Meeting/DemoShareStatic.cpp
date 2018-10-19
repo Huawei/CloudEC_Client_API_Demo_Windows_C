@@ -3,13 +3,14 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
 #include "DemoApp.h"
 #include "DemoShareStatic.h"
 #include "service_os_adapt.h"
+#include "service_conf_interface.h"
 
 // CShareStatic
 
@@ -55,15 +56,16 @@ void CShareStatic::OnDraw(CDC* pDC)
 
         pDC->FillRect(&rect, &bs);
 
-        /*void *data = service_data_conf_get_image_data(SERVICE_DATA_CONF_IID_COMPONENT_WB,NULL,NULL);
-        if (data == NULL)
-        {
-            data = service_data_conf_get_image_data(SERVICE_DATA_CONF_IID_COMPONENT_DS,NULL,NULL);
-        }
-        if(data)
-        {
-            ::BitBlt(pDC->m_hDC, 0, 0, rect.Width(), rect.Height(), (HDC)data, 0, 0, SRCCOPY);
-        }*/
+		void *data = service_data_conf_ds_share_get_surfacebmp(FALSE);
+
+		if (data == NULL)
+		{
+			data = service_data_conf_ds_share_get_surfacebmp(TRUE);
+		}
+		if(data)
+		{
+			::BitBlt(pDC->m_hDC, 0, 0, rect.Width(), rect.Height(), (HDC)data, 0, 0, SRCCOPY);
+		}
     }
     else
     {

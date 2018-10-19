@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "StdAfx.h"
@@ -22,7 +22,7 @@ CallDlgManager::~CallDlgManager(void)
 CDemoCallCtrlDlg* CallDlgManager::CreateCallDlgBySIPnumber(const std::string& sipnumber)
 {
     CDemoCallCtrlDlg* pCallDlg = new CDemoCallCtrlDlg;
-    pCallDlg->Create(CDemoCallCtrlDlg::IDD, CWnd::FromHandle(::GetDesktopWindow()));
+    (void)pCallDlg->Create(CDemoCallCtrlDlg::IDD, CWnd::FromHandle(::GetDesktopWindow()));
     pCallDlg->SetSIPnumber(sipnumber);
     m_vecCallDlg.push_back(pCallDlg);
     return pCallDlg;
@@ -79,8 +79,25 @@ void CallDlgManager::DeleteCallDlgByCallDlg(CDemoCallCtrlDlg* pDlg)
         if (NULL != pCallDlg && pDlg == pCallDlg)
         {
             m_vecCallDlg.erase(it);
-            delete (pCallDlg);
+            if (::IsWindow(pCallDlg->GetSafeHwnd()))
+            {
+                pCallDlg->SetCallID(0);
+                (void)pCallDlg->ShowWindow(SW_HIDE);
+                (void)pCallDlg->DestroyWindow();
+                delete pCallDlg;
+                pCallDlg = NULL;
+            }
             break;
         }
     }
+}
+
+bool CallDlgManager::IsHasCallDlg()
+{
+    unsigned int vecSize = m_vecCallDlg.size();
+    if (vecSize > 0)
+    {
+        return true;
+    }
+    return false;
 }

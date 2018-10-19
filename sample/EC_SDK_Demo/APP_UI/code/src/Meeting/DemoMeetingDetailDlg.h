@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -25,7 +25,7 @@ public:
 	virtual ~CDemoMeetingDetailDlg();
 
 // dialog数据
-	enum { IDD = IDD_MEETING_DETAIL_DIALOG };
+	enum { IDD = IDD_CONF_DETAIL_DLG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -45,7 +45,6 @@ public:
 	CStatic m_stcAccessNum;     //会议接入码
 	CStatic m_stcConfID;        //会议号码
 	CStatic m_stcSelfNum;       //自己的号码，默认显示sip号码，入会时需要短号码
-	CStatic m_stcTips;          //提示语，提示用户这个编辑框里输入的是短号
 
 	//Edit控件
 	CEdit m_edtConfTopic;    

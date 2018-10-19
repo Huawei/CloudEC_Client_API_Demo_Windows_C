@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\code\src\Common;..\..\code\src\Main;..\..\code\src\Login;..\..\code\src\Call;..\..\code\src\Meeting;..\..\code\src\Contacts;..\..\code\src\Setting;..\..\code\src\Eaddr;..\..\code\include;..\..\..\Service\code\include;..\..\..\Service\code\src\inc;..\..\..\SDK\include;..\..\res;.\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\code\src\Common;..\..\code\src\Main;..\..\code\src\Login;..\..\code\src\Call;..\..\code\src\Meeting;..\..\code\src\Contacts;..\..\code\src\Setting;..\..\code\src\Manage;..\..\code\src\Eaddr;..\..\code\include;..\..\..\Service\code\include;..\..\..\Service\code\src\inc;..\..\..\SDK\include;..\..\res;.\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/wd4430 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -130,28 +130,29 @@
     <ClCompile Include="..\..\code\src\Call\DemoCallDlgManager.cpp" />
     <ClCompile Include="..\..\code\src\Call\DemoCallDtmfDlg.cpp" />
     <ClCompile Include="..\..\code\src\Call\DemoCallInCommingDlg.cpp" />
-    <ClCompile Include="..\..\code\src\Call\DemoCallOutGoingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Call\DemoCallTransferDlg.cpp" />
     <ClCompile Include="..\..\code\src\Common\DemoCommonTools.cpp" />
     <ClCompile Include="..\..\code\src\Common\DemoEventProc.cpp" />
     <ClCompile Include="..\..\code\src\Common\DemoImageStatic.cpp" />
     <ClCompile Include="..\..\code\src\Common\DemoPromptDlg.cpp" />
     <ClCompile Include="..\..\code\src\Common\DemoRunInfoDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Common\DemoVideoDlg.cpp" />
     <ClCompile Include="..\..\code\src\Common\stdafx.cpp" />
     <ClCompile Include="..\..\code\src\Login\DemoLoginDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Login\DemoLoginJoinConfDlg.cpp" />
     <ClCompile Include="..\..\code\src\Login\DemoLoginSettingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Main\DemoApp.cpp" />
     <ClCompile Include="..\..\code\src\Main\DemoMainDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoAudioMeetingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.cpp" />
-    <ClCompile Include="..\..\code\src\Meeting\DemoDataMeetingDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoDataconfCtrlDlg.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoDocumentsShareDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingCreateDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDetailDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoShareStatic.cpp" />
-    <ClCompile Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Setting\DemoCallSettingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Setting\DemoMediaSettingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Setting\DemoSettingDlg.cpp" />
@@ -163,7 +164,6 @@
     <ClInclude Include="..\..\code\src\Call\DemoCallDlgManager.h" />
     <ClInclude Include="..\..\code\src\Call\DemoCallDtmfDlg.h" />
     <ClInclude Include="..\..\code\src\Call\DemoCallInCommingDlg.h" />
-    <ClInclude Include="..\..\code\src\Call\DemoCallOutGoingDlg.h" />
     <ClInclude Include="..\..\code\src\Call\DemoCallTransferDlg.h" />
     <ClInclude Include="..\..\code\src\Common\DemoCommonTools.h" />
     <ClInclude Include="..\..\code\src\Common\DemoCustomMessage.h" />
@@ -172,21 +172,23 @@
     <ClInclude Include="..\..\code\src\Common\DemoImageStatic.h" />
     <ClInclude Include="..\..\code\src\Common\DemoPromptDlg.h" />
     <ClInclude Include="..\..\code\src\Common\DemoRunInfoDlg.h" />
+    <ClInclude Include="..\..\code\src\Common\DemoVideoDlg.h" />
     <ClInclude Include="..\..\code\src\Common\stdafx.h" />
     <ClInclude Include="..\..\code\src\Login\DemoLoginDlg.h" />
+    <ClInclude Include="..\..\code\src\Login\DemoLoginJoinConfDlg.h" />
     <ClInclude Include="..\..\code\src\Login\DemoLoginSettingDlg.h" />
     <ClInclude Include="..\..\code\src\Main\DemoApp.h" />
     <ClInclude Include="..\..\code\src\Main\DemoMainDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoAudioMeetingDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.h" />
-    <ClInclude Include="..\..\code\src\Meeting\DemoDataMeetingDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoDataconfCtrlDlg.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoDocumentsShareDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingCreateDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDetailDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoShareStatic.h" />
-    <ClInclude Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.h" />
     <ClInclude Include="..\..\code\src\Setting\DemoCallSettingDlg.h" />
     <ClInclude Include="..\..\code\src\Setting\DemoMediaSettingDlg.h" />
     <ClInclude Include="..\..\code\src\Setting\DemoSettingDlg.h" />

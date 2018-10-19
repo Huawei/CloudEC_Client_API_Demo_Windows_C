@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdio.h"
@@ -18,7 +18,23 @@ extern "C" {
 #endif
 #endif /* __cplusplus */
 
-    int ServiceLogin(const char *userAccount, const char *userPassword, const char *serverAddress, const unsigned short serverPort)
+
+	/*****************************************************************************
+	函 数 名  : ServiceLogin
+	功能描述  : 帐号登录
+	输入参数  : SERVICE_S_LOGIN_PARAM *loginInfo
+	输出参数  : 无
+	返 回 值  : int
+	调用函数  : tsdk_login
+	被调函数  : 
+
+	修改历史      :
+	1.日    期   : 2018年6月1日
+	作    者   : EC Open development Team
+	修改内容   : 新生成函数 
+
+	*****************************************************************************/
+    int ServiceLogin(SERVICE_S_LOGIN_PARAM *loginInfo)
     {
         int ret;
         TSDK_S_LOGIN_PARAM login_param;
@@ -26,12 +42,12 @@ extern "C" {
 
         login_param.user_id = 1;
         login_param.auth_type = TSDK_E_AUTH_NORMAL;
-        strcpy_s(login_param.user_name, TSDK_D_MAX_ACCOUNT_LEN + 1, userAccount);
-        strcpy_s(login_param.password, TSDK_D_MAX_PASSWORD_LENGTH + 1, userPassword);
+        strcpy_s(login_param.user_name, TSDK_D_MAX_ACCOUNT_LEN + 1, loginInfo->user_name);
+        strcpy_s(login_param.password, TSDK_D_MAX_PASSWORD_LENGTH + 1, loginInfo->password);
 
         login_param.server_type = TSDK_E_SERVER_TYPE_PORTAL;
-        strcpy_s(login_param.server_addr, TSDK_D_MAX_URL_LENGTH + 1, serverAddress);
-        login_param.server_port = serverPort;
+        strcpy_s(login_param.server_addr, TSDK_D_MAX_URL_LENGTH + 1, loginInfo->server_addr);
+        login_param.server_port = loginInfo->server_port;
 
         ret = tsdk_login(&login_param);
         return ret;

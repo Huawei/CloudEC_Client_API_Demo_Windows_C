@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -36,6 +36,4 @@ private:
 public:
     afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
     afx_msg void OnBnClickedOk();
-    afx_msg LRESULT OnIPTSucess(WPARAM, LPARAM);
-    afx_msg LRESULT OnIPTFailed(WPARAM, LPARAM);
 };

@@ -3,11 +3,12 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
 #include "afxdialogex.h"
+#include "DemoApp.h"
 #include "DemoData.h"
 #include "DemoCallInCommingDlg.h"
 #include "service_call_interface.h"
@@ -96,7 +97,7 @@ BOOL CDemoCallInCommingDlg::OnInitDialog()
     {
         m_Type.SetWindowText(_T("Video Conf Call"));
         m_bt_videoAccept.EnableWindow(TRUE);
-        m_bt_audioAccept.EnableWindow(FALSE);
+        m_bt_audioAccept.EnableWindow(TRUE);
         break;
     }
     default:break;
@@ -108,34 +109,24 @@ BOOL CDemoCallInCommingDlg::OnInitDialog()
 void CDemoCallInCommingDlg::OnBnClickedAudioAccept()
 {
     m_buttonType = AUDIO_BUTTON;
-    int result = service_call_media_stopplay(play_handle);
-    if (result)
-    {
-        AfxMessageBox(_T("call media stopplay failed"));
-    }
+    (void)service_call_media_stopplay(play_handle);
     OnOK();
+	::PostMessage(theApp.m_pMainDlgWnd->GetSafeHwnd(), WM_CALL_INCOMMING_DLG_CLOSE, NULL, NULL);
 }
 
 void CDemoCallInCommingDlg::OnBnClickedVideoAccept()
 {
     m_buttonType = VIDEO_BUTTON;
-    int result = service_call_media_stopplay(play_handle);
-    if (result)
-    {
-        AfxMessageBox(_T("call media stopplay failed"));
-    }
+    (void)service_call_media_stopplay(play_handle);
     OnOK();
+	::PostMessage(theApp.m_pMainDlgWnd->GetSafeHwnd(), WM_CALL_INCOMMING_DLG_CLOSE, NULL, NULL);
 }
 
 void CDemoCallInCommingDlg::OnBnClickedReject()
 {
-
-    int result = service_call_media_stopplay(play_handle);
-    if (result)
-    {
-        AfxMessageBox(_T("call media stopplay failed"));
-    }
+    (void)service_call_media_stopplay(play_handle);
     OnCancel();
+	::PostMessage(theApp.m_pMainDlgWnd->GetSafeHwnd(), WM_CALL_INCOMMING_DLG_CLOSE, NULL, NULL);
 }
 
 void CDemoCallInCommingDlg::OnBnClickedTransfer()
@@ -170,3 +161,9 @@ void CDemoCallInCommingDlg::PlayPhoneRinging()
     plafile = plafile + "\\audio\\In.wav";
     (void)service_call_media_startplay(0, plafile.c_str(), &play_handle);
 };
+
+void CDemoCallInCommingDlg::OnCloseDlg()
+{
+    OnCancel();
+}
+

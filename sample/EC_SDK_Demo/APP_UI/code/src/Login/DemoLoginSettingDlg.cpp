@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -45,7 +45,8 @@ BOOL CDemoLoginSettingDlg::OnInitDialog()
 {
     CDialogEx::OnInitDialog();
 
-    CTools::GetServerParam(m_strServerAddress, m_strServerPort);
+    CTools::GetIniConfigParam(_T("ServerConfig"), _T("serverIP"), m_strServerAddress);
+    CTools::GetIniConfigParam(_T("ServerConfig"), _T("serverPort"), m_strServerPort);
     m_editServerAddress.SetWindowText(m_strServerAddress);
     m_editServerPort.SetWindowText(m_strServerPort);
 
@@ -63,6 +64,6 @@ void CDemoLoginSettingDlg::SaveServer()
 {
     m_editServerAddress.GetWindowText(m_strServerAddress);
     m_editServerPort.GetWindowText(m_strServerPort);
-    CTools::WriteServerParam(_T("serverIP"), m_strServerAddress);
-    CTools::WriteServerParam(_T("serverPort"), m_strServerPort);
+    CTools::WriteIniConfigParam(_T("ServerConfig"), _T("serverIP"), m_strServerAddress);
+    CTools::WriteIniConfigParam(_T("ServerConfig"), _T("serverPort"), m_strServerPort);
 }

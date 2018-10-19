@@ -33,6 +33,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\code\src\Common\stdafx.cpp">
+      <Filter>code\src\Common</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\code\src\Call\DemoCallCtrlDlg.cpp">
       <Filter>code\src\Call</Filter>
     </ClCompile>
@@ -46,9 +49,6 @@
       <Filter>code\src\Call</Filter>
     </ClCompile>
     <ClCompile Include="..\..\code\src\Call\DemoCallInCommingDlg.cpp">
-      <Filter>code\src\Call</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\code\src\Call\DemoCallOutGoingDlg.cpp">
       <Filter>code\src\Call</Filter>
     </ClCompile>
     <ClCompile Include="..\..\code\src\Call\DemoCallTransferDlg.cpp">
@@ -69,7 +69,7 @@
     <ClCompile Include="..\..\code\src\Common\DemoRunInfoDlg.cpp">
       <Filter>code\src\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\code\src\Common\stdafx.cpp">
+    <ClCompile Include="..\..\code\src\Common\DemoVideoDlg.cpp">
       <Filter>code\src\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\code\src\Login\DemoLoginDlg.cpp">
@@ -90,9 +90,6 @@
     <ClCompile Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.cpp">
       <Filter>code\src\Meeting</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\code\src\Meeting\DemoDataMeetingDlg.cpp">
-      <Filter>code\src\Meeting</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.cpp">
       <Filter>code\src\Meeting</Filter>
     </ClCompile>
@@ -111,9 +108,6 @@
     <ClCompile Include="..\..\code\src\Meeting\DemoShareStatic.cpp">
       <Filter>code\src\Meeting</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.cpp">
-      <Filter>code\src\Meeting</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\code\src\Setting\DemoCallSettingDlg.cpp">
       <Filter>code\src\Setting</Filter>
     </ClCompile>
@@ -123,11 +117,25 @@
     <ClCompile Include="..\..\code\src\Setting\DemoSettingDlg.cpp">
       <Filter>code\src\Setting</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoDocumentsShareDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Login\DemoLoginJoinConfDlg.cpp">
+      <Filter>code\src\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoDataconfCtrlDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\code\include\DemoShare.h">
       <Filter>code\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\code\src\Common\stdafx.h">
+      <Filter>code\src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\resource.h" />
+    <ClInclude Include="..\..\targetver.h" />
     <ClInclude Include="..\..\code\src\Call\DemoCallCtrlDlg.h">
       <Filter>code\src\Call</Filter>
     </ClInclude>
@@ -141,9 +149,6 @@
       <Filter>code\src\Call</Filter>
     </ClInclude>
     <ClInclude Include="..\..\code\src\Call\DemoCallInCommingDlg.h">
-      <Filter>code\src\Call</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\code\src\Call\DemoCallOutGoingDlg.h">
       <Filter>code\src\Call</Filter>
     </ClInclude>
     <ClInclude Include="..\..\code\src\Call\DemoCallTransferDlg.h">
@@ -170,7 +175,7 @@
     <ClInclude Include="..\..\code\src\Common\DemoRunInfoDlg.h">
       <Filter>code\src\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\code\src\Common\stdafx.h">
+    <ClInclude Include="..\..\code\src\Common\DemoVideoDlg.h">
       <Filter>code\src\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\code\src\Login\DemoLoginDlg.h">
@@ -191,9 +196,6 @@
     <ClInclude Include="..\..\code\src\Meeting\DemoDataConfAppShareDlg.h">
       <Filter>code\src\Meeting</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\code\src\Meeting\DemoDataMeetingDlg.h">
-      <Filter>code\src\Meeting</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingAddMemDlg.h">
       <Filter>code\src\Meeting</Filter>
     </ClInclude>
@@ -212,9 +214,6 @@
     <ClInclude Include="..\..\code\src\Meeting\DemoShareStatic.h">
       <Filter>code\src\Meeting</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\code\src\Meeting\DemoVideoMeetingDlg.h">
-      <Filter>code\src\Meeting</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\code\src\Setting\DemoCallSettingDlg.h">
       <Filter>code\src\Setting</Filter>
     </ClInclude>
@@ -224,8 +223,15 @@
     <ClInclude Include="..\..\code\src\Setting\DemoSettingDlg.h">
       <Filter>code\src\Setting</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\resource.h" />
-    <ClInclude Include="..\..\targetver.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoDocumentsShareDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Login\DemoLoginJoinConfDlg.h">
+      <Filter>code\src\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoDataconfCtrlDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\res\face\0.png" />

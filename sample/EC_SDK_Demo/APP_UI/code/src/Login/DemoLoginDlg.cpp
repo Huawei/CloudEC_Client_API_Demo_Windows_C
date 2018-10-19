@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -13,6 +13,7 @@
 #include "tsdk_login_interface.h"
 #include "service_login.h"
 #include "service_tools.h"
+#include "service_os_adapt.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -57,9 +58,11 @@ CDemoLoginDlg::CDemoLoginDlg(CWnd* pParent /*=NULL*/)
     , m_Account(_T(""))
     , m_Password(_T(""))
     , m_ServerPort(0)
+    , m_bLoginFlag(false)
 {
     m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
     m_pLoginSetting = NULL;
+    m_pLoginJoinConf = NULL;
 }
 
 void CDemoLoginDlg::DoDataExchange(CDataExchange* pDX)
@@ -75,10 +78,12 @@ BEGIN_MESSAGE_MAP(CDemoLoginDlg, CDialogEx)
     ON_WM_QUERYDRAGICON()
     ON_BN_CLICKED(IDC_BUTTON_LOGIN, &CDemoLoginDlg::OnBnClickedButtonLogin)
     ON_BN_CLICKED(IDC_BUTTON_LOGIN_SETTING, &CDemoLoginDlg::OnBnClickedButtonLoginSetting)
+    ON_BN_CLICKED(IDC_BUTTON_LOGIN_JOIN_CONF, &CDemoLoginDlg::OnBnClickedButtonLoginJoinConf)
     ON_MESSAGE(WM_LOGIN_AUTH_RESULT, &CDemoLoginDlg::OnLoginAuthResult)
     ON_MESSAGE(WM_LOGIN_RESULT, &CDemoLoginDlg::OnLoginResult)
     ON_MESSAGE(WM_LOGIN_TOKEN_REFRESH_FAILED, &CDemoLoginDlg::OnLoginTokenRefreshFailed)
     ON_MESSAGE(WM_AUTH_LOGIN_SAVE_SELF_INFO, &CDemoLoginDlg::OnSaveSelfInfo)
+    ON_MESSAGE(WM_LOGIN_GET_TEMP_USER_RESULT, &CDemoLoginDlg::OnLoginGetTempUserResult)
 END_MESSAGE_MAP()
 
 
@@ -120,15 +125,25 @@ BOOL CDemoLoginDlg::OnInitDialog()
         m_pLoginSetting = new CDemoLoginSettingDlg(this);
         if (!::IsWindow(m_pLoginSetting->GetSafeHwnd()))
         {
-            m_pLoginSetting->Create(IDD_LOGIN_SETTING);
+            (void)m_pLoginSetting->Create(IDD_LOGIN_SETTING);
+        }
+    }
+
+    if (NULL == m_pLoginJoinConf)
+    {
+        m_pLoginJoinConf = new CDemoLoginJoinConfDlg(this);
+        if (!::IsWindow(m_pLoginJoinConf->GetSafeHwnd()))
+        {
+            (void)m_pLoginJoinConf->Create(IDD_LOGIN_JOIN_CONF);
         }
     }
 
     ////// 获取上一次登录成功的账号信息
-    CTools::GetAccountParam(m_Account);
+    CTools::GetIniConfigParam(_T("LoginConfig"), _T("account"), m_Account);
     m_EditAccount.SetWindowText(m_Account);
-    CTools::GetPwdParam(m_Password);
-    m_EditPwd.SetWindowText(m_Password);
+    m_EditPwd.SetWindowText(_T(""));
+    /*CTools::GetIniConfigParam(_T("LoginConfig"), _T("pwd"), m_Password);
+    m_EditPwd.SetWindowText(m_Password);*/
     g_loginAccount = m_Account;
 
     return TRUE;  // return TRUE  unless you set the focus to a control
@@ -189,11 +204,18 @@ void CDemoLoginDlg::OnBnClickedButtonLogin()
     }
     else
     {
-        CTools::WriteAccountParam(_T("account"), m_Account);
-        CTools::WritePwdParam(_T("pwd"), m_Password);
+        m_bLoginFlag = true;
+        CTools::WriteIniConfigParam(_T("LoginConfig"), _T("account"), m_Account);
+        /*CTools::WriteIniConfigParam(_T("LoginConfig"), _T("pwd"), m_Password);*/
     }
 }
 
+void CDemoLoginDlg::OnBnClickedButtonLoginJoinConf()
+{
+    INT_PTR nRes;
+    CDemoLoginJoinConfDlg  loginJoinConf;
+    nRes = loginJoinConf.DoModal();
+}
 
 void CDemoLoginDlg::OnBnClickedButtonLoginSetting()
 {
@@ -213,11 +235,8 @@ afx_msg LRESULT CDemoLoginDlg::OnLoginResult(WPARAM wParam, LPARAM lParam)
     BOOL bSuccess = (BOOL)wParam;
     if (bSuccess)
     {
+        m_bLoginFlag = true;
         OnOK();
-        CDemoMainDlg mainDlg;
-        theApp.m_pMainDlgWnd = &mainDlg;
-        INT_PTR nResponse;
-        nResponse = mainDlg.DoModal();
     }
     else
     {
@@ -244,8 +263,20 @@ afx_msg LRESULT CDemoLoginDlg::OnSaveSelfInfo(WPARAM wParam, LPARAM lParam)
     return 0L;
 }
 
+afx_msg LRESULT CDemoLoginDlg::OnLoginGetTempUserResult(WPARAM wParam, LPARAM lParam)
+{
+    TSDK_CHAR* result = (TSDK_CHAR*)wParam;
+    if (strcmp(result, "Success") == 0)
+    {
+        m_bLoginFlag = true;
+    }
+    OnOK();
+    return 0L;
+}
+
 int CDemoLoginDlg::Login()
 {
+	int ret;
     // Get account and password info
     m_EditAccount.GetWindowText(m_Account);
     m_EditPwd.GetWindowText(m_Password);
@@ -258,7 +289,14 @@ int CDemoLoginDlg::Login()
     string strPort = CTools::UNICODE2UTF(serverPort);
     m_ServerPort = (unsigned short)CTools::str2num(strPort);
 
-    int ret;
-    ret = ServiceLogin((CTools::UNICODE2UTF(m_Account).c_str()), (CTools::UNICODE2UTF(m_Password).c_str()), (CTools::UNICODE2UTF(m_ServerAdress).c_str()), m_ServerPort);
+	//界面填入的登录信息
+    SERVICE_S_LOGIN_PARAM loginParam;
+	service_memset_s(&loginParam,sizeof(loginParam),0,sizeof(loginParam));
+	strncpy_s(loginParam.user_name,TSDK_D_MAX_ACCOUNT_LEN + 1,CTools::UNICODE2UTF(m_Account).c_str(), _TRUNCATE);
+	strncpy_s(loginParam.password,TSDK_D_MAX_PASSWORD_LENGTH + 1,CTools::UNICODE2UTF(m_Password).c_str(), _TRUNCATE);
+	strncpy_s(loginParam.server_addr,TSDK_D_MAX_URL_LENGTH + 1,CTools::UNICODE2UTF(m_ServerAdress).c_str(), _TRUNCATE);
+	loginParam.server_port = m_ServerPort;
+
+    ret = ServiceLogin(&loginParam);
     return ret;
 }

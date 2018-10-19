@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -68,7 +68,7 @@ BOOL CDemoMeetingDlg::OnInitDialog()
         m_pConfConnectDlg = new CConnectDlg(this);
         if (!::IsWindow(m_pConfConnectDlg->GetSafeHwnd()))
         {
-            m_pConfConnectDlg->Create(IDD_CONF_CONNECT_DIALOG);
+            (void)m_pConfConnectDlg->Create(IDD_CONF_CONNECT_DIALOG);
         }
     }
 
@@ -77,7 +77,7 @@ BOOL CDemoMeetingDlg::OnInitDialog()
         m_pConfDetailDlg = new CDemoMeetingDetailDlg(this);
         if (!::IsWindow(m_pConfDetailDlg->GetSafeHwnd()))
         {
-            m_pConfDetailDlg->Create(IDD_MEETING_DETAIL_DIALOG);
+            (void)m_pConfDetailDlg->Create(IDD_CONF_DETAIL_DLG);
         }
     }
 
@@ -86,7 +86,7 @@ BOOL CDemoMeetingDlg::OnInitDialog()
         m_pConfCreateDlg = new CDemoMeetingCreateDlg(this);
         if (!::IsWindow(m_pConfCreateDlg->GetSafeHwnd()))
         {
-            m_pConfCreateDlg->Create(IDD_MEETING_CREATE_DLG);
+            (void)m_pConfCreateDlg->Create(IDD_CONF_CREATE_DLG);
         }
     }
 
@@ -95,14 +95,9 @@ BOOL CDemoMeetingDlg::OnInitDialog()
 
 void CDemoMeetingDlg::OnBnClickedGetConflist()
 {
-    TSDK_S_QUERY_CONF_LIST_REQ argConfList;
-    argConfList.conf_right = TSDK_E_CONF_RIGHT_CREATE;
-    argConfList.is_include_end = false;
-    argConfList.page_index = 1;
-    argConfList.page_size = 200;
-
-    (void)service_conf_get_list(&argConfList);
+    (void)service_conf_get_list();
     m_treeMeetingList.DeleteAllItems();
+    g_mapConfInfo.clear();
 }
 
 
@@ -113,7 +108,7 @@ void CDemoMeetingDlg::OnBnClickedCreateConf()
         m_pConfCreateDlg = new CDemoMeetingCreateDlg(this);
         if (!::IsWindow(m_pConfCreateDlg->GetSafeHwnd()))
         {
-            m_pConfCreateDlg->Create(IDD_MEETING_CREATE_DLG);
+            (void)m_pConfCreateDlg->Create(IDD_CONF_CREATE_DLG);
         }
     }
     m_pConfCreateDlg->InitAllConrol();
@@ -128,7 +123,7 @@ void CDemoMeetingDlg::OnBnClickedJoinConf()
         m_pConfConnectDlg = new CConnectDlg(this);
         if (!::IsWindow(m_pConfConnectDlg->GetSafeHwnd()))
         {
-            m_pConfConnectDlg->Create(IDD_CONF_CONNECT_DIALOG);
+            (void)m_pConfConnectDlg->Create(IDD_CONF_CONNECT_DIALOG);
         }
     }
     else
@@ -169,7 +164,6 @@ void CDemoMeetingDlg::OnNMRClickTreeMeetingList(NMHDR *pNMHDR, LRESULT *pResult)
     HTREEITEM item = m_treeMeetingList.GetSelectedItem();
     confId = (unsigned int)m_treeMeetingList.GetItemData(item);
 
-    menu.AppendMenu(MF_STRING, ID_CONF_IVR_JOIN_MENU, _T("IVR Join Conf"));
     menu.AppendMenu(MF_STRING, ID_CONF_DETAIL_MENU, _T("Conf Detail"));
     menu.TrackPopupMenu(0, pmenu.x, pmenu.y, this);
 }
@@ -189,31 +183,12 @@ void CDemoMeetingDlg::OnClickMeetingMenuItem(UINT nID)
 
     switch (nID)
     {
-    case ID_CONF_IVR_JOIN_MENU:
-    {
-        unsigned int _callId = 0;
-        std::string strAccessNum = confInfo.access_number;
-        service_call_audio_start(_callId, strAccessNum.c_str());
-
-        CDemoCallCtrlDlg* pDlg;
-        pDlg = CallDlgManager::GetInstance().GetCallDlgByNumber(strAccessNum);
-        if (!pDlg)
-        {
-            break;
-        }
-        pDlg->SetCallID(_callId);
-        pDlg->ShowWindow(SW_SHOW);
-        break;
-    }
     case ID_CONF_DETAIL_MENU:
     {
         ////查看会议详情
-        TSDK_S_QUERY_CONF_DETAIL_REQ arg;
-        service_memset_s(&arg, sizeof(arg), 0, sizeof(arg));
-        strcpy_s(arg.conf_id, TSDK_D_MAX_CONF_ID_LEN + 1, CTools::num2str((int)confId).c_str());
-        arg.page_index = 1;
-        arg.page_size = 200;
-        (void)service_conf_query_conference_detail(&arg);
+		string strConfId;
+		strConfId = CTools::num2str((int)confId);
+        (void)service_conf_query_conference_detail(const_cast<char*>(strConfId.c_str()));
         break;
     }
     default:
@@ -236,7 +211,6 @@ void CDemoMeetingDlg::ShowMeetingDetail(TSDK_S_CONF_DETAIL_INFO* confDetail)
         m_pConfDetailDlg->m_stcAccessNum.SetWindowText(_T("Access Num"));
         m_pConfDetailDlg->m_stcConfID.SetWindowText(_T("Conf ID"));
         m_pConfDetailDlg->m_stcSelfNum.SetWindowText(_T("Self Num"));
-        m_pConfDetailDlg->m_stcTips.SetWindowText(_T("Input terminal number."));
 
         m_pConfDetailDlg->m_edtConfTopic.SetWindowText(CTools::UTF2UNICODE(confDetail->conf_info.subject));
         if (TSDK_E_CONF_STATE_SCHEDULE == confDetail->conf_info.conf_state)
@@ -284,8 +258,15 @@ void CDemoMeetingDlg::ShowMeetingDetail(TSDK_S_CONF_DETAIL_INFO* confDetail)
             m_pConfDetailDlg->m_edtMeetingType.SetWindowText(_T(""));
         }
 
-        m_pConfDetailDlg->m_edtSelfNum.SetWindowText(g_shortNumber);
-
+        if( _T("") == g_shortNumber)
+        {
+            m_pConfDetailDlg->m_edtSelfNum.SetWindowText(g_sipNumber);
+        }
+        else
+        {
+            m_pConfDetailDlg->m_edtSelfNum.SetWindowText(g_shortNumber);
+        }
+        
         m_pConfDetailDlg->UpdateData(FALSE);
         m_pConfDetailDlg->ShowWindow(SW_SHOW);
     }
@@ -334,7 +315,7 @@ LRESULT CDemoMeetingDlg::OnGetConfDetail(WPARAM wParam, LPARAM lparam)
         m_pConfDetailDlg = new CDemoMeetingDetailDlg(this);
         if (!::IsWindow(m_pConfDetailDlg->GetSafeHwnd()))
         {
-            m_pConfDetailDlg->Create(IDD_MEETING_DETAIL_DIALOG);
+            (void)m_pConfDetailDlg->Create(IDD_CONF_DETAIL_DLG);
         }
     }
 

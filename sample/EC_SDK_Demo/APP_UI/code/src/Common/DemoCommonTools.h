@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -141,12 +141,9 @@ public:
     static CString UTCTime2LocalTime(string strTime);
     static CString GetLocalTimeFormat(const CTime& times);
 
-    static void WriteServerParam(const CString& sectionname, const CString& sectionvalue);
-    static void GetServerParam(CString &server_Ip, CString &server_Port);
-    static void WriteAccountParam(const CString& sectionname, const CString& sectionvalue);
-    static void GetAccountParam(CString &login_account);
-    static void WritePwdParam(const CString& sectionname, const CString& sectionvalue);
-    static void GetPwdParam(CString &login_pwd);
+    static void WriteIniConfigParam(const CString& sectionConfig,const CString& sectionName, const CString& sectionValue);
+    static void GetIniConfigParam(const CString& sectionConfig, const CString& sectionName, CString& sectionValue);
 
     static CString GetSipNumber(CString strInputNum);
+    static bool JudgeAllSameStar(const char* strValue);
 };

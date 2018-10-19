@@ -39,9 +39,6 @@
     <ClInclude Include="..\..\code\include\service_conf_interface.h">
       <Filter>code\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\code\include\service_data_conf_global_data.h">
-      <Filter>code\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\code\include\service_init.h">
       <Filter>code\include</Filter>
     </ClInclude>
@@ -66,6 +63,15 @@
     <ClInclude Include="..\..\code\src\inc\service_log.h">
       <Filter>code\src\inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\code\include\service_login_def.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_conf_def.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\include\service_conf_handle_global.h">
+      <Filter>code\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\code\src\call\service_call_interface.cpp">
@@ -86,17 +92,17 @@
     <ClCompile Include="..\..\code\src\manage\service_init.cpp">
       <Filter>code\src\manage</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\code\src\manage\service_logout.cpp">
-      <Filter>code\src\manage</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\code\src\manage\service_uninit.cpp">
       <Filter>code\src\manage</Filter>
     </ClCompile>
     <ClCompile Include="..\..\code\src\meeting\service_conf_interface.cpp">
       <Filter>code\src\meeting</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\code\src\meeting\service_data_conf_global_data.cpp">
-      <Filter>code\src\meeting</Filter>
+    <ClCompile Include="..\..\code\src\login\service_logout.cpp">
+      <Filter>code\src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\src\common\service_conf_handle_global.cpp">
+      <Filter>code\src\common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

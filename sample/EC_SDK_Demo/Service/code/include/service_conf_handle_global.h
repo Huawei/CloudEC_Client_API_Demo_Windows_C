@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #ifdef __cplusplus
@@ -32,13 +32,20 @@ extern "C" {
     /**
      * @brief UI set unique data conference handle
      *
-     * @param[in]unsigned int handle	unique data conference handle
+     * @param[in]unsigned int handle	[en]unique data conference handle
+	                                    [cn]数据会议句柄
      * @retval void
      *
      * @attention: NA
      **/
     SERVICE_GLOBAL void set_data_conf_handle(unsigned int handle);
 
+#define  CHECK_DATA_CONF_HANDLE(handle, ret) \
+    if((0 == handle) || (0xFFFFFFFF == handle))\
+    {\
+    LOG_D_DATA_CONF_ERROR("Invalid handle.");\
+    return ret;\
+    }
 
 #ifdef __cplusplus
 #if __cplusplus

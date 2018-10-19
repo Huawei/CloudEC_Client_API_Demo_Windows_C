@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -46,7 +46,6 @@ void CDemoMeetingDetailDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_CONF_ACCESS_NUM, m_stcAccessNum); 
 	DDX_Control(pDX, IDC_STATIC_CONF_ID, m_stcConfID); 
 	DDX_Control(pDX, IDC_STATIC_CONF_SELF_NUM, m_stcSelfNum);
-	DDX_Control(pDX, IDC_STATIC_TIPS, m_stcTips);
 	DDX_Control(pDX, IDC_EDIT_CONF_TOPIC, m_edtConfTopic);
 	DDX_Control(pDX, IDC_EDIT_CONF_STATUS, m_edtConfStatus);
 	DDX_Control(pDX, IDC_EDIT_START_TIME, m_edtStartTime);
@@ -92,7 +91,6 @@ void CDemoMeetingDetailDlg::OnBnClickedButtonJoinConf()
 	m_edtSelfNum.GetWindowText(selfNumber);
 	if(selfNumber.IsEmpty())
 	{
-		AfxMessageBox(_T("self number is empty,must input it!"));
 		return;
 	}
 
@@ -104,7 +102,7 @@ void CDemoMeetingDetailDlg::OnBnClickedButtonJoinConf()
 	strcpy_s(confJoinParam.access_number, TSDK_D_MAX_CONF_ACCESS_LEN + 1, confInfo.access_number);
 	strcpy_s(confJoinParam.conf_id, TSDK_D_MAX_CONF_ID_LEN + 1, confInfo.conf_id);
 
-	if (confInfo.scheduser_name == g_loginAccount || confInfo.scheduser_account == g_loginAccount)
+	if (strcmp(confInfo.chairman_pwd, "") != 0 || CTools::JudgeAllSameStar(confInfo.chairman_pwd))
 	{
 		strcpy_s(confJoinParam.conf_password, TSDK_D_MAX_CONF_PASSWORD_LEN + 1, confInfo.chairman_pwd);
 	}

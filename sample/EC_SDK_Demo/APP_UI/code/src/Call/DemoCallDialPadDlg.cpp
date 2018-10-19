@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(CDemoCallDialPadDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BUTTON_AUDIO, &CDemoCallDialPadDlg::OnBnClickedButtonAudio)
     ON_BN_CLICKED(IDC_BUTTON_VIDEO, &CDemoCallDialPadDlg::OnBnClickedButtonVideo)
     ON_BN_CLICKED(IDC_BUTTON_DELETE, &CDemoCallDialPadDlg::OnBnClickedButtonDel)
+    ON_BN_CLICKED(IDC_BUTTON_PLUS, &CDemoCallDialPadDlg::OnBnClickedButtonPlus)
 END_MESSAGE_MAP()
 
 
@@ -138,6 +139,12 @@ void CDemoCallDialPadDlg::OnBnClickedButtonPound()
     m_PhoneNumber.SetWindowText(m_PhoneString.GetString());
 }
 
+void CDemoCallDialPadDlg::OnBnClickedButtonPlus()
+{
+    m_PhoneString.Append(_T("+"));
+    m_PhoneNumber.SetWindowText(m_PhoneString.GetString());
+}
+
 void CDemoCallDialPadDlg::OnBnClickedButtonDel()
 {
     if (m_PhoneString.GetLength() > 0)
@@ -172,6 +179,12 @@ void CDemoCallDialPadDlg::OnBnClickedButtonVideo()
 
 void CDemoCallDialPadDlg::StartCall(std::string sipnumber, BOOL isVideo)
 {
+    //判断如果已经有呼叫的窗口，则不再发起呼叫
+    if (CallDlgManager::GetInstance().IsHasCallDlg())
+    {
+        return ;
+    }
+
     CDemoCallCtrlDlg* pCallCtrlDlg = CallDlgManager::GetInstance().CreateCallDlgBySIPnumber(sipnumber);
     if (NULL == pCallCtrlDlg)
     {
@@ -180,11 +193,11 @@ void CDemoCallDialPadDlg::StartCall(std::string sipnumber, BOOL isVideo)
 
     if (isVideo)
     {
-        pCallCtrlDlg->SetCallDlgtype(SIP_SIGNLE_VIDEO);
+        pCallCtrlDlg->SetCallDlgtype(VIDEO_DLG);
     }
     else
     {
-        pCallCtrlDlg->SetCallDlgtype(SIP_SIGNLE_CALL);
+        pCallCtrlDlg->SetCallDlgtype(AUDIO_DLG);
     }
 
     unsigned int nlen = sipnumber.length();

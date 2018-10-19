@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -61,6 +61,13 @@ void NotifyCallBack::loginMsgNotify(unsigned int msg_id, unsigned int param1, un
         ::PostMessage(logindlg->GetSafeHwnd(), WM_LOGIN_TOKEN_REFRESH_FAILED, NULL, NULL);
         break;
     }
+    case TSDK_E_LOGIN_EVT_LOGOUT_SUCCESS:
+    {
+        CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
+        CHECK_POINTER(maindlg);
+        ::PostMessage(maindlg->GetSafeHwnd(), WM_LOGOUT_RESULT, NULL, NULL);
+        break;
+    }
     case TSDK_E_LOGIN_EVT_FORCE_LOGOUT:
     {
         CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
@@ -76,6 +83,13 @@ void NotifyCallBack::loginMsgNotify(unsigned int msg_id, unsigned int param1, un
         service_memset_s(notifyInfo, sizeof(TSDK_S_VOIP_ACCOUNT_INFO), 0, sizeof(TSDK_S_VOIP_ACCOUNT_INFO));
         memcpy_s(notifyInfo, sizeof(TSDK_S_VOIP_ACCOUNT_INFO), selfInfo, sizeof(TSDK_S_VOIP_ACCOUNT_INFO));
         ::PostMessage(logindlg->GetSafeHwnd(), WM_AUTH_LOGIN_SAVE_SELF_INFO, (WPARAM)notifyInfo, NULL);
+        break;
+    }
+    case TSDK_E_LOGIN_EVT_GET_TEMP_USER_RESULT:
+    {
+        CHECK_POINTER(data);
+        TSDK_CHAR* notifyInfo = (TSDK_CHAR*)data;
+        ::PostMessage(logindlg->GetSafeHwnd(), WM_LOGIN_GET_TEMP_USER_RESULT, (WPARAM)notifyInfo, NULL);
         break;
     }
     default:
@@ -128,11 +142,14 @@ void NotifyCallBack::callMsgNotify(unsigned int msg_id, unsigned int param1, uns
         service_memset_s(notifyInfo, sizeof(TSDK_S_CALL_INFO), 0, sizeof(TSDK_S_CALL_INFO));
         memcpy_s(notifyInfo, sizeof(TSDK_S_CALL_INFO), callInfo, sizeof(TSDK_S_CALL_INFO));
 
-        ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_CONNECTED, (WPARAM)notifyInfo, NULL);
+        CDemoCallCtrlDlg* pCallDlg;
+        pCallDlg = CallDlgManager::GetInstance().GetCallDlgByCallID(notifyInfo->call_id);
+        CHECK_POINTER(pCallDlg);
+        ::PostMessage(pCallDlg->GetSafeHwnd(), WM_CALL_CONNECTED, (WPARAM)notifyInfo, NULL);
         break;
     }
     case TSDK_E_CALL_EVT_CALL_ENDED:
-    case TSDK_E_CALL_EVT_CALL_DESTROY:
+    /*case TSDK_E_CALL_EVT_CALL_DESTROY:*/
     {
         CHECK_POINTER(data);
         TSDK_S_CALL_INFO* callInfo = (TSDK_S_CALL_INFO*)data;
@@ -211,6 +228,18 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
 
     switch (msg_id)
     {
+    case TSDK_E_CONF_EVT_BOOK_CONF_RESULT:
+    {
+        if (TSDK_SUCCESS == param1)
+        {
+            CTools::ShowMessageTimeout(_T("Book conference success."),2000);
+        }
+        else
+        {
+            CTools::ShowMessageTimeout(_T("Book conference failed."), 2000);
+        }
+        break;
+    }
     case TSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT:
     {
         if (TSDK_SUCCESS == param1)
@@ -318,24 +347,9 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
             pTempAttendee++;
         }
 
-        if (TSDK_E_CONF_MEDIA_VOICE == notifyInfo->conf_media_type)
-        {
-            CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
-            CHECK_POINTER(pAudioMettingDlg);
-            ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_INFO_AND_STATUS_UPDATE, (WPARAM)notifyInfo, (LPARAM)param1);
-        }
-        else if (TSDK_E_CONF_MEDIA_VIDEO == notifyInfo->conf_media_type)
-        {
-            CDemoVideoMeetingDlg* pVideoMettingDlg = maindlg->GetDemoVideoMeetingDlg();
-            CHECK_POINTER(pVideoMettingDlg);
-            ::PostMessage(pVideoMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_INFO_AND_STATUS_UPDATE, (WPARAM)notifyInfo, (LPARAM)param1);
-        }
-        else if (TSDK_E_CONF_MEDIA_VOICE_DATA == notifyInfo->conf_media_type || TSDK_E_CONF_MEDIA_VIDEO_DATA == notifyInfo->conf_media_type)
-        {
-            CDemoDataMeetingDlg* pDataMettingDlg = maindlg->GetDemoDataMeetingDlg();
-            CHECK_POINTER(pDataMettingDlg);
-            ::PostMessage(pDataMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_INFO_AND_STATUS_UPDATE, (WPARAM)notifyInfo, (LPARAM)param1);
-        }
+        CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
+        CHECK_POINTER(pAudioMettingDlg);
+        ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_INFO_AND_STATUS_UPDATE, (WPARAM)notifyInfo, (LPARAM)param1);
 
         break;
     }
@@ -348,22 +362,8 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         memcpy_s(notifyInfo, sizeof(TSDK_S_CONF_SPEAKER_INFO), pResult, sizeof(TSDK_S_CONF_SPEAKER_INFO));
 
         CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
-		if(NULL != pAudioMettingDlg)
-		{
-			::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_ADDRESSER_UPDATE_IND, (WPARAM)notifyInfo, NULL);
-		}
-
-		CDemoVideoMeetingDlg* pVideoMettingDlg = maindlg->GetDemoVideoMeetingDlg();
-		if(NULL != pVideoMettingDlg)
-		{
-			::PostMessage(pVideoMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_ADDRESSER_UPDATE_IND, (WPARAM)notifyInfo, NULL);
-		}
-
-		CDemoDataMeetingDlg* pDataMettingDlg = maindlg->GetDemoDataMeetingDlg();
-		if(NULL != pDataMettingDlg)
-		{
-			::PostMessage(pDataMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_ADDRESSER_UPDATE_IND, (WPARAM)notifyInfo, NULL);
-		}
+        CHECK_POINTER(pAudioMettingDlg);
+        ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_ADDRESSER_UPDATE_IND, (WPARAM)notifyInfo, NULL);
 
         break;
     }
@@ -394,25 +394,15 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         service_memset_s(notifyInfo, sizeof(TSDK_S_CONF_OPERATION_RESULT), 0, sizeof(TSDK_S_CONF_OPERATION_RESULT));
         memcpy_s(notifyInfo, sizeof(TSDK_S_CONF_OPERATION_RESULT), pResult, sizeof(TSDK_S_CONF_OPERATION_RESULT));
 
-        if (TSDK_SUCCESS != notifyInfo->reason_code)
-        {
-            maindlg->MessageBox(_T("operation failed!"));
-        }
+        CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
+        CHECK_POINTER(pAudioMettingDlg);
+        ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_OPERATION_RESULT, (WPARAM)notifyInfo, NULL);
 
-        if (TSDK_SUCCESS == notifyInfo->reason_code)
-        {
-            if (TSDK_E_CONF_SET_PRESENTER == notifyInfo->operation_type)
-            {
-                CDemoDataMeetingDlg* dataMeetingDlg = maindlg->GetDemoDataMeetingDlg();
-                CHECK_POINTER(dataMeetingDlg);
-                dataMeetingDlg->SetPresenter(false);
-            }
-        }
         break;
     }
     case TSDK_E_CONF_EVT_CONF_END_IND:
     {
-        ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_CONF_END, NULL, NULL);
+        ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_CONF_CLOSE_DLG, NULL, NULL);
         break;
     }
     case TSDK_E_CONF_EVT_CONF_INCOMING_IND:
@@ -439,15 +429,15 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
     }
     case TSDK_E_CONF_EVT_JOIN_DATA_CONF_RESULT:
     {
-        ::PostMessage(maindlg->GetSafeHwnd(), WM_CONF_CTRL_JOIN_DATACONF_RESULT, NULL, (LPARAM)param2);
+        ::PostMessage(maindlg->GetSafeHwnd(), WM_CONF_CTRL_JOIN_DATACONF_RESULT, (WPARAM)param1, (LPARAM)param2);
         break;
     }
     case TSDK_E_CONF_EVT_AS_OWNER_CHANGE:
     {
         CHECK_POINTER(data);
-        CDemoDataMeetingDlg* pDataMettingDlg = maindlg->GetDemoDataMeetingDlg();
-        CHECK_POINTER(pDataMettingDlg);
-        ::PostMessage(pDataMettingDlg->GetSafeHwnd(), WM_DATACONF_MODULE_SHARING_SESSION, (WPARAM)param2, (LPARAM)data);
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_SHARING_SESSION, (WPARAM)param2, (LPARAM)data);
         break;
     }
     case TSDK_E_CONF_EVT_AS_STATE_CHANGE:
@@ -458,29 +448,99 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         service_memset_s(notifyInfo, sizeof(TSDK_S_CONF_AS_STATE_INFO), 0, sizeof(TSDK_S_CONF_AS_STATE_INFO));
         memcpy_s(notifyInfo, sizeof(TSDK_S_CONF_AS_STATE_INFO), pResult, sizeof(TSDK_S_CONF_AS_STATE_INFO));
 
-        CDemoDataMeetingDlg* pDataMettingDlg = maindlg->GetDemoDataMeetingDlg();
-        CHECK_POINTER(pDataMettingDlg);
-        ::PostMessage(pDataMettingDlg->GetSafeHwnd(), WM_DATACONF_MODULE_SHARING_STATE, (WPARAM)notifyInfo, (LPARAM)param2);
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_SHARING_STATE, (WPARAM)notifyInfo, (LPARAM)param2);
         break;
     }
     case TSDK_E_CONF_EVT_AS_SCREEN_DATA_UPDATE:
     {
-        CDemoDataMeetingDlg* pDataMettingDlg = maindlg->GetDemoDataMeetingDlg();
-        CHECK_POINTER(pDataMettingDlg);
-        ::PostMessage(pDataMettingDlg->GetSafeHwnd(), WM_DATACONF_MODULE_SCREEN_DATA, NULL, NULL);
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_SCREEN_DATA, NULL, NULL);
         break;
     }
     case TSDK_E_CONF_EVT_PRESENTER_GIVE_IND:
     {
-        CDemoDataMeetingDlg* pDataMettingDlg = maindlg->GetDemoDataMeetingDlg();
-        CHECK_POINTER(pDataMettingDlg);
-        ::PostMessage(pDataMettingDlg->GetSafeHwnd(), WM_DATACONF_MODULE_PRESENTERCHG, NULL, NULL);
+        ::PostMessage(maindlg->GetSafeHwnd(), WM_DATACONF_MODULE_PRESENTERCHG, NULL, NULL);
         break;
     }
     case TSDK_E_CONF_EVT_TRANS_TO_CONF_RESULT:
     {
 		::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_TRANS_TO_CONF_RESULT, NULL, (LPARAM)param2);
 		break;
+    }
+	case TSDK_E_CONF_EVT_DS_DOC_LOAD_START:
+	{
+        CHECK_POINTER(data);
+        TSDK_S_DOC_BASE_INFO* pResult = (TSDK_S_DOC_BASE_INFO*)data;
+        TSDK_S_DOC_BASE_INFO* notifyInfo = new TSDK_S_DOC_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_BASE_INFO), 0, sizeof(TSDK_S_DOC_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_BASE_INFO), pResult, sizeof(TSDK_S_DOC_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_NEW,(WPARAM)notifyInfo,(LPARAM)param2);
+		break;
+	}
+    case TSDK_E_CONF_EVT_DS_DOC_PAGE_LOADED:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_PAGE_LOADED, (WPARAM)notifyInfo, NULL);
+        break;
+    }
+	case TSDK_E_CONF_EVT_DS_DOC_LOAD_FINISH:
+	{
+        CHECK_POINTER(data);
+        TSDK_S_DOC_BASE_INFO* pResult = (TSDK_S_DOC_BASE_INFO*)data;
+        TSDK_S_DOC_BASE_INFO* notifyInfo = new TSDK_S_DOC_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_BASE_INFO), 0, sizeof(TSDK_S_DOC_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_BASE_INFO), pResult, sizeof(TSDK_S_DOC_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_DOCLOADED, (WPARAM)notifyInfo, (LPARAM)param2);
+		break;
+	}
+	case TSDK_E_CONF_EVT_DS_DOC_DRAW_DATA_NOTIFY:
+    {
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_DRAW_DATA,NULL,NULL);
+		break;
+	}
+	case TSDK_E_CONF_EVT_DS_DOC_CURRENT_PAGE_IND:
+	{
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+         
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_PAGE_IND,(WPARAM)notifyInfo,NULL);
+		break;
+	}
+    case TSDK_E_CONF_EVT_DS_DOC_DEL:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_SHARE_DEL_DOC_INFO* pResult = (TSDK_S_DOC_SHARE_DEL_DOC_INFO*)data;
+        TSDK_S_DOC_SHARE_DEL_DOC_INFO* notifyInfo = new TSDK_S_DOC_SHARE_DEL_DOC_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_SHARE_DEL_DOC_INFO), 0, sizeof(TSDK_S_DOC_SHARE_DEL_DOC_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_SHARE_DEL_DOC_INFO), pResult, sizeof(TSDK_S_DOC_SHARE_DEL_DOC_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_DELETE,(WPARAM)notifyInfo,(LPARAM)param2);
+        break;
     }
     default:
         break;

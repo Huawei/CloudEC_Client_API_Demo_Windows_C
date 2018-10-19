@@ -1,7 +1,7 @@
 @echo off
 
 rem -----------------------------------------------------
-rem         拷贝resource到Bin_vs2012\Debug目录下
+rem         Copy resource to Bin_vs2012\Debug
 rem -----------------------------------------------------
 rmdir /s/q .\Bin_vs2012\Debug\audio
 rmdir /s/q .\Bin_vs2012\Debug\face
@@ -16,7 +16,7 @@ xcopy .\APP_UI\res\face\*     .\Bin_vs2012\Debug\face\    /s /y
 xcopy .\APP_UI\res\image\*    .\Bin_vs2012\Debug\image\   /s /y
 
 rem -----------------------------------------------------
-rem         拷贝resource到Bin_vs2015\Debug目录下
+rem         Copy resource to Bin_vs2015\Debug
 rem -----------------------------------------------------
 rmdir /s/q .\Bin_vs2015\Debug\audio
 rmdir /s/q .\Bin_vs2015\Debug\face
@@ -31,7 +31,7 @@ xcopy .\APP_UI\res\face\*     .\Bin_vs2015\Debug\face\    /s /y
 xcopy .\APP_UI\res\image\*    .\Bin_vs2015\Debug\image\   /s /y
 
 rem -----------------------------------------------------
-rem         拷贝resource到Bin_vs2012\Release目录下
+rem         Copy resource to Bin_vs2012\Release
 rem -----------------------------------------------------
 rmdir /s/q .\Bin_vs2012\Release\audio
 rmdir /s/q .\Bin_vs2012\Release\face
@@ -46,7 +46,7 @@ xcopy .\APP_UI\res\face\*     .\Bin_vs2012\Release\face\    /s /y
 xcopy .\APP_UI\res\image\*    .\Bin_vs2012\Release\image\   /s /y
 
 rem -----------------------------------------------------
-rem         拷贝resource到Bin_vs2012\Release目录下
+rem         Copy resource to Bin_vs2015\Release
 rem -----------------------------------------------------
 rmdir /s/q .\Bin_vs2015\Release\audio
 rmdir /s/q .\Bin_vs2015\Release\face

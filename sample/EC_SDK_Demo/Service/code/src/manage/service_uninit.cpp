@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdio.h"
@@ -18,12 +18,12 @@ extern "C" {
 #endif
 #endif /* __cplusplus */
 
-    int UninitAllModule(void)
-    {
-        int ret;
-        ret = tsdk_uninit();
-        return ret;
-    }
+	int ServiceUninitAllModule(void)
+	{
+		int ret;
+		ret = tsdk_uninit();
+		return ret;
+	}
 
 
 #ifdef __cplusplus

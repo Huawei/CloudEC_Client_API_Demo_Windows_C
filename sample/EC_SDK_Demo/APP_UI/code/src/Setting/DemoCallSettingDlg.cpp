@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -52,9 +52,9 @@ BOOL CDemoCallSettingDlg::OnInitDialog()
     hSubItem = m_callsetTree.InsertItem(_T("联动"),hItem, hSubItem);
     m_callsetTree.SetItemData(hSubItem, 1);*/
 
-    hItem = m_callsetTree.InsertItem(_T("高级"), TVI_ROOT);
+    hItem = m_callsetTree.InsertItem(_T("Advanced"), TVI_ROOT);
 
-    hSubItem = m_callsetTree.InsertItem(_T("媒体"), hItem);
+    hSubItem = m_callsetTree.InsertItem(_T("Media"), hItem);
     m_callsetTree.SetItemData(hSubItem, 0);
 
     CRect rect;

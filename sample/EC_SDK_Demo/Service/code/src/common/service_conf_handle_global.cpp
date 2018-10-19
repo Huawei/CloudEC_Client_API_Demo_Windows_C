@@ -3,10 +3,10 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
-#include "service_data_conf_global_data.h"
+#include "service_conf_handle_global.h"
 
 
 #ifdef __cplusplus

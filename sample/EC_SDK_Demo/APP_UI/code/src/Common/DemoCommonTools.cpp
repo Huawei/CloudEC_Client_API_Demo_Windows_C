@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "StdAfx.h"
@@ -13,6 +13,7 @@
 
 const int MAX_IMAGE_HEIGHT = 50;// 自定义图片高度
 const int MAX_IMAGE_WIDTH = 55;// 自定义图片宽度
+const int MAX_NUM = 256;
 
 #define TIME_FORMAT _T("%Y-%m-%d %H:%M:%S")
 
@@ -280,42 +281,16 @@ ULONGLONG CTools::GetFileSize(const CString & filePath)
     return fileSize;
 }
 
-void CTools::WriteServerParam(const CString& sectionname, const CString& sectionvalue)
+void CTools::WriteIniConfigParam(const CString& sectionConfig, const CString& sectionName, const CString& sectionValue)
 {
     CString serverParamPath = CTools::getCurrentPath() + _T("\\server.ini");
-    (void)WritePrivateProfileString(_T("ServerConfig"), sectionname, sectionvalue, serverParamPath);
+    (void)WritePrivateProfileString(sectionConfig, sectionName, sectionValue, serverParamPath);
 }
 
-void CTools::GetServerParam(CString &server_Ip, CString &server_Port)
+void CTools::GetIniConfigParam(const CString& sectionConfig,const CString& sectionName, CString& sectionValue)
 {
     CString serverParamPath = CTools::getCurrentPath() + _T("\\server.ini");
-    (void)GetPrivateProfileString(_T("ServerConfig"), _T("serverIP"), _T(""), server_Ip.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
-    (void)GetPrivateProfileString(_T("ServerConfig"), _T("serverPort"), _T(""), server_Port.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
-}
-
-void CTools::WriteAccountParam(const CString& sectionname, const CString& sectionvalue)
-{
-    CString serverParamPath = CTools::getCurrentPath() + _T("\\server.ini");
-    (void)WritePrivateProfileString(_T("LoginConfig"), sectionname, sectionvalue, serverParamPath);
-}
-
-void CTools::GetAccountParam(CString &login_account)
-{
-    CString serverParamPath = CTools::getCurrentPath() + _T("\\server.ini");
-    (void)GetPrivateProfileString(_T("LoginConfig"), _T("account"), _T(""), login_account.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
-}
-
-////////将密码写到配置文件里，测试时候用，正式发布时删掉
-void CTools::WritePwdParam(const CString& sectionname, const CString& sectionvalue)
-{
-    CString serverParamPath = CTools::getCurrentPath() + _T("\\server.ini");
-    (void)WritePrivateProfileString(_T("LoginConfig"), sectionname, sectionvalue, serverParamPath);
-}
-
-void CTools::GetPwdParam(CString &login_pwd)
-{
-    CString serverParamPath = CTools::getCurrentPath() + _T("\\server.ini");
-    (void)GetPrivateProfileString(_T("LoginConfig"), _T("pwd"), _T(""), login_pwd.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
+    (void)GetPrivateProfileString(sectionConfig, sectionName, _T(""), sectionValue.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
 }
 
 CString CTools::UTCTime2LocalTime(string strTime)
@@ -360,4 +335,30 @@ CString CTools::GetSipNumber(CString strInputNum)
         sipNumber = strInputNum;
     }
     return sipNumber;
+}
+
+bool CTools::JudgeAllSameStar(const char* strValue)
+{
+    if (NULL == strValue)
+    {
+        return false;
+    }
+
+    unsigned int strLen = strlen(strValue);
+    char strTmp[MAX_NUM];
+    service_memset_s(strTmp, sizeof(strTmp),0,sizeof(strTmp));
+    for (unsigned int i = 0; i < strLen;i++)
+    {
+        if(strValue[i]=='*')
+        { 
+            strTmp[i] = strValue[i];
+        }
+    }
+
+    if (strcmp(strValue, strTmp) == 0)
+    {
+        return true;
+    }
+    
+    return false;
 }

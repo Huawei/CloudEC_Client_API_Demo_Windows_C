@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -55,10 +55,13 @@ public:
         m_tel_number = CString(tel_number.c_str());
         callid = id;
     };
+    void SetCallID(unsigned int callId) { callid = callId; };
+    int GetPlayHandle() { return play_handle;};
 
     //message handle function
     afx_msg void OnBnClickedReject();
     afx_msg void OnBnClickedAudioAccept();
     afx_msg void OnBnClickedVideoAccept();
     afx_msg void OnBnClickedTransfer();
+    void OnCloseDlg();
 };

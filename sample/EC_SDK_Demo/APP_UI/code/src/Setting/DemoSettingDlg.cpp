@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -39,8 +39,6 @@ void CDemoSettingDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDemoSettingDlg, CDialogEx)
     ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CDemoSettingDlg::OnTcnSelchangeTab1)
     ON_BN_CLICKED(IDOK, &CDemoSettingDlg::OnBnClickedOk)
-    ON_MESSAGE(WM_CALL_IPT_SUCESS, &CDemoSettingDlg::OnIPTSucess)
-    ON_MESSAGE(WM_CALL_IPT_FAILED, &CDemoSettingDlg::OnIPTFailed)
 END_MESSAGE_MAP()
 
 BOOL CDemoSettingDlg::OnInitDialog()
@@ -54,7 +52,7 @@ BOOL CDemoSettingDlg::OnInitDialog()
     }
     if (!::IsWindow(m_callsetDlg->GetSafeHwnd()))
     {
-        m_callsetDlg->Create(CDemoCallSettingDlg::IDD, &m_SetTable);
+        (void)m_callsetDlg->Create(CDemoCallSettingDlg::IDD, &m_SetTable);
     }
 
     CRect rect;
@@ -91,25 +89,4 @@ void CDemoSettingDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 void CDemoSettingDlg::OnBnClickedOk()
 {
     CDialogEx::OnOK();
-}
-
-LRESULT CDemoSettingDlg::OnIPTSucess(WPARAM wparam, LPARAM)
-{
-    /*unsigned int uiType = wparam;
-    if (m_callsetDlg)
-    {
-        m_callsetDlg->m_callforwardDlg.IPTresult(true,uiType);
-    }
-*/
-    return 0L;
-}
-
-LRESULT CDemoSettingDlg::OnIPTFailed(WPARAM wparam, LPARAM)
-{
-    /*unsigned int uiType = wparam;
-    if (m_callsetDlg)
-    {
-        m_callsetDlg->m_callforwardDlg.IPTresult(false,uiType);
-    }*/
-    return 0L;
 }

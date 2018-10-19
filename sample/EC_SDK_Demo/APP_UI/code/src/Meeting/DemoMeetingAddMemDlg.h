@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -24,7 +24,7 @@ public:
 	virtual ~CDemoMeetingAddMemDlg();
 
 // dialog Data
-	enum { IDD = IDD_MEETTING_ADD_MEMBER };
+	enum { IDD = IDD_CONF_ADD_MEMBER };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö

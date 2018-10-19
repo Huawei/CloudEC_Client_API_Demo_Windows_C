@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -11,8 +11,10 @@
 #include "DemoDataConfAppShareDlg.h"
 #include "DemoData.h"
 #include "DemoCommonTools.h"
-#include "service_data_conf_global_data.h"
+#include "DemoPromptDlg.h"
+#include "service_conf_handle_global.h"
 #include "service_os_adapt.h"
+#include "service_tools.h"
 
 extern CString g_sipNumber;
 
@@ -22,7 +24,11 @@ IMPLEMENT_DYNAMIC(CDemoDataConfAppShareDlg, CDialogEx)
 
 CDemoDataConfAppShareDlg::CDemoDataConfAppShareDlg(CWnd* pParent /*=NULL*/)
     : CDialogEx(CDemoDataConfAppShareDlg::IDD, pParent)
+    , ispresenter(false)
+    , ischairman(false)
     , isShareDesktop(false)
+    , m_handle(0)
+    , m_callID(0)
 {
 
 }
@@ -34,6 +40,7 @@ CDemoDataConfAppShareDlg::~CDemoDataConfAppShareDlg()
 void CDemoDataConfAppShareDlg::DoDataExchange(CDataExchange* pDX)
 {
     CDialogEx::DoDataExchange(pDX);
+    DDX_Control(pDX, IDC_ST_STATUS, m_st_status);
     DDX_Control(pDX, IDC_BT_SHARE, m_bt_share);
     DDX_Control(pDX, IDC_STATIC_DESKTOP, m_stcDeskTop);
     DDX_Control(pDX, IDC_LIST_APP, m_list_apps);
@@ -46,47 +53,26 @@ void CDemoDataConfAppShareDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDemoDataConfAppShareDlg, CDialogEx)
     ON_CONTROL_RANGE(BN_CLICKED, IDC_RADIO_SCREEN, IDC_RADIO_SCREEN, &CDemoDataConfAppShareDlg::OnBnClickedRadio)
     ON_BN_CLICKED(IDC_BT_SHARE, &CDemoDataConfAppShareDlg::OnBnClickedBtShare)
-    ON_BN_CLICKED(IDC_BT_GETAPP, &CDemoDataConfAppShareDlg::OnBnClickedBtGetapp)
-    ON_LBN_DBLCLK(IDC_LIST_SELECTED, &CDemoDataConfAppShareDlg::OnLbnDblclkListSelected)
     ON_MESSAGE(WM_DATACONF_MODULE_SCREEN_DATA, &CDemoDataConfAppShareDlg::OnDataConfASUpdateScreen)
+    ON_MESSAGE(WM_DATACONF_MODULE_SHARING_SESSION, &CDemoDataConfAppShareDlg::OnShareSession)
+    ON_MESSAGE(WM_DATACONF_MODULE_SHARING_STATE, &CDemoDataConfAppShareDlg::OnShareState)
 END_MESSAGE_MAP()
 
 
 // CDemoDataConfAppShareDlg message handle
 BOOL CDemoDataConfAppShareDlg::OnInitDialog()
 {
-    CheckRadioButton(IDC_RADIO_SCREEN, IDC_RADIO_SCREEN, IDC_RADIO_SCREEN);
     CDialogEx::OnInitDialog();
+    CheckRadioButton(IDC_RADIO_SCREEN, IDC_RADIO_SCREEN, IDC_RADIO_SCREEN);
     return TRUE;
-}
-
-
-void CDemoDataConfAppShareDlg::OnBnClickedBtGetapp()
-{
-    /*TSDK_UINT32 confHandle = get_data_conf_handle();
-    TSDK_S_AS_WINDOW_INFO as_window_info[100];
-    memset(as_window_info,0,sizeof(TSDK_S_AS_WINDOW_INFO)*100);
-    unsigned int app_count;
-    if (0 != service_data_conf_app_share_get_app_list(confHandle,as_window_info,&app_count))
-    {
-        AfxMessageBox(L"Getapp Failed");
-    }
-    m_list_apps.ResetContent();
-    for (unsigned int i = 0;i<app_count;i++)
-    {
-        int nIndex = m_list_apps.AddString((LPCTSTR)as_window_info[i].window_title);
-        m_list_apps.SetItemData(nIndex,(DWORD)as_window_info[i].window_handle);
-    }
-    UpdateData(TRUE);*/
 }
 
 LRESULT CDemoDataConfAppShareDlg::OnDataConfASUpdateScreen(WPARAM, LPARAM)
 {
-    TSDK_UINT32 confHandle = get_data_conf_handle();
     TSDK_S_CONF_AS_SCREEN_DATA screendata;
     service_memset_s(&screendata, sizeof(screendata), 0, sizeof(screendata));
 
-    if (0 != service_data_conf_app_share_get_screen_data(confHandle, &screendata) || NULL == screendata.data)
+    if (0 != service_data_conf_app_share_get_screen_data(&screendata) || NULL == screendata.data)
     {
         AfxMessageBox(_T("UpdateScreen failed"));
         return 0L;
@@ -109,10 +95,9 @@ LRESULT CDemoDataConfAppShareDlg::OnDataConfASUpdateScreen(WPARAM, LPARAM)
         (VOID)::GetObject(hBmp, sizeof(bm), &bm);
         m_stcDeskTop.SetBitmap(hBmp);
     }
-    else if (TSDK_E_CONF_SCREEN_DATA_DIB == screendata.data_format)
+    else
     {
     }
-
     return 0L;
 }
 void CDemoDataConfAppShareDlg::SetBitmapNULL(void)
@@ -120,51 +105,9 @@ void CDemoDataConfAppShareDlg::SetBitmapNULL(void)
     m_stcDeskTop.SetBitmap2(NULL);
 }
 
-
-void CDemoDataConfAppShareDlg::OnBnClickedBtSelect()
+void CDemoDataConfAppShareDlg::updateShareDlg()
 {
-    int iSelect = m_list_apps.GetCurSel();
-    if (iSelect != LB_ERR)
-    {
-        DWORD hwnd = (DWORD)m_list_apps.GetItemData(iSelect);
-        /*service_data_conf_as_set_app_share((void*)hwnd,SERVICE_DATA_CONF_IID_AS_ACTION_ADD);*/
-        TCHAR pText[256];
-        service_memset_s(pText, 256, 0, 256);
-        m_list_apps.GetText(iSelect, pText);
-        int nIndex = m_list_selected.AddString(pText);
-        m_list_selected.SetItemData(nIndex, hwnd);
-    }
-    UpdateData(TRUE);
-}
-
-
-void CDemoDataConfAppShareDlg::OnBnClickedBtRemove()
-{
-    int iSelect = m_list_selected.GetCurSel();
-    if (iSelect != LB_ERR)
-    {
-        DWORD hwnd = (DWORD)m_list_selected.GetItemData(iSelect);
-        //service_data_conf_as_set_app_share((void*)hwnd,SERVICE_DATA_CONF_IID_AS_ACTION_DELETE);
-        m_list_selected.DeleteString((unsigned int)iSelect);
-    }
-    UpdateData(TRUE);
-}
-
-
-void CDemoDataConfAppShareDlg::OnLbnDblclkListApp()
-{
-    OnBnClickedBtSelect();
-}
-
-
-void CDemoDataConfAppShareDlg::OnLbnDblclkListSelected()
-{
-    OnBnClickedBtRemove();
-}
-
-void CDemoDataConfAppShareDlg::updateShareDlg(bool bIsPresent)
-{
-    if (bIsPresent)
+    if (ispresenter || ischairman)
     {
         m_bt_share.EnableWindow(TRUE);
     }
@@ -183,19 +126,17 @@ void CDemoDataConfAppShareDlg::OnBnClickedRadio(UINT idCtl)
         m_bt_remove.EnableWindow(FALSE);
         m_bt_getapps.EnableWindow(FALSE);
     }
-    else
+    /*else
     {
         setShareType(false);
         m_bt_select.EnableWindow(TRUE);
         m_bt_remove.EnableWindow(TRUE);
         m_bt_getapps.EnableWindow(TRUE);
-    }
+    }*/
 }
 
 void CDemoDataConfAppShareDlg::OnBnClickedBtShare()
 {
-    unsigned int handle = get_data_conf_handle();
-
     ////get self number
     CString selfNum = CTools::GetSipNumber(g_sipNumber);
     std::string strSelfNum = CTools::UNICODE2UTF(selfNum);
@@ -205,15 +146,16 @@ void CDemoDataConfAppShareDlg::OnBnClickedBtShare()
 
     if (cstr == _T("StartShare"))
     {
-        (void)service_data_conf_app_share_set_owner(handle, const_cast<char*>(strSelfNum.c_str()), TSDK_E_CONF_AS_ACTION_ADD);
+        (void)service_data_conf_app_share_set_owner(const_cast<char*>(strSelfNum.c_str()), TSDK_E_CONF_AS_ACTION_ADD);
         m_bt_share.SetWindowText(_T("StopShare"));
     }
     else
     {
-        (void)service_data_conf_app_share_stop(handle);
-        (void)service_data_conf_app_share_set_owner(handle, const_cast<char*>(strSelfNum.c_str()), TSDK_E_CONF_AS_ACTION_DELETE);
+        (void)service_data_conf_app_share_stop();
+        (void)service_data_conf_app_share_set_owner(const_cast<char*>(strSelfNum.c_str()), TSDK_E_CONF_AS_ACTION_DELETE);
         m_bt_share.SetWindowText(_T("StartShare"));
     }
+    updateShareDlg();
 }
 
 void CDemoDataConfAppShareDlg::setShareType(bool isDesktop)
@@ -226,4 +168,110 @@ void CDemoDataConfAppShareDlg::setShareType(bool isDesktop)
     {
         isShareDesktop = false;
     }
+}
+
+LRESULT CDemoDataConfAppShareDlg::OnShareSession(WPARAM wparam, LPARAM lparam)
+{
+    TSDK_E_CONF_AS_ACTION_TYPE actionType = (TSDK_E_CONF_AS_ACTION_TYPE)wparam;
+    std::string shareOwnerNum = (TSDK_CHAR *)lparam;
+
+    CString cstxt = CTools::UTF2UNICODE(shareOwnerNum);
+    cstxt += _T("has the right to share");
+    m_st_status.SetWindowText(cstxt);
+
+    CString selfNumber = CTools::GetSipNumber(g_sipNumber);
+    TSDK_CHAR strSelfNumber[TSDK_D_MAX_NUMBER_LEN + 1];
+    CTools::CString2Char(selfNumber, strSelfNumber, TSDK_D_MAX_NUMBER_LEN);
+
+    if (TSDK_E_CONF_AS_ACTION_ADD == actionType)
+    {
+        if (shareOwnerNum == strSelfNumber)
+        {
+            if (ischairman || ispresenter)
+            {
+                (void)service_data_conf_app_share_start(TSDK_E_CONF_APP_SHARE_DESKTOP);
+            }
+            else
+            {
+                CDemoPromptDlg promptDlg;
+                promptDlg.SetTextOfContent(_T("The Chairman invite share desktop,do you agree?"));
+                INT_PTR nResponse = promptDlg.DoModal();
+                if (IDOK == nResponse)
+                {
+                    (void)service_data_conf_app_share_start(TSDK_E_CONF_APP_SHARE_DESKTOP);
+                    m_bt_share.EnableWindow(TRUE);
+                    m_bt_share.SetWindowText(_T("StopShare"));
+                }
+                else
+                {
+                    return 0L;
+                }
+            }
+        }
+    }
+    else if (TSDK_E_CONF_AS_ACTION_DELETE == actionType)
+    {
+        if (shareOwnerNum == strSelfNumber)
+        {
+            if (!ispresenter)
+            {
+                (void)service_data_conf_app_share_stop();
+            }
+        }
+    }
+    return 0L;
+}
+
+
+LRESULT CDemoDataConfAppShareDlg::OnShareState(WPARAM wparam, LPARAM lparam)
+{
+    TSDK_S_CONF_AS_STATE_INFO* shareState = (TSDK_S_CONF_AS_STATE_INFO*)wparam;
+    CHECK_POINTER_RETURN(shareState, -1L);
+
+    TSDK_UINT32 sharetype = (unsigned int)lparam;
+
+    CString cstxt;
+    if (sharetype == DESKTOP)
+    {
+        cstxt = _T("DeskTop Share");
+    }
+    else if (sharetype == APP)
+    {
+        cstxt = _T("APP Share");
+    }
+
+    switch (shareState->state)
+    {
+    case TSDK_E_CONF_AS_STATE_NULL:
+    {
+        cstxt += _T("Status is NULL");
+        SetBitmapNULL();
+        break;
+    }
+    case TSDK_E_CONF_AS_STATE_VIEW:
+    {
+        cstxt += _T("Status is Viewing");
+        break;
+    }
+    case TSDK_E_CONF_AS_STATE_START:
+    {
+        cstxt += _T("Status is Start");
+        break;;
+    }
+    case TSDK_E_CONF_AS_STATE_PAUSE:
+    {
+        cstxt += _T("Status is Pause");
+        SetBitmapNULL();
+        break;
+    }
+    case TSDK_E_CONF_AS_STATE_PAUSEVIEW:
+    {
+        cstxt += _T("Status is View Pause");
+        SetBitmapNULL();
+        break;
+    }
+    }
+    m_st_status.SetWindowText(cstxt);
+    delete (shareState);
+    return 0L;
 }

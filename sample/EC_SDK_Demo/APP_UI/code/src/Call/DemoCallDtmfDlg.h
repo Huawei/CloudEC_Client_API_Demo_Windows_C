@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #pragma once
@@ -43,6 +43,7 @@ public:
     afx_msg void OnBnClickedDtmfButton0();
     afx_msg void OnBnClickedDtmfButtonStar();
     afx_msg void OnBnClickedDtmfButtonPound();
+	void OnCloseDlg();
 
     //member function
     void SendDTMF(TSDK_E_DTMF_TONE Tone, CString tonepath);

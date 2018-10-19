@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -94,8 +94,26 @@ BOOL CDemoApp::InitInstance()
     // such as the name of your company or organization
     SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
+    // Set Config Param
+    CString cstrIsIdoConfControl;
+    CTools::GetIniConfigParam(_T("IDOConfig"), _T("IdoConfControl"), cstrIsIdoConfControl);
+    if (_T("") == cstrIsIdoConfControl)
+    {
+        CTools::WriteIniConfigParam(_T("IDOConfig"), _T("IdoConfControl"), _T("1"));
+    }
+
+    CTools::GetIniConfigParam(_T("IDOConfig"), _T("IdoConfControl"), cstrIsIdoConfControl);
+    if (_T("1") == cstrIsIdoConfControl)
+    {
+        service_set_config_param(TRUE);
+    }
+    else
+    {
+        service_set_config_param(FALSE);
+    }
+    
     // Init All Module
-    if (RESULT_SUCCESS != InitAllModule())
+    if (RESULT_SUCCESS != ServiceInitAllModule())
     {
         AfxMessageBox(_T("Init All Module failed"));
     }
@@ -113,22 +131,37 @@ BOOL CDemoApp::InitInstance()
     service_register_call_callback(NotifyCallBack::callMsgNotify);
     service_register_conf_callback(NotifyCallBack::confMsgNotify);
 
-    CDemoLoginDlg loginDlg;
-    m_pMainWnd = &loginDlg;
-    m_pLoginDlgWnd = m_pMainWnd;
-    INT_PTR nResponse = loginDlg.DoModal();
-    if (nResponse == IDOK)
-    {
 
-    }
-    else if (nResponse == IDCANCEL)
+    for (;;)
     {
+        CDemoLoginDlg  LoginDlg;
+        m_pLoginDlgWnd = &LoginDlg;
+        INT_PTR mRet = LoginDlg.DoModal();
+        if (mRet == IDCANCEL)
+        {
+            break;
+        }
+        bool bRet = LoginDlg.GetLoginFlag();
 
-    }
-    else if (nResponse == -1)
-    {
-        TRACE(traceAppMsg, 0, "Warning: dialog creation failed, so application is terminating unexpectedly.\n");
-        TRACE(traceAppMsg, 0, "Warning: if you are using MFC controls on the dialog, you cannot #define _AFX_NO_MFC_CONTROLS_IN_DIALOGS.\n");
+        CDemoMainDlg mainDlg;
+        if (bRet)
+        {
+            m_pMainDlgWnd = &mainDlg;
+            INT_PTR nResponse = mainDlg.DoModal();
+            if (nResponse == IDOK)
+            {
+                continue;
+            }
+            else if (nResponse == IDCANCEL)
+            {
+                exit(0);
+            }
+            else if (nResponse == -1)
+            {
+                TRACE(traceAppMsg, 0, "Warning: dialog creation failed, so application is terminating unexpectedly.\n");
+                TRACE(traceAppMsg, 0, "Warning: if you are using MFC controls on the dialog, you cannot #define _AFX_NO_MFC_CONTROLS_IN_DIALOGS.\n");
+            }
+        }
     }
 
     //// Get history config info
@@ -159,7 +192,7 @@ int CDemoApp::ExitInstance()
 
     //»•≥ı ºªØ
     int ret;
-    ret = UninitAllModule();
+    ret = ServiceUninitAllModule();
     if (RESULT_SUCCESS != ret)
     {
         AfxMessageBox(_T("uninit failed"));

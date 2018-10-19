@@ -3,7 +3,7 @@
 //  EC_SDK_DEMO
 //
 //  Created by EC Open support team.
-//  Copyright(C), 2017, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
+//  Copyright(C), 2018, Huawei Tech. Co., Ltd. ALL RIGHTS RESERVED.
 //
 
 #include "stdafx.h"
@@ -11,7 +11,6 @@
 #include "DemoCallDtmfDlg.h"
 #include "service_call_interface.h"
 #include "DemoCommonTools.h"
-
 
 // CDemoCallDtmfDlg dialog
 
@@ -165,4 +164,10 @@ void CDemoCallDtmfDlg::OnBnClickedDtmfButtonPound()
     CString audiopath = m_apppath + _T("\\audio\\Key\\Jin.wav");
     SendDTMF(key, audiopath);
     ProcessInputNumber(_T("#"));
+}
+
+void CDemoCallDtmfDlg::OnCloseDlg()
+{
+    (void)PostMessage(WM_CLOSE, NULL, NULL);
+    /*OnCancel();*/
 }
