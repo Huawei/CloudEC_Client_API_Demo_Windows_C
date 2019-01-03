@@ -1,3 +1,4 @@
+ï»¿
 //
 //  service_conf_interface.h
 //  EC_SDK_DEMO
@@ -22,597 +23,649 @@ extern "C" {
 #define SERVICE_CONF __declspec(dllimport)
 #endif
 
-	/**
-	* @ingroup conference
-	* @brief [en]This interface is used to schedule a conference (scheduled or instant conference).
-	*        [cn]Ô¤Ô¼»áÒé(Á¢¼´»òÑÓÊ±ÕÙ¿ª)
-	*
-	* @param [in] SERVICE_S_BOOK_CONF_INFO *bookConfInfo       [en]Indicates info of book conference.
-	*                                                          [cn]Ô¤Ô¼»áÒéĞÅÏ¢
-	*
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code, value of TSDK_E_CONF_ERR_ID.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë£¬È¡Öµ²Î¿¼TSDK_E_CONF_ERR_ID
-	*
-	* @attention [en]If you create an instant meeting, the SDK automatically joins the meeting after the meeting is successfully created
-	*            [cn]Èç¹û´´½¨µÄÊÇÁ¢¼´»áÒé£¬»áÒé´´½¨³É¹¦ºó£¬SDK»á×Ô¶¯¼ÓÈë»áÒé
-	* @see TSDK_E_CONF_EVT_BOOK_CONF_RESULT
-	**/
+    /**
+    * @ingroup conference
+    * @brief [en]This interface is used to schedule a conference (scheduled or instant conference).
+    *        [cn]é¢„çº¦ä¼šè®®(ç«‹å³æˆ–å»¶æ—¶å¬å¼€)
+    *
+    * @param [in] SERVICE_S_BOOK_CONF_INFO *bookConfInfo       [en]Indicates info of book conference.
+    *                                                          [cn]é¢„çº¦ä¼šè®®ä¿¡æ¯
+    *
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code, value of TSDK_E_CONF_ERR_ID.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç ï¼Œå–å€¼å‚è€ƒTSDK_E_CONF_ERR_ID
+    *
+    * @attention [en]If you create an instant meeting, the SDK automatically joins the meeting after the meeting is successfully created
+    *            [cn]å¦‚æœåˆ›å»ºçš„æ˜¯ç«‹å³ä¼šè®®ï¼Œä¼šè®®åˆ›å»ºæˆåŠŸåï¼ŒSDKä¼šè‡ªåŠ¨åŠ å…¥ä¼šè®®
+    * @see TSDK_E_CONF_EVT_BOOK_CONF_RESULT
+    **/
     SERVICE_CONF int service_conf_book(SERVICE_S_BOOK_CONF_INFO *bookConfInfo);
 
-	/**
-	* @ingroup ConfMng
-	* @brief [en]This interface is used to get conference list.
-	*        [cn]»ñÈ¡»áÒéÁĞ±í
-	*
-	* @param [in]NA
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en] corresponding callback event is TSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT.
-	*            [cn] ¶ÔÓ¦µÄ»Øµ÷ÊÂ¼şÎªTSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT
-	* @see TSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT
-	**/
+    /**
+    * @ingroup ConfMng
+    * @brief [en]This interface is used to get conference list.
+    *        [cn]è·å–ä¼šè®®åˆ—è¡¨
+    *
+    * @param [in]NA
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en] corresponding callback event is TSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT.
+    *            [cn] å¯¹åº”çš„å›è°ƒäº‹ä»¶ä¸ºTSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT
+    * @see TSDK_E_CONF_EVT_QUERY_CONF_LIST_RESULT
+    **/
     SERVICE_CONF int service_conf_get_list();
 
-	/**
-	* @ingroup ConfMng
-	* @brief [en]This interface is used to get detail info of conference.
-	*        [cn]»ñÈ¡»áÒéÏêÏ¸ĞÅÏ¢
-	*
-	* @param [in] TSDK_CHAR *conf_id                           [en]Indicates get detail info of conference id.
-	*                                                          [cn]»ñÈ¡»ñÈ¡»áÒéÏêÏ¸ĞÅÏ¢µÄ»áÒéid
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en] corresponding callback event is TSDK_E_CONF_EVT_QUERY_CONF_DETAIL_RESULT.
-	*            [cn] ¶ÔÓ¦µÄ»Øµ÷ÊÂ¼şÎªTSDK_E_CONF_EVT_QUERY_CONF_DETAIL_RESULT
-	* @see TSDK_E_CONF_EVT_QUERY_CONF_DETAIL_RESULT
-	**/
+    /**
+    * @ingroup ConfMng
+    * @brief [en]This interface is used to get detail info of conference.
+    *        [cn]è·å–ä¼šè®®è¯¦ç»†ä¿¡æ¯
+    *
+    * @param [in] TSDK_CHAR *conf_id                           [en]Indicates get detail info of conference id.
+    *                                                          [cn]è·å–è·å–ä¼šè®®è¯¦ç»†ä¿¡æ¯çš„ä¼šè®®id
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en] corresponding callback event is TSDK_E_CONF_EVT_QUERY_CONF_DETAIL_RESULT.
+    *            [cn] å¯¹åº”çš„å›è°ƒäº‹ä»¶ä¸ºTSDK_E_CONF_EVT_QUERY_CONF_DETAIL_RESULT
+    * @see TSDK_E_CONF_EVT_QUERY_CONF_DETAIL_RESULT
+    **/
     SERVICE_CONF int service_conf_query_conference_detail(TSDK_CHAR *conf_id);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to proactively join a conference.
-	*        [cn]Ö÷¶¯¼ÓÈë»áÒé
-	*
-	* @param [in] TSDK_S_CONF_JOIN_PARAM* confJoinParam        [en]Indicates conf join param.
-	*                                                          [cn]Èë»á²ÎÊı
-	* @param [in] TSDK_CHAR* joinNumber                        [en]Indicates join number.
-	*                                                          [cn]Èë»áºÅÂë
-	* @param [in] unsigned int isVideoJoi                      [en]Indicates whether video join conference.
-	*                                                          [cn]ÊÇ·ñÊÓÆµ½ÓÈë»áÒé
-	* @param [out] TSDK_UINT32 *callId                         [en]Indicates the call ID corresponding to the meeting is valid when the SIP terminal number is used.
-	*                                                          [cn]»áÒé¶ÔÓ¦µÄºô½ĞID£¬ÔÚÊ¹ÓÃSIPÖÕ¶ËºÅÂëÈë»áÊ±ÓĞĞ§¡£
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_JOIN_CONF_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to proactively join a conference.
+    *        [cn]ä¸»åŠ¨åŠ å…¥ä¼šè®®
+    *
+    * @param [in] TSDK_S_CONF_JOIN_PARAM* confJoinParam        [en]Indicates conf join param.
+    *                                                          [cn]å…¥ä¼šå‚æ•°
+    * @param [in] TSDK_CHAR* joinNumber                        [en]Indicates join number.
+    *                                                          [cn]å…¥ä¼šå·ç 
+    * @param [in] unsigned int isVideoJoi                      [en]Indicates whether video join conference.
+    *                                                          [cn]æ˜¯å¦è§†é¢‘æ¥å…¥ä¼šè®®
+    * @param [out] TSDK_UINT32 *callId                         [en]Indicates the call ID corresponding to the meeting is valid when the SIP terminal number is used.
+    *                                                          [cn]ä¼šè®®å¯¹åº”çš„å‘¼å«IDï¼Œåœ¨ä½¿ç”¨SIPç»ˆç«¯å·ç å…¥ä¼šæ—¶æœ‰æ•ˆã€‚
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_JOIN_CONF_RESULT
+    **/
     SERVICE_CONF int service_conf_join(TSDK_S_CONF_JOIN_PARAM* confJoinParam, TSDK_CHAR* joinNumber, unsigned int isVideoJoin, TSDK_UINT32 *callId);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to mute or unmute a conference.
-	*        [cn]ÉèÖÃ»òÈ¡Ïû±ÕÒô»á³¡
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] unsigned int isMute                          [en]Indicates whether mute.
-	*                                                          [cn]ÊÇ·ñ±ÕÒô
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]corresponding result event notification is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT£»
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to mute or unmute a conference.
+    *        [cn]è®¾ç½®æˆ–å–æ¶ˆé—­éŸ³ä¼šåœº
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] unsigned int isMute                          [en]Indicates whether mute.
+    *                                                          [cn]æ˜¯å¦é—­éŸ³
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]corresponding result event notification is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULTï¼›
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_conf_mute(TSDK_UINT32 confHandle, unsigned int isMute);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to lock or unlock a conference.
-	*        [cn]ÉèÖÃ»òÈ¡ÏûËø¶¨»áÒé
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] unsigned int isLock                          [en]Indicates whether lock conference.
-	*                                                          [cn]ÊÇ·ñËø¶¨»áÒé
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]Under chairman conference control, when conference is locked attendees can not join conference by any way except invited by chairman.
-	*            [en]corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	*            [cn]Ö÷Ï¯»á¿Ø£¬»áÒéËø¶¨ºó£¬³ıÖ÷Ï¯ÑûÇëÍâ£¬ÆäËûÈË²»ÄÜÍ¨¹ıÈÎºÎÍ¾¾¶¼ÓÈë»áÒé;
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to lock or unlock a conference.
+    *        [cn]è®¾ç½®æˆ–å–æ¶ˆé”å®šä¼šè®®
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] unsigned int isLock                          [en]Indicates whether lock conference.
+    *                                                          [cn]æ˜¯å¦é”å®šä¼šè®®
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]Under chairman conference control, when conference is locked attendees can not join conference by any way except invited by chairman.
+    *            [en]corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    *            [cn]ä¸»å¸­ä¼šæ§ï¼Œä¼šè®®é”å®šåï¼Œé™¤ä¸»å¸­é‚€è¯·å¤–ï¼Œå…¶ä»–äººä¸èƒ½é€šè¿‡ä»»ä½•é€”å¾„åŠ å…¥ä¼šè®®;
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_conf_lock(TSDK_UINT32 confHandle, unsigned int isLock);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is invoked by a participant to proactively leave a conference.
-	*        [cn]Àë¿ª»áÒé
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see NA.
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is invoked by a participant to proactively leave a conference.
+    *        [cn]ç¦»å¼€ä¼šè®®
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see NA.
+    **/
     SERVICE_CONF int service_conf_leave(TSDK_UINT32 confHandle);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is invoked by the chairman to end an ongoing conference.
-	*        [cn]½áÊø»áÒé
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_CONF_END_IND.
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is invoked by the chairman to end an ongoing conference.
+    *        [cn]ç»“æŸä¼šè®®
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_CONF_END_IND.
+    **/
     SERVICE_CONF int service_conf_end(TSDK_UINT32 confHandle);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is invoked by the chairman to add a new participant to a conference.
-	*        [cn]Ìí¼ÓÓë»áÕß
-	*
-	* @param [in] TSDK_UINT32 confHandle                            [en]Indicates conference control handle.
-	*                                                               [cn]»á¿Ø¾ä±ú
-	* @param [in] const TSDK_S_ADD_ATTENDEES_INFO* addAttendeeInfo  [en]Indicates add attendee info.
-	*                                                               [cn]Ìí¼ÓÓë»áÕßĞÅÏ¢
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA
-	*            [cn]NA
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
-    SERVICE_CONF int service_conf_mem_add(TSDK_UINT32 confHandle, const TSDK_S_ADD_ATTENDEES_INFO* addAttendeeInfo);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is invoked by the chairman to add a new participant to a conference.
+    *        [cn]æ·»åŠ ä¸ä¼šè€…
+    *
+    * @param [in] TSDK_UINT32 confHandle                            [en]Indicates conference control handle.
+    *                                                               [cn]ä¼šæ§å¥æŸ„
+    * @param [in] const TSDK_S_ADD_ATTENDEES_INFO* addAttendeeInfo  [en]Indicates add attendee info.
+    *                                                               [cn]æ·»åŠ ä¸ä¼šè€…ä¿¡æ¯
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA
+    *            [cn]NA
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
+    SERVICE_CONF int service_conf_add_attendee(TSDK_UINT32 confHandle, const TSDK_S_ADD_ATTENDEES_INFO* addAttendeeInfo);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to remove attendee.
-	*        [cn]É¾³ıÓë»áÕß
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] const TSDK_CHAR* attendee                    [en]Indicates attendee number.
-	*                                                          [cn]Óë»áÕßºÅÂë
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
-    SERVICE_CONF int service_conf_mem_delete(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to remove attendee.
+    *        [cn]åˆ é™¤ä¸ä¼šè€…
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] const TSDK_CHAR* attendee                    [en]Indicates attendee number.
+    *                                                          [cn]ä¸ä¼šè€…å·ç 
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
+    SERVICE_CONF int service_conf_delete_attendee(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to mute attendee.
-	*        [cn]±ÕÒôÓë»áÕß
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] const TSDK_CHAR* attendee                    [en]Indicates attendee number.
-	*                                                          [cn]Óë»áÕßºÅÂë
-	* @param [in] unsigned int isMute                          [en]Indicates whether mute.
-	*                                                          [cn]ÊÇ·ñ±ÕÒô
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]Chairman can mute all attendee, normal attendee can only mute themselves, attendee can only listen not speak when they are muted.
-	*            [en]corresponding result event notification is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
-	*            [cn]Ö÷Ï¯¿É¶ÔËùÓĞÓë»áÕßÉèÖÃ»òÈ¡Ïû±ÕÒô£¬ÆÕÍ¨Óë»áÕßÖ»¿É¶Ô×Ô¼ºÉèÖÃ»òÈ¡Ïû±ÕÒô£¬±»ÉèÖÃ±ÕÒôÊ±£¬Óë»áÕß¿ÉÌı²»¿ÉËµ£»
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT£»
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
-    SERVICE_CONF int service_conf_mem_mute(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee, unsigned int isMute);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to mute attendee.
+    *        [cn]é—­éŸ³ä¸ä¼šè€…
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] const TSDK_CHAR* attendee                    [en]Indicates attendee number.
+    *                                                          [cn]ä¸ä¼šè€…å·ç 
+    * @param [in] unsigned int isMute                          [en]Indicates whether mute.
+    *                                                          [cn]æ˜¯å¦é—­éŸ³
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]Chairman can mute all attendee, normal attendee can only mute themselves, attendee can only listen not speak when they are muted.
+    *            [en]corresponding result event notification is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
+    *            [cn]ä¸»å¸­å¯å¯¹æ‰€æœ‰ä¸ä¼šè€…è®¾ç½®æˆ–å–æ¶ˆé—­éŸ³ï¼Œæ™®é€šä¸ä¼šè€…åªå¯å¯¹è‡ªå·±è®¾ç½®æˆ–å–æ¶ˆé—­éŸ³ï¼Œè¢«è®¾ç½®é—­éŸ³æ—¶ï¼Œä¸ä¼šè€…å¯å¬ä¸å¯è¯´ï¼›
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULTï¼›
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
+    SERVICE_CONF int service_conf_mute_attendee(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee, unsigned int isMute);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to hang up attendee.
-	*        [cn]¹Ò¶ÏÓë»áÕß
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] const TSDK_CHAR* attendee                    [en]Indicates attendee number.
-	*                                                          [cn]Óë»áÕßºÅÂë
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
-    SERVICE_CONF int service_conf_mem_hangup(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to hang up attendee.
+    *        [cn]æŒ‚æ–­ä¸ä¼šè€…
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] const TSDK_CHAR* attendee                    [en]Indicates attendee number.
+    *                                                          [cn]ä¸ä¼šè€…å·ç 
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
+    SERVICE_CONF int service_conf_hangup_attendee(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to accept a conference call.
-	*        [cn]½ÓÌı»áÒéÀ´µç
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] unsigned int isJoinVideo                     [en]Indicates whether join video conference.
-	                                                           [cn]ÊÇ·ñ½ÓÈëÊÓÆµ»áÒé
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*							 [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see NA.
-	**/
-    SERVICE_CONF int service_conf_mem_accept(TSDK_UINT32 confHandle, unsigned int isJoinVideo);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to accept a conference call.
+    *        [cn]æ¥å¬ä¼šè®®æ¥ç”µ
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] unsigned int isJoinVideo                     [en]Indicates whether join video conference.
+                                                               [cn]æ˜¯å¦æ¥å…¥è§†é¢‘ä¼šè®®
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                             [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see NA.
+    **/
+    SERVICE_CONF int service_conf_accept(TSDK_UINT32 confHandle, unsigned int isJoinVideo);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to reject a conference call.
-	*        [cn]¾Ü½Ó»áÒéÀ´µç
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conf handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see NA.
-	**/
-	SERVICE_CONF int service_conf_mem_reject(TSDK_UINT32 confHandle);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to reject a conference call.
+    *        [cn]æ‹’æ¥ä¼šè®®æ¥ç”µ
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conf handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see NA.
+    **/
+    SERVICE_CONF int service_conf_reject(TSDK_UINT32 confHandle);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to release chair rights.
-	*        [cn]ÊÍ·ÅÖ÷Ï¯È¨ÏŞ
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]Corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to release chair rights.
+    *        [cn]é‡Šæ”¾ä¸»å¸­æƒé™
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]Corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_conf_release_chairman(TSDK_UINT32 confHandle);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to apply for chair rights.
-	*        [cn]ÉêÇëÖ÷Ï¯È¨ÏŞ
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to apply for chair rights.
+    *        [cn]ç”³è¯·ä¸»å¸­æƒé™
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
     * @param [in] TSDK_CHAR* pwd                               [en]Indicates chairman password.
-    *                                                          [cn]Ö÷Ï¯ÃÜÂë
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT£»
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    *                                                          [cn]ä¸»å¸­å¯†ç 
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULTï¼›
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_conf_request_chairman(TSDK_UINT32 confHandle,TSDK_CHAR* pwd);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is invoked by a common participant in a conference to set their hands-up or cancel the setting or is invoked by the moderator to cancel hands-up of the other participants.
-	*        [cn]ÉèÖÃ»òÈ¡Ïû¾ÙÊÖ
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] unsigned int isHandup                        [en]Indicates whether hand up.
-	*                                                          [cn]ÊÇ·ñ¾ÙÊÖ
-	* @param [in] TSDK_CHAR* attendee                          [en]Indicates attendee number(It's no need if it's config oneself).
-	*                                                          [cn]Óë»áÕßºÅÂë(ÈôÉèÖÃ×Ô¼º£¬ÔòÎŞĞèÌîĞ´)
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]Corresponding result event notify is TSDK_E_CONF_SET_HANDUP or TSDK_E_CONF_CANCLE_HANDUP.
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is invoked by a common participant in a conference to set their hands-up or cancel the setting or is invoked by the moderator to cancel hands-up of the other participants.
+    *        [cn]è®¾ç½®æˆ–å–æ¶ˆä¸¾æ‰‹
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] unsigned int isHandup                        [en]Indicates whether hand up.
+    *                                                          [cn]æ˜¯å¦ä¸¾æ‰‹
+    * @param [in] TSDK_CHAR* attendee                          [en]Indicates attendee number(It's no need if it's config oneself).
+    *                                                          [cn]ä¸ä¼šè€…å·ç (è‹¥è®¾ç½®è‡ªå·±ï¼Œåˆ™æ— éœ€å¡«å†™)
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]Corresponding result event notify is TSDK_E_CONF_SET_HANDUP or TSDK_E_CONF_CANCEL_HANDUP.
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_conf_handup(TSDK_UINT32 confHandle, unsigned int isHandup, TSDK_CHAR* attendee);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to set conference video mode.
-	*        [cn]ÉèÖÃ»áÒéÊÓÆµÄ£Ê½
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] TSDK_E_CONF_VIDEO_MODE confMode              [en]Indicates conference video mode.
-	*                                                          [cn]»áÒéÊÓÆµÄ£Ê½
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention NA.
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to set conference video mode.
+    *        [cn]è®¾ç½®ä¼šè®®è§†é¢‘æ¨¡å¼
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] TSDK_E_CONF_VIDEO_MODE confMode              [en]Indicates conference video mode.
+    *                                                          [cn]ä¼šè®®è§†é¢‘æ¨¡å¼
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention NA.
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
+    **/
     SERVICE_CONF int service_conf_set_video_mode(TSDK_UINT32 confHandle, TSDK_E_CONF_VIDEO_MODE confMode);
 
-	/**
-	* @ingroup ConfCtrl.
-	* @brief [en]This interface is used to broadcast or cancel broadcasting a specified participant.
-	*        [cn]¹ã²¥»òÈ¡Ïû¹ã²¥Ö¸¶¨Óë»áÕß£¨»á³¡£©
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] TSDK_CHAR* attendee                          [en]Indicates attendee number.
-	*                                                          [cn]Óë»áÕßºÅÂë
-	* @param [in] unsigned int isRoadcast                      [en]Indicates broadcast or cancel broadcast.
-	*                                                          [cn]¹ã²¥»òÊÇÈ¡Ïû¹ã²¥
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl.
+    * @brief [en]This interface is used to broadcast or cancel broadcasting a specified participant.
+    *        [cn]å¹¿æ’­æˆ–å–æ¶ˆå¹¿æ’­æŒ‡å®šä¸ä¼šè€…ï¼ˆä¼šåœºï¼‰
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] TSDK_CHAR* attendee                          [en]Indicates attendee number.
+    *                                                          [cn]ä¸ä¼šè€…å·ç 
+    * @param [in] unsigned int isRoadcast                      [en]Indicates broadcast or cancel broadcast.
+    *                                                          [cn]å¹¿æ’­æˆ–æ˜¯å–æ¶ˆå¹¿æ’­
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_conf_broadcast_attendee(TSDK_UINT32 confHandle, TSDK_CHAR* attendee, unsigned int isRoadcast);
 
-	/**
-	* @ingroup ConfCtrl.
-	* @brief [en]This interface is invoked by the chairman to select the participant to view among the participants who are being broadcast. 
-	*        [cn]ÇëÇó¹Û¿´Ö¸¶¨Óë»áÕß»­Ãæ
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @param [in] TSDK_S_WATCH_ATTENDEES_INFO* attendee        [en]Indicates watch attendee param info.
-	*                                                          [cn]Ñ¡¿´Óë»áÕß»­Ãæ²ÎÊıĞÅÏ¢
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
-	SERVICE_CONF int service_conf_watch_attendee(TSDK_UINT32 confHandle, TSDK_S_WATCH_ATTENDEES_INFO* attendee);
+    /**
+    * @ingroup ConfCtrl.
+    * @brief [en]This interface is invoked by the chairman to select the participant to view among the participants who are being broadcast. 
+    *        [cn]è¯·æ±‚è§‚çœ‹æŒ‡å®šä¸ä¼šè€…ç”»é¢
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @param [in] TSDK_S_WATCH_ATTENDEES_INFO* attendee        [en]Indicates watch attendee param info.
+    *                                                          [cn]é€‰çœ‹ä¸ä¼šè€…ç”»é¢å‚æ•°ä¿¡æ¯
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
+    SERVICE_CONF int service_conf_watch_attendee(TSDK_UINT32 confHandle, TSDK_S_WATCH_ATTENDEES_INFO* attendee);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to upgrade conference.
-	*        [cn]Éı¼¶»áÒé
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]Corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
-	*            [cn]¶ÔÓ¦µÄ½á¹ûÊÂ¼şÍ¨ÖªÎªTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
-    SERVICE_CONF int service_conf_update_deta_conf(TSDK_UINT32 confHandle);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to upgrade conference.
+    *        [cn]å‡çº§ä¼šè®®
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]Corresponding result event notify is TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT.
+    *            [cn]å¯¹åº”çš„ç»“æœäº‹ä»¶é€šçŸ¥ä¸ºTSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
+    SERVICE_CONF int service_conf_upgrade_conf(TSDK_UINT32 confHandle);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to join data conference.
-	*        [cn]¼ÓÈëÊı¾İ»áÒé
-	*
-	* @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
-	*                                                          [cn]»á¿Ø¾ä±ú
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_JOIN_CONF_RESULT.
-	**/
-    SERVICE_CONF int service_data_conf_join(TSDK_UINT32 confHandle);
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to join data conference.
+    *        [cn]åŠ å…¥æ•°æ®ä¼šè®®
+    *
+    * @param [in] TSDK_UINT32 confHandle                       [en]Indicates conference handle.
+    *                                                          [cn]ä¼šæ§å¥æŸ„
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_JOIN_CONF_RESULT.
+    **/
+    SERVICE_CONF int service_conf_join_data_conference(TSDK_UINT32 confHandle);
 
-	/**
-	* @ingroup ConfCtrl
-	* @brief [en]This interface is used to set conference presenter
-	*        [cn]ÉèÖÃÖ÷½²ÈË
-	*
-	* @param [in] TSDK_UINT32 confHandle                 [en]Indicates conference handle conference handle
-	*                                                    [cn]»áÒé¾ä±ú
-	* @param [in] TSDK_CHAR* attendee                    [en]Indicates attendee number
-	*                                                    [cn]Óë»áÕßºÅÂë
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	*
-	* @attention [en]NA.
-	*            [cn]NA.
-	* @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
-	**/
+    /**
+    * @ingroup ConfCtrl
+    * @brief [en]This interface is used to set conference presenter
+    *        [cn]è®¾ç½®ä¸»è®²äºº
+    *
+    * @param [in] TSDK_UINT32 confHandle                 [en]Indicates conference handle conference handle
+    *                                                    [cn]ä¼šè®®å¥æŸ„
+    * @param [in] TSDK_CHAR* attendee                    [en]Indicates attendee number
+    *                                                    [cn]ä¸ä¼šè€…å·ç 
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    *
+    * @attention [en]NA.
+    *            [cn]NA.
+    * @see TSDK_E_CONF_EVT_CONFCTRL_OPERATION_RESULT
+    **/
     SERVICE_CONF int service_data_conf_set_presenter(TSDK_UINT32 confHandle, TSDK_CHAR* attendee);
 
-	/**
-	* @ingroup AppShare
-	* @brief [en]This interface is used to configure the owner of screen sharing.
-	*        [cn]ÉèÖÃÆÁÄ»¹²ÏíµÄÓµÓĞÕß
-	*
-	* @param [in] TSDK_CHAR* attendee                    [en]Indicates attendee number
-	*                                                    [cn]Óë»áÕßºÅÂë
-	* @param [in] TSDK_E_CONF_AS_ACTION_TYPE action      [en]Indicates set action, refer to TSDK_E_CONF_AS_ACTION_TYPE.
-	*                                                    [cn]ÉèÖÃ¶¯×÷, ²Î¿¼TSDK_E_CONF_AS_ACTION_TYPE.
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @attention [en]NA
-	*            [cn]NA
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_app_share_set_owner(TSDK_CHAR* attendee, TSDK_E_CONF_AS_ACTION_TYPE action);
+    /**
+    * @ingroup AppShare
+    * @brief [en]This interface is used to configure the owner of screen sharing.
+    *        [cn]è®¾ç½®å±å¹•å…±äº«çš„æ‹¥æœ‰è€…
+    *
+    * @param [in] TSDK_CHAR* attendee                    [en]Indicates attendee number
+    *                                                    [cn]ä¸ä¼šè€…å·ç 
+    * @param [in] TSDK_E_CONF_AS_ACTION_TYPE action      [en]Indicates set action, refer to TSDK_E_CONF_AS_ACTION_TYPE.
+    *                                                    [cn]è®¾ç½®åŠ¨ä½œ, å‚è€ƒTSDK_E_CONF_AS_ACTION_TYPE.
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @attention [en]NA
+    *            [cn]NA
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_app_share_set_owner(TSDK_CHAR* attendee, TSDK_E_CONF_AS_ACTION_TYPE action);
 
-	/**
-	* @ingroup AppShare
-	* @brief [en]This interface is used to starts desktop sharing or application sharing.
-	*        [cn]¿ªÊ¼×ÀÃæ¹²Ïí»òÓ¦ÓÃ³ÌĞò¹²Ïí
-	*
-	* @param [in] TSDK_E_CONF_APP_SHARE_TYPE shareType         [en]Indicates app share type.
-	*                                                          [cn]Ó¦ÓÃ¹²ÏíÀàĞÍ
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @attention [en]For PC, the mobile device does not support this function 
-	*            [cn]ÓÃÓÚPC£¬ÒÆ¶¯Éè±¸²»Ö§³Ö´Ë¹¦ÄÜ
-	* @see NA
-	**/
+    /**
+    * @ingroup AppShare
+    * @brief [en]This interface is used to starts desktop sharing or application sharing.
+    *        [cn]å¼€å§‹æ¡Œé¢å…±äº«æˆ–åº”ç”¨ç¨‹åºå…±äº«
+    *
+    * @param [in] TSDK_E_CONF_APP_SHARE_TYPE shareType         [en]Indicates app share type.
+    *                                                          [cn]åº”ç”¨å…±äº«ç±»å‹
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @attention [en]For PC, the mobile device does not support this function 
+    *            [cn]ç”¨äºPCï¼Œç§»åŠ¨è®¾å¤‡ä¸æ”¯æŒæ­¤åŠŸèƒ½
+    * @see NA
+    **/
     SERVICE_CONF int service_data_conf_app_share_start(TSDK_E_CONF_APP_SHARE_TYPE shareType);
 
 
     //SERVICE_CONF int service_data_conf_request_present();
 
-	/**
-	* @ingroup AppShare
-	* @brief [en]This interface is used to get screen data.
-	*        [cn]»ñÈ¡ÆÁÄ»Êı¾İ
-	*
-	* @param [in] TSDK_UINT32 confHandle                           [en]Indicates conference handle.
-	*                                                              [cn]»áÒé¾ä±ú
-	* @param [out] TSDK_S_CONF_AS_SCREEN_DATA *screenData          [en]Indicates screen data.
-	*                                                              [cn]ÆÁÄ»Êı¾İ
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @attention [en]NA
-	*            [cn]NA
-	* @see NA
-	**/
+    /**
+    * @ingroup AppShare
+    * @brief [en]This interface is used to get screen data.
+    *        [cn]è·å–å±å¹•æ•°æ®
+    *
+    * @param [in] TSDK_UINT32 confHandle                           [en]Indicates conference handle.
+    *                                                              [cn]ä¼šè®®å¥æŸ„
+    * @param [out] TSDK_S_CONF_AS_SCREEN_DATA *screenData          [en]Indicates screen data.
+    *                                                              [cn]å±å¹•æ•°æ®
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @attention [en]NA
+    *            [cn]NA
+    * @see NA
+    **/
     SERVICE_CONF int service_data_conf_app_share_get_screen_data(TSDK_S_CONF_AS_SCREEN_DATA *screenData);
 
-	/**
-	* @ingroup AppShare
-	* @brief [en]This interface is used to stop desktop sharing or application sharing.
-	*        [cn]Í£Ö¹×ÀÃæ¹²Ïí»òÓ¦ÓÃ³ÌĞò¹²Ïí
-	*
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
+    /**
+    * @ingroup AppShare
+    * @brief [en]This interface is used to stop desktop sharing or application sharing.
+    *        [cn]åœæ­¢æ¡Œé¢å…±äº«æˆ–åº”ç”¨ç¨‹åºå…±äº«
+    *
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
     SERVICE_CONF int service_data_conf_app_share_stop();
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to open a document.
-	*        [cn]´ò¿ªÒ»¸ö¹²ÏíÎÄµµ
-	*
-	* @param [in] const char* file_path               [en]Indicates file path.
-	*                                                 [cn]´ò¿ªµÄÎÄ¼şÂ·¾¶
-	* @param [in] unsigned int* doc_id                [en]Indicates document id.
-	*                                                 [cn]ÎÄµµid
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_open_document(const char* file_path,unsigned int* doc_id);
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to open a document.
+    *        [cn]æ‰“å¼€ä¸€ä¸ªå…±äº«æ–‡æ¡£
+    *
+    * @param [in] const char* file_path               [en]Indicates file path.
+    *                                                 [cn]æ‰“å¼€çš„æ–‡ä»¶è·¯å¾„
+    * @param [in] unsigned int* doc_id                [en]Indicates document id.
+    *                                                 [cn]æ–‡æ¡£id
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_open_document(const char* file_path,unsigned int* doc_id);
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to close a document.
-	*        [cn]¹Ø±Õ¹²ÏíÎÄµµ
-	*
-	* @param [in] unsigned int* doc_id                [en]Indicates document id.
-	*                                                 [cn]ÎÄµµid
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_close_document(unsigned int docId);
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to close a document.
+    *        [cn]å…³é—­å…±äº«æ–‡æ¡£
+    *
+    * @param [in] unsigned int* doc_id                [en]Indicates document id.
+    *                                                 [cn]æ–‡æ¡£id
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_close_document(unsigned int docId);
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to get syn document_info.
-	*        [cn]»ñÈ¡·şÎñÆ÷ÉÏµÄµ±Ç°ÎÄµµĞÅÏ¢
-	*
-	* @param [out] TSDK_S_DOC_PAGE_DETAIL_INFO* sync_info    [en]Indicates document information.
-	*                                                        [cn]ÎÄµµÒ³ÃæĞÅÏ¢
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_get_syn_document_info(TSDK_S_DOC_PAGE_DETAIL_INFO* sync_info);
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to get syn document_info.
+    *        [cn]è·å–æœåŠ¡å™¨ä¸Šçš„å½“å‰æ–‡æ¡£ä¿¡æ¯
+    *
+    * @param [out] TSDK_S_DOC_PAGE_DETAIL_INFO* sync_info    [en]Indicates document information.
+    *                                                        [cn]æ–‡æ¡£é¡µé¢ä¿¡æ¯
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_get_syn_document_info(TSDK_E_COMPONENT_ID componentId, TSDK_S_DOC_PAGE_DETAIL_INFO* sync_info);  
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to set current page to show.
-	*        [cn]ÉèÖÃµ±Ç°ÏÔÊ¾µÄÒ³Ãæ
-	*
-	* @param [in] unsigned int* doc_id                [en]Indicates document id.
-	*                                                 [cn]ÎÄµµid
-	* @param [in] int pageIndex                       [en]Indicates page id.
-	*                                                 [cn]Ò³Ãæid
-	* @param [in] unsigned int isDocShare             [en]Indicates whether share document.
-	*                                                 [cn]ÊÇ·ñÎªÎÄµµ¹²Ïí
-	* @param [in] unsigned int isSyn                  [en]Indicates whether synchronization settings.
-	*                                                 [cn]ÊÇ·ñÍ¬²½ÉèÖÃ
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_set_current_page(unsigned int docId, int pageIndex, unsigned int isDocShare, unsigned int isSyn);
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to set current page to show.
+    *        [cn]è®¾ç½®å½“å‰æ˜¾ç¤ºçš„é¡µé¢
+    *
+    * @param [in] unsigned int* doc_id                [en]Indicates document id.
+    *                                                 [cn]æ–‡æ¡£id
+    * @param [in] int pageIndex                       [en]Indicates page id.
+    *                                                 [cn]é¡µé¢id
+    * @param [in] unsigned int isDocShare             [en]Indicates whether share document.
+    *                                                 [cn]æ˜¯å¦ä¸ºæ–‡æ¡£å…±äº«
+    * @param [in] unsigned int isSyn                  [en]Indicates whether synchronization settings.
+    *                                                 [cn]æ˜¯å¦åŒæ­¥è®¾ç½®
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_set_current_page(TSDK_E_COMPONENT_ID componentId, unsigned int docId, int pageIndex, unsigned int isSyn);
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to get the rendered current page image.
-	*        [cn]»ñÈ¡äÖÈ¾ºÃµÄµ±Ç°Ò³ÃæÍ¼Ïñ
-	*
-	* @param [in] unsigned int isDocShare                     [en]Indicates whether share document.
-	*                                                         [cn]ÊÇ·ñÎªÎÄµµ¹²Ïí
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF void* service_data_conf_ds_share_get_surfacebmp(unsigned int isDocShare);
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to get the rendered current page image.
+    *        [cn]è·å–æ¸²æŸ“å¥½çš„å½“å‰é¡µé¢å›¾åƒ
+    *
+    * @param [in] unsigned int isDocShare                     [en]Indicates whether share document.
+    *                                                         [cn]æ˜¯å¦ä¸ºæ–‡æ¡£å…±äº«
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF void* service_data_conf_ds_share_get_surfacebmp(TSDK_E_COMPONENT_ID componentId);
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to set canvas background colour of document sharing module 
-	*        [cn]ÉèÖÃÎÄµµ¹²ÏíÄ£¿é»­²¼µÄ±³¾°É«
-	*
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_set_background_color();
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to set canvas background colour of document sharing module 
+    *        [cn]è®¾ç½®æ–‡æ¡£å…±äº«æ¨¡å—ç”»å¸ƒçš„èƒŒæ™¯è‰²
+    *
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_set_canvas_size(TSDK_E_COMPONENT_ID componentId, int width, int high);
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to set display mode of document sharing module
-	*        [cn]ÉèÖÃÎÄµµ¹²ÏíÄ£¿éµÄÏÔÊ¾Ä£Ê½
-	*
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_set_display_mode();
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to set display mode of document sharing module
+    *        [cn]è®¾ç½®æ–‡æ¡£å…±äº«æ¨¡å—çš„æ˜¾ç¤ºæ¨¡å¼
+    *
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_set_background_color(TSDK_E_COMPONENT_ID componentId);
 
-	/**
-	* @ingroup DocShare
-	* @brief [en]This interface is used to set the size of the display area.
-	*        [cn]ÉèÖÃÏÔÊ¾ÇøÓòµÄ´óĞ¡
-	*
-	* @param [in] TSDK_S_SIZE size                    [en]Indicates display area width and height.
-	*                                                 [cn]ÏÔÊ¾ÇøÓòµÄ¿í¸ß£¬ÒÔTWIPSÎªµ¥Î»
-	* @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-	*                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
-	* @see NA
-	**/
-	SERVICE_CONF int service_data_conf_ds_share_set_canvas_size(TSDK_S_SIZE size);
+    /**
+    * @ingroup DocShare
+    * @brief [en]This interface is used to set the size of the display area.
+    *        [cn]è®¾ç½®æ˜¾ç¤ºåŒºåŸŸçš„å¤§å°
+    *
+    * @param [in] TSDK_S_SIZE size                    [en]Indicates display area width and height.
+    *                                                 [cn]æ˜¾ç¤ºåŒºåŸŸçš„å®½é«˜ï¼Œä»¥TWIPSä¸ºå•ä½
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_ds_share_set_display_mode(TSDK_E_COMPONENT_ID componentId);
+
+    /**
+    * @ingroup WhiteboardShare
+    * @brief [en]This interface is used to open a whiteboard.
+    *        [cn]æ‰“å¼€ä¸€ä¸ªæ–°çš„å…±äº«ç™½æ¿
+    *
+    * @param [out] unsigned int* doc_id                    [en]Indicates document id.
+    *                                                      [cn]æ–‡æ¡£id
+    * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
+    * @see NA
+    **/
+    SERVICE_CONF int service_data_conf_wb_share_open_whiteboard(unsigned int* docId);
+
+    SERVICE_CONF int service_data_conf_wb_share_new_page(unsigned int docId, int page_width, int page_height, unsigned int* page_id);
+
+    SERVICE_CONF int service_data_conf_wb_share_whiteboard_delete(unsigned int docId);
+
+    SERVICE_CONF int service_data_conf_wb_share_whiteboard_delete_page(unsigned int docId, unsigned int pageId);
+
+    SERVICE_CONF int service_data_conf_annotation_create_start(TSDK_E_COMPONENT_ID componentId, unsigned int docId, int pageIndex,
+        IN TSDK_E_ANNOTATION_MAIN_TYPE mainType, TSDK_E_ANNOTATION_DRAWING_SUB_TYPE subType, int x, int y);
+    
+    SERVICE_CONF int service_data_conf_annotation_update(TSDK_E_COMPONENT_ID componentId, const TSDK_S_POINT* point);
+    
+    SERVICE_CONF int service_data_conf_annotation_create_finish(TSDK_E_COMPONENT_ID componentId, unsigned int is_cancel);
+    
+    SERVICE_CONF int service_data_conf_annotation_delete(TSDK_E_COMPONENT_ID componentId, 
+        unsigned int document_id, unsigned int page_index, unsigned int* annotation_id, int count);
+    
+    SERVICE_CONF int service_data_conf_annotation_laser_pointer_start(TSDK_E_COMPONENT_ID componentId, 
+        TSDK_S_ANNOTATION_LASER_POINTER_INFO *laser_pointer_info);
+    
+    SERVICE_CONF int service_data_conf_annotation_laser_pointer_moveto(TSDK_E_COMPONENT_ID componentId, int x, int y);   
+
+    SERVICE_CONF int service_data_conf_annotation_laser_pointer_stop(TSDK_E_COMPONENT_ID componentId);
+    
+    SERVICE_CONF int service_data_conf_annotation_set_select(TSDK_E_COMPONENT_ID componentId, unsigned int docId, int pageIndex, 
+        TSDK_E_ANNOTATION_SELECT_MODE selectMode, unsigned int* annotation_id, int count, unsigned int isRedraw);
+   
+    SERVICE_CONF int service_data_conf_annotation_edit_start(TSDK_E_COMPONENT_ID componentId, unsigned int docId, int pageIndex, 
+        unsigned int* annotationId, int count, unsigned int refAnnotationId, TSDK_E_ANNOTATION_HIT_TEST_CODE editType, TSDK_S_POINT* point);
+    
+    SERVICE_CONF int service_data_conf_annotation_edit_update(TSDK_E_COMPONENT_ID componentId, TSDK_S_POINT* point);
+
+    SERVICE_CONF int service_data_conf_annotation_edit_finish(TSDK_E_COMPONENT_ID componentId, unsigned int isCancel);
+
+    SERVICE_CONF int service_data_conf_annotation_hit_test_point(TSDK_E_COMPONENT_ID componentId, unsigned int docId, int pageIndex, 
+        TSDK_S_POINT* point, unsigned int* selectAnnotationId, TSDK_E_ANNOTATION_HIT_TEST_CODE* testResult, unsigned int* annotationType);
+        
+    SERVICE_CONF int service_data_conf_annotation_set_pen(TSDK_E_COMPONENT_ID componentId, TSDK_E_ANNOTATION_PEN_TYPE penType, 
+        TSDK_E_ANNOTATION_PEN_STYLE style, unsigned int color, unsigned int width);       
 
     /**
     * @ingroup DocShare
     * @brief [en]This interface is used to join conference by anonymous.
-    *        [cn]¼ÓÈëÄäÃû»áÒé
+    *        [cn]åŠ å…¥åŒ¿åä¼šè®®
     *
     * @param [in] TSDK_S_CONF_ANONYMOUS_JOIN_PARAM *confJoinParam       [en]Indicates param of anonymous join conference.
-    *                                                                   [cn]ÄäÃûÈë»á²ÎÊı
+    *                                                                   [cn]åŒ¿åå…¥ä¼šå‚æ•°
     * @retval int                [en]If success return TSDK_SUCCESS, otherwise return corresponding error code.
-    *                            [cn]³É¹¦·µ»ØTSDK_SUCCESS£¬Ê§°Ü·µ»ØÏàÓ¦´íÎóÂë
+    *                            [cn]æˆåŠŸè¿”å›TSDK_SUCCESSï¼Œå¤±è´¥è¿”å›ç›¸åº”é”™è¯¯ç 
     * @see NA
     **/
     SERVICE_CONF int service_join_conference_by_anonymous(TSDK_S_CONF_ANONYMOUS_JOIN_PARAM *confJoinParam);
 
-	
+    
 #ifdef __cplusplus
 #if __cplusplus
 }

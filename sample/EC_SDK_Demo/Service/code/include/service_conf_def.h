@@ -1,4 +1,4 @@
-//
+Ôªø//
 //  service_conf_def.h
 //  EC_SDK_DEMO
 //
@@ -18,25 +18,57 @@ extern "C"{
 #endif
 #endif /* __cplusplus */
 
-	/**
-	* [en]This struct is used to describe book conf info.
-	* [cn]‘§‘ºª·“È–≈œ¢
-	*/
-	typedef struct tagSERVICE_S_BOOK_CONF_INFO
-	{
-		TSDK_CHAR subject[TSDK_D_MAX_SUBJECT_LEN + 1];                   /**< [en]Indicates conference subject  ,this param is optional.
-																		      [cn]ª·“È÷˜Ã‚ */
-		TSDK_CHAR start_time[TSDK_D_MAX_TIME_FORMATE_LEN + 1];           /**< [en]Indicates conference start time, format:YYYY-MM-DD HH:MM  ,this param is optional.
-																		      [cn]ø…—°£¨ª·“Èø™ º ±º‰£¨∏Ò Ω£∫YYYY-MM-DD HH:MM£¨¡¢º¥ª·“È ±Œﬁ–ËÃÓ–¥ */
-		TSDK_E_CONF_TYPE conf_type;                                      /**< [en]Indicates conference type.
-																		      [cn]ª·“È¿‡–Õ */
-		TSDK_E_CONF_MEDIA_TYPE conf_media_type;                          /**< [en]Indicates conference media type.
-																		      [cn]√ΩÃÂ¿‡–Õ */
-		TSDK_UINT32 attendee_num;                                        /**< [en]Indicates attendee number. 
-                                                                              [cn]”Îª·’ﬂ ˝¡ø */
-		TSDK_S_ATTENDEE_BASE_INFO* attendee_list;                        /**< [en]Indicates attendee list. 
-																		      [cn]”Îª·’ﬂ¡–±Ì */
-	}SERVICE_S_BOOK_CONF_INFO;
+
+    /**
+    * [en]This struct is used to describe book conf info.
+    * [cn]È¢ÑÁ∫¶‰ºöËÆÆ‰ø°ÊÅØ
+    */
+    typedef struct tagSERVICE_S_BOOK_CONF_INFO
+    {
+        TSDK_CHAR subject[TSDK_D_MAX_SUBJECT_LEN + 1];                   /**< [en]Indicates conference subject  ,this param is optional.
+                                                                              [cn]‰ºöËÆÆ‰∏ªÈ¢ò */
+        TSDK_CHAR start_time[TSDK_D_MAX_TIME_FORMATE_LEN + 1];           /**< [en]Indicates conference start time, format:YYYY-MM-DD HH:MM  ,this param is optional.
+                                                                              [cn]ÂèØÈÄâÔºå‰ºöËÆÆÂºÄÂßãÊó∂Èó¥ÔºåÊ†ºÂºèÔºöYYYY-MM-DD HH:MMÔºåÁ´ãÂç≥‰ºöËÆÆÊó∂Êó†ÈúÄÂ°´ÂÜô */
+        TSDK_E_CONF_TYPE conf_type;                                      /**< [en]Indicates conference type.
+                                                                              [cn]‰ºöËÆÆÁ±ªÂûã */
+        TSDK_E_CONF_MEDIA_TYPE conf_media_type;                          /**< [en]Indicates conference media type.
+                                                                              [cn]Â™í‰ΩìÁ±ªÂûã */
+        TSDK_UINT32 attendee_num;                                        /**< [en]Indicates attendee number. 
+                                                                              [cn]‰∏é‰ºöËÄÖÊï∞Èáè */
+        TSDK_S_ATTENDEE_BASE_INFO* attendee_list;                        /**< [en]Indicates attendee list. 
+                                                                              [cn]‰∏é‰ºöËÄÖÂàóË°® */
+    }SERVICE_S_BOOK_CONF_INFO;
+
+    /**
+    * [en]Pen attribute structure.
+    * [cn]ÁîªÁ¨î‰ø°ÊÅØ
+    */
+    typedef struct tagSERVICE_ANNO_PEN_INFO
+    {
+        int                style;        //pen stytle
+        unsigned int    color;        //pen color
+        int                width;        //pen width
+    }SERVICE_ANNO_PEN_INFO;
+
+
+#define    SERVICE_DATA_dsNullID    ((unsigned int)(0))
+#define SERVICE_DATA_dsNullOffset ((unsigned int)(-1))
+
+//Defines a subtype of page annotation 
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_FREEHAND                1    /*Pencil line */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_HILIGHT                2    /*Highlight line */
+#define SERVICE_DS_ANNOTDRAWING_TYPE_RECTANGLE                3    /*hollow rectangle */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_FILLRECTANGLE            4    /*Filled rectangle */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_ROUNDRECTANGLE            5    /*Hollow rounded rectangle */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_FILLROUNDRECTANGLE        6    /*Rounded rectangle */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_ELLIPSE                7    /*hollow ellipse */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_FILLELLIPSE            8    /*Filled ellipse */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_LINE                    9    /*straight line */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_LINEARROW                10    /*Single arrow line*/
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_LINEDOUBLEARROW        11    /*Double arrow line */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_WBPEN                    12    /*Electronic whiteboard pen */
+#define    SERVICE_DS_ANNOTDRAWING_TYPE_WBERASE                13    /*Electronic whiteboard eraser */
+#define SERVICE_DS_ANNOTDRAWING_TYPE_PAGEFRAME                14    /*Whiteboard border */
 
 
 #ifdef __cplusplus

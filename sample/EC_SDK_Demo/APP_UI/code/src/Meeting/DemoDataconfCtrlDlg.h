@@ -12,8 +12,9 @@
 #include "afxcmn.h"
 #include "DemoDataConfAppShareDlg.h"
 #include "DemoDocumentsShareDlg.h"
+#include "DemoWhiteboardShareDlg.h"
 
-#define  DATACONF_DLG_NUM  2
+#define  DATACONF_DLG_NUM  3
 
 // CDemoDataconfCtrlDlg dialog
 
@@ -52,9 +53,6 @@ public:
     void SetCallID(unsigned int callid) { m_callID = callid; };
     void InitUI();
     
-    /*afx_msg void OnNMClickListMember(NMHDR *pNMHDR, LRESULT *pResult);
-    afx_msg void OnBnClickedBtAdd();
-    afx_msg void OnBnClickedBtGetpresent();*/
     afx_msg void OnTcnSelchangeDataTab(NMHDR *pNMHDR, LRESULT *pResult);
     afx_msg LRESULT OnShareSession(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnShareState(WPARAM wparam, LPARAM lparam);
@@ -65,9 +63,16 @@ public:
     afx_msg LRESULT OnDataConfDSDrawData(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnDSCurrentPage(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnDSDeleteDoc(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnWBOpenNew(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnWBSetCurrentPage(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnWBSetCurrentPageInd(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnWBNewPage(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnWBDrawData(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnWBDelete(WPARAM wparam, LPARAM lparam);
     void updateShareDlg();
 
 public:
     CDemoDataConfAppShareDlg* m_desktopShareDlg;
     CDemoDocumentsShareDlg* m_documentsShareDlg;
+    CDemoWhiteboardShareDlg* m_whiteboardShareDlg;
 };

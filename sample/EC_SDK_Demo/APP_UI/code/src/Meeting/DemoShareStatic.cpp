@@ -56,11 +56,11 @@ void CShareStatic::OnDraw(CDC* pDC)
 
         pDC->FillRect(&rect, &bs);
 
-		void *data = service_data_conf_ds_share_get_surfacebmp(FALSE);
+		void *data = service_data_conf_ds_share_get_surfacebmp(TSDK_E_COMPONENT_WB);
 
 		if (data == NULL)
 		{
-			data = service_data_conf_ds_share_get_surfacebmp(TRUE);
+			data = service_data_conf_ds_share_get_surfacebmp(TSDK_E_COMPONENT_DS);
 		}
 		if(data)
 		{

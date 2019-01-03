@@ -164,6 +164,6 @@ void CDemoCallInCommingDlg::PlayPhoneRinging()
 
 void CDemoCallInCommingDlg::OnCloseDlg()
 {
-    OnCancel();
+    //OnCancel();
 }
 

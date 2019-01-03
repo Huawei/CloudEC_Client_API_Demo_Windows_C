@@ -256,7 +256,7 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
                     notifyInfo[i].size = pResult->conf_info_list[i].size;
                     strncpy_s(notifyInfo[i].conf_id, TSDK_D_MAX_CONF_ID_LEN + 1, pResult->conf_info_list[i].conf_id, _TRUNCATE);
                     strncpy_s(notifyInfo[i].subject, TSDK_D_MAX_SUBJECT_LEN + 1, pResult->conf_info_list[i].subject, _TRUNCATE);
-                    strncpy_s(notifyInfo[i].access_number, TSDK_D_MAX_NUMBER_LEN + 1, pResult->conf_info_list[i].access_number, _TRUNCATE);
+                    strncpy_s(notifyInfo[i].access_number, TSDK_D_MAX_CONF_ACCESS_LEN + 1, pResult->conf_info_list[i].access_number, _TRUNCATE);
                     strncpy_s(notifyInfo[i].chairman_pwd, TSDK_D_MAX_CONF_PASSWORD_LEN + 1, pResult->conf_info_list[i].chairman_pwd, _TRUNCATE);
                     strncpy_s(notifyInfo[i].guest_pwd, TSDK_D_MAX_CONF_PASSWORD_LEN + 1, pResult->conf_info_list[i].guest_pwd, _TRUNCATE);
                     strncpy_s(notifyInfo[i].start_time, TSDK_D_MAX_TIME_FORMATE_LEN + 1, pResult->conf_info_list[i].start_time, _TRUNCATE);
@@ -542,6 +542,99 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_DELETE,(WPARAM)notifyInfo,(LPARAM)param2);
         break;
     }
+    case TSDK_E_CONF_EVT_WB_DOC_NEW:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_BASE_INFO* pResult = (TSDK_S_DOC_BASE_INFO*)data;
+        TSDK_S_DOC_BASE_INFO* notifyInfo = new TSDK_S_DOC_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_BASE_INFO), 0, sizeof(TSDK_S_DOC_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_BASE_INFO), pResult, sizeof(TSDK_S_DOC_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_WB_DOC_NEW, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+    case TSDK_E_CONF_EVT_WB_DOC_CURRENT_PAGE:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_WB_CURRENT_PAGE, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+    case TSDK_E_CONF_EVT_WB_DOC_CURRENT_PAGE_IND:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_WB_CURRENT_PAGE_IND, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+    case TSDK_E_CONF_EVT_WB_PAGE_NEW:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_WB_PAG_NEW, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+    case TSDK_E_CONF_EVT_WB_DOC_DRAW_DATA_NOTIFY:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_WB_DRAW_DATA, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+    case TSDK_E_CONF_EVT_WB_DOC_DEL:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_WB_DEL_DOC_INFO* pResult = (TSDK_S_WB_DEL_DOC_INFO*)data;
+        TSDK_S_WB_DEL_DOC_INFO* notifyInfo = new TSDK_S_WB_DEL_DOC_INFO;
+
+        service_memset_s(notifyInfo, sizeof(TSDK_S_WB_DEL_DOC_INFO), 0, sizeof(TSDK_S_WB_DEL_DOC_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_WB_DEL_DOC_INFO), pResult, sizeof(TSDK_S_WB_DEL_DOC_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_WB_DOC_DEL, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+    /*case TSDK_E_CONF_EVT_WB_PAGE_DEL:
+    {
+        CHECK_POINTER(data);
+        TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
+        TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
+
+        service_memset_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), 0, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_DOC_PAGE_BASE_INFO), pResult, sizeof(TSDK_S_DOC_PAGE_BASE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), , (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }*/
     default:
         break;
     }

@@ -93,16 +93,10 @@ extern "C" {
 #define LOG_D_IM_ERROR(_fmt, ...)  LOG_D_ERROR("IM", _fmt, ##__VA_ARGS__)
 
 
-#define LOG_D_VOICE_CONF_DEBUG(_fmt, ...)  LOG_D_DEBUG("VOICE_CONF", _fmt, ##__VA_ARGS__)
-#define LOG_D_VOICE_CONF_INFO(_fmt, ...)   LOG_D_INFO("VOICE_CONF", _fmt, ##__VA_ARGS__)
-#define LOG_D_VOICE_CONF_WARN(_fmt, ...)   LOG_D_WARN("VOICE_CONF", _fmt, ##__VA_ARGS__)
-#define LOG_D_VOICE_CONF_ERROR(_fmt, ...)  LOG_D_ERROR("VOICE_CONF", _fmt, ##__VA_ARGS__)
-
-
-#define LOG_D_DATA_CONF_DEBUG(_fmt, ...)  LOG_D_DEBUG("DATA_CONF", _fmt, ##__VA_ARGS__)
-#define LOG_D_DATA_CONF_INFO(_fmt, ...)   LOG_D_INFO("DATA_CONF", _fmt, ##__VA_ARGS__)
-#define LOG_D_DATA_CONF_WARN(_fmt, ...)   LOG_D_WARN("DATA_CONF", _fmt, ##__VA_ARGS__)
-#define LOG_D_DATA_CONF_ERROR(_fmt, ...)  LOG_D_ERROR("DATA_CONF", _fmt, ##__VA_ARGS__)
+#define LOG_D_CONF_DEBUG(_fmt, ...)  LOG_D_DEBUG("CONF", _fmt, ##__VA_ARGS__)
+#define LOG_D_CONF_INFO(_fmt, ...)   LOG_D_INFO("CONF", _fmt, ##__VA_ARGS__)
+#define LOG_D_CONF_WARN(_fmt, ...)   LOG_D_WARN("CONF", _fmt, ##__VA_ARGS__)
+#define LOG_D_CONF_ERROR(_fmt, ...)  LOG_D_ERROR("CONF", _fmt, ##__VA_ARGS__)
 
 
 #ifdef __cplusplus

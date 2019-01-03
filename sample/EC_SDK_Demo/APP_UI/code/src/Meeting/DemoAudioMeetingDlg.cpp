@@ -154,7 +154,7 @@ void CDemoAudioMeetingDlg::OnBnClickedBtAddMember()
 
         pTempAttendee++;
     }
-    (void)service_conf_mem_add(m_handle, &addAttendeeInfo);
+    (void)service_conf_add_attendee(m_handle, &addAttendeeInfo);
     free(addAttendeeInfo.attendee_list);
     addAttendeeInfo.attendee_list = NULL;
 }
@@ -210,7 +210,7 @@ void CDemoAudioMeetingDlg::OnBnClickedBtHandUp()
 
 void CDemoAudioMeetingDlg::OnBnClickedBtDataconf()
 {
-    (void)service_conf_update_deta_conf(m_handle);
+    (void)service_conf_upgrade_conf(m_handle);
 }
 
 void CDemoAudioMeetingDlg::OnBnClickedBtApplyChairman()
@@ -404,7 +404,7 @@ void CDemoAudioMeetingDlg::OnClickListMemMenuItem(UINT nID)
     {
     case ID_CONF_DEL_MEM_MENU:
     {
-        (void)service_conf_mem_delete(m_handle, strCallNo.c_str());
+        (void)service_conf_delete_attendee(m_handle, strCallNo.c_str());
         break;
     }
     case ID_CONF_RECALL_MEM_MENU:
@@ -435,24 +435,24 @@ void CDemoAudioMeetingDlg::OnClickListMemMenuItem(UINT nID)
 
             pTempAttendee++;
         }
-        (void)service_conf_mem_add(m_handle, &addAttendeeInfo);
+        (void)service_conf_add_attendee(m_handle, &addAttendeeInfo);
         free(addAttendeeInfo.attendee_list);
         addAttendeeInfo.attendee_list = NULL;
         break;
     }
     case ID_CONF_MUTE_MEM_MENU:
     {
-        (void)service_conf_mem_mute(m_handle, strCallNo.c_str(), TRUE);
+        (void)service_conf_mute_attendee(m_handle, strCallNo.c_str(), TRUE);
         break;
     }
     case ID_CONF_UNMUTE_MEM_MENU:
     {
-        (void)service_conf_mem_mute(m_handle, strCallNo.c_str(), FALSE);
+        (void)service_conf_mute_attendee(m_handle, strCallNo.c_str(), FALSE);
         break;
     }
     case ID_CONF_HANGUP_MEM_MENU:
     {
-        (void)service_conf_mem_hangup(m_handle, strCallNo.c_str());
+        (void)service_conf_hangup_attendee(m_handle, strCallNo.c_str());
         break;
     }
 	case ID_CONF_UNHANDUP_MEM_MENU:

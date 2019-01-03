@@ -126,6 +126,9 @@
     <ClCompile Include="..\..\code\src\Meeting\DemoDataconfCtrlDlg.cpp">
       <Filter>code\src\Meeting</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\code\src\Meeting\DemoWhiteboardShareDlg.cpp">
+      <Filter>code\src\Meeting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\code\src\Call\DemoCallCtrlDlg.h">
@@ -230,6 +233,9 @@
       <Filter>code\src\Login</Filter>
     </ClInclude>
     <ClInclude Include="..\..\code\src\Meeting\DemoDataconfCtrlDlg.h">
+      <Filter>code\src\Meeting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\src\Meeting\DemoWhiteboardShareDlg.h">
       <Filter>code\src\Meeting</Filter>
     </ClInclude>
   </ItemGroup>

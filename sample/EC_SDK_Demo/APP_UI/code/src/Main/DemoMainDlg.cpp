@@ -504,16 +504,16 @@ LRESULT CDemoMainDlg::OnConfInComming(WPARAM wparam, LPARAM lparam)
     {
         if (VIDEO_BUTTON == incommingDlg.m_buttonType)
         {
-            (void)service_conf_mem_accept(handle, TRUE);
+            (void)service_conf_accept(handle, TRUE);
         }
         else
         {
-            (void)service_conf_mem_accept(handle, FALSE);
+            (void)service_conf_accept(handle, FALSE);
         }
     }
     else
     {
-        (void)service_conf_mem_reject(handle);
+        (void)service_conf_reject(handle);
     }
     m_confHandle = handle;
     delete (notifyInfo);
@@ -523,7 +523,7 @@ LRESULT CDemoMainDlg::OnConfInComming(WPARAM wparam, LPARAM lparam)
 LRESULT CDemoMainDlg::OnGetDataConfParamResult(WPARAM wparam, LPARAM lparam)
 {
     unsigned int handle = (unsigned int)wparam;
-    (void)service_data_conf_join(handle);
+    (void)service_conf_join_data_conference(handle);
     return 0L;
 }
 
@@ -666,9 +666,14 @@ LRESULT CDemoMainDlg::OnCreateCallDlg(WPARAM wparam, LPARAM lparam)
 
 LRESULT CDemoMainDlg::OnCloseVideoDlg(WPARAM wparam, LPARAM lparam)
 {
-    if (NULL != m_videoDlg && ::IsWindow(m_videoDlg->GetSafeHwnd()))
+    //if (NULL != m_videoDlg && ::IsWindow(m_videoDlg->GetSafeHwnd()))
+    if (NULL != m_videoDlg)
     {
-        (void)m_videoDlg->ShowWindow(SW_HIDE);
+        if (::IsWindow(m_videoDlg->GetSafeHwnd()))
+        {
+            (void)m_videoDlg->ShowWindow(SW_HIDE);
+        }
+        
         (void)m_videoDlg->DestroyWindow();
         delete m_videoDlg;
         m_videoDlg = NULL;

@@ -270,7 +270,7 @@ void CDemoCallCtrlDlg::OnBnClickedBtAddVideo()
             ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)m_CallID, NULL);
             if (0 == service_call_add_video(m_CallID))
             {
-                m_bt_addVideo.SetWindowText(_T("Add audio"));
+                m_bt_addVideo.SetWindowText(_T("Del video"));
             }
         }
         else
@@ -319,7 +319,7 @@ LRESULT CDemoCallCtrlDlg::OnStartCall(WPARAM wparam, LPARAM lparam)
 
     if (isVideo)
     {
-        m_bt_addVideo.SetWindowText(_T("Add audio"));
+        m_bt_addVideo.SetWindowText(_T("Del video"));
 		result = service_call_start(&callId, sipnumber.c_str(),TRUE);
 		//创建视频窗口
         ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)callId, NULL);
@@ -415,7 +415,7 @@ LRESULT CDemoCallCtrlDlg::OnAddVideo(WPARAM wParam, LPARAM lparam)
 		service_call_reply_add_video(m_CallID, TRUE);
         CALL_DLG_TYPE type = VIDEO_DLG;
         ChangeDlgType(type);
-        m_bt_addVideo.SetWindowText(_T("Add audio"));
+        m_bt_addVideo.SetWindowText(_T("Del video"));
     }
     else
     {
@@ -447,7 +447,7 @@ LRESULT CDemoCallCtrlDlg::OnCallModify(WPARAM wParam, LPARAM)
     }
     else
     {
-        m_bt_addVideo.SetWindowText(_T("Add audio"));
+        m_bt_addVideo.SetWindowText(_T("Del video"));
     }
     return 0L;
 }
@@ -542,7 +542,7 @@ void CDemoCallCtrlDlg::AcceptCall(unsigned int isvideo)
 
     if (IS_AUDIO != isvideo)
     {
-        m_bt_addVideo.SetWindowText(_T("Add audio"));
+        m_bt_addVideo.SetWindowText(_T("Del video"));
 
 		//创建视频窗口
         ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)m_CallID, NULL);

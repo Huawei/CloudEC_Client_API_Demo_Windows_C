@@ -43,7 +43,7 @@ extern "C" {
 #define  CHECK_DATA_CONF_HANDLE(handle, ret) \
     if((0 == handle) || (0xFFFFFFFF == handle))\
     {\
-    LOG_D_DATA_CONF_ERROR("Invalid handle.");\
+    LOG_D_CONF_ERROR("Invalid handle.");\
     return ret;\
     }
 

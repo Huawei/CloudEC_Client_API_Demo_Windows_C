@@ -131,7 +131,6 @@ BOOL CDemoApp::InitInstance()
     service_register_call_callback(NotifyCallBack::callMsgNotify);
     service_register_conf_callback(NotifyCallBack::confMsgNotify);
 
-
     for (;;)
     {
         CDemoLoginDlg  LoginDlg;

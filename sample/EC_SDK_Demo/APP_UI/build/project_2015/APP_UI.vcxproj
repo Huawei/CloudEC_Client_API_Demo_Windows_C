@@ -153,6 +153,7 @@
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.cpp" />
     <ClCompile Include="..\..\code\src\Meeting\DemoShareStatic.cpp" />
+    <ClCompile Include="..\..\code\src\Meeting\DemoWhiteboardShareDlg.cpp" />
     <ClCompile Include="..\..\code\src\Setting\DemoCallSettingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Setting\DemoMediaSettingDlg.cpp" />
     <ClCompile Include="..\..\code\src\Setting\DemoSettingDlg.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoMeetingJoinDlg.h" />
     <ClInclude Include="..\..\code\src\Meeting\DemoShareStatic.h" />
+    <ClInclude Include="..\..\code\src\Meeting\DemoWhiteboardShareDlg.h" />
     <ClInclude Include="..\..\code\src\Setting\DemoCallSettingDlg.h" />
     <ClInclude Include="..\..\code\src\Setting\DemoMediaSettingDlg.h" />
     <ClInclude Include="..\..\code\src\Setting\DemoSettingDlg.h" />

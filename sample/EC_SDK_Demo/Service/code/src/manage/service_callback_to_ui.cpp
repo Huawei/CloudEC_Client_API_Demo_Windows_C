@@ -87,7 +87,7 @@ extern "C" {
 
         CHECK_POINTER(fn);
 
-        LOG_D_VOICE_CONF_DEBUG("Conf component callback function address.[%#x]", fn);
+        LOG_D_CONF_DEBUG("Conf component callback function address.[%#x]", fn);
 
         g_conf_fn_ui_proc = fn;
 
@@ -97,7 +97,7 @@ extern "C" {
 
     void service_conf_notify_to_ui(unsigned int msg_id, unsigned int param1, unsigned int param2, void*  data)
     {
-        LOG_D_VOICE_CONF_DEBUG("Notify msg id:%u, param1:%u, param1:%u", msg_id, param1, param2);
+        LOG_D_CONF_DEBUG("Notify msg id:%u, param1:%u, param1:%u", msg_id, param1, param2);
 
         if (g_conf_fn_ui_proc != NULL)
         {

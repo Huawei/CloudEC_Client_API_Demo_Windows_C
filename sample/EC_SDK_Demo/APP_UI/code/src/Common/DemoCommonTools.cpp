@@ -345,6 +345,11 @@ bool CTools::JudgeAllSameStar(const char* strValue)
     }
 
     unsigned int strLen = strlen(strValue);
+	if (0 == strLen)
+	{
+		return false;
+	}
+
     char strTmp[MAX_NUM];
     service_memset_s(strTmp, sizeof(strTmp),0,sizeof(strTmp));
     for (unsigned int i = 0; i < strLen;i++)
