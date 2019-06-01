@@ -48,7 +48,7 @@ void NotifyCallBack::loginMsgNotify(unsigned int msg_id, unsigned int param1, un
     }
     case TSDK_E_LOGIN_EVT_LOGIN_SUCCESS:
     {
-        ::PostMessage(logindlg->GetSafeHwnd(), WM_LOGIN_RESULT, (WPARAM)TRUE, NULL);
+        ::PostMessage(logindlg->GetSafeHwnd(), WM_LOGIN_RESULT, (WPARAM)TRUE, (LPARAM)param2);
         break;
     }
     case TSDK_E_LOGIN_EVT_LOGIN_FAILED:
@@ -467,11 +467,11 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
     }
     case TSDK_E_CONF_EVT_TRANS_TO_CONF_RESULT:
     {
-		::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_TRANS_TO_CONF_RESULT, NULL, (LPARAM)param2);
-		break;
+        ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_TRANS_TO_CONF_RESULT, NULL, (LPARAM)param2);
+        break;
     }
-	case TSDK_E_CONF_EVT_DS_DOC_LOAD_START:
-	{
+    case TSDK_E_CONF_EVT_DS_DOC_LOAD_START:
+    {
         CHECK_POINTER(data);
         TSDK_S_DOC_BASE_INFO* pResult = (TSDK_S_DOC_BASE_INFO*)data;
         TSDK_S_DOC_BASE_INFO* notifyInfo = new TSDK_S_DOC_BASE_INFO;
@@ -481,8 +481,8 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
         CHECK_POINTER(pDataConfCtrlDlg);
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_NEW,(WPARAM)notifyInfo,(LPARAM)param2);
-		break;
-	}
+        break;
+    }
     case TSDK_E_CONF_EVT_DS_DOC_PAGE_LOADED:
     {
         CHECK_POINTER(data);
@@ -496,8 +496,8 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_PAGE_LOADED, (WPARAM)notifyInfo, NULL);
         break;
     }
-	case TSDK_E_CONF_EVT_DS_DOC_LOAD_FINISH:
-	{
+    case TSDK_E_CONF_EVT_DS_DOC_LOAD_FINISH:
+    {
         CHECK_POINTER(data);
         TSDK_S_DOC_BASE_INFO* pResult = (TSDK_S_DOC_BASE_INFO*)data;
         TSDK_S_DOC_BASE_INFO* notifyInfo = new TSDK_S_DOC_BASE_INFO;
@@ -507,17 +507,17 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
         CHECK_POINTER(pDataConfCtrlDlg);
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_DOCLOADED, (WPARAM)notifyInfo, (LPARAM)param2);
-		break;
-	}
-	case TSDK_E_CONF_EVT_DS_DOC_DRAW_DATA_NOTIFY:
+        break;
+    }
+    case TSDK_E_CONF_EVT_DS_DOC_DRAW_DATA_NOTIFY:
     {
         CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
         CHECK_POINTER(pDataConfCtrlDlg);
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_DRAW_DATA,NULL,NULL);
-		break;
-	}
-	case TSDK_E_CONF_EVT_DS_DOC_CURRENT_PAGE_IND:
-	{
+        break;
+    }
+    case TSDK_E_CONF_EVT_DS_DOC_CURRENT_PAGE_IND:
+    {
         CHECK_POINTER(data);
         TSDK_S_DOC_PAGE_BASE_INFO* pResult = (TSDK_S_DOC_PAGE_BASE_INFO*)data;
         TSDK_S_DOC_PAGE_BASE_INFO* notifyInfo = new TSDK_S_DOC_PAGE_BASE_INFO;
@@ -527,8 +527,8 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
         CHECK_POINTER(pDataConfCtrlDlg);
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_DS_PAGE_IND,(WPARAM)notifyInfo,NULL);
-		break;
-	}
+        break;
+    }
     case TSDK_E_CONF_EVT_DS_DOC_DEL:
     {
         CHECK_POINTER(data);
@@ -635,6 +635,74 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
         ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), , (WPARAM)notifyInfo, (LPARAM)param2);
         break;
     }*/
+
+    case TSDK_E_CONF_EVT_AS_PRIVILEGE_CHANGE:
+    {
+        CHECK_POINTER(data);
+        TSDK_E_CONF_AS_PRIVILEGE_INFO* pResult = (TSDK_E_CONF_AS_PRIVILEGE_INFO*)data;
+        TSDK_E_CONF_AS_PRIVILEGE_INFO* notifyInfo = new TSDK_E_CONF_AS_PRIVILEGE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO), 0, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO), pResult, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO));
+
+        CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
+        CHECK_POINTER(pDataConfCtrlDlg);
+        ::PostMessage(pDataConfCtrlDlg->GetSafeHwnd(), WM_DATACONF_MODULE_AS_PRIVILEGE_CHANGE, (WPARAM)notifyInfo, (LPARAM)param2);
+        break;
+    }
+
+    default:
+        break;
+    }
+}
+
+void NotifyCallBack::uiPluginMsgNotify(unsigned int msg_id, unsigned int param1, unsigned int param2, void* data)
+{
+    CDemoApp* app = (CDemoApp*)AfxGetApp();
+    if (!app)
+    {
+        //窗口已经关闭
+        return;
+    }
+
+    CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
+    CHECK_POINTER(maindlg);
+
+    switch (msg_id)
+    {
+    case TSDK_E_UI_PLUGIN_EVT_CLICK_HANGUP_CALL:
+    {
+        CDemoCallCtrlDlg* pCallDlg;
+        pCallDlg = CallDlgManager::GetInstance().GetCallDlgByCallID(param1);
+        CHECK_POINTER(pCallDlg);
+        ::PostMessage(pCallDlg->GetSafeHwnd(), WM_CALL_UI_PLUGIN_CLICK_HANGUP_CALL, NULL, NULL);
+        break;
+    }
+
+    case TSDK_E_UI_PLUGIN_EVT_CLICK_LEAVE_CONF:
+    {
+        CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
+        CHECK_POINTER(pAudioMettingDlg);
+        ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_UI_PLUGIN_CLICK_LEAVE_CONF, NULL, NULL);
+        break;
+    }
+
+    case TSDK_E_UI_PLUGIN_EVT_CLICK_END_CONF:
+    {
+        CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
+        CHECK_POINTER(pAudioMettingDlg);
+        ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_UI_PLUGIN_CLICK_END_CONF, NULL, NULL);
+        break;
+    }
+
+
+    case TSDK_E_UI_PLUGIN_EVT_CLICK_START_SHARE:
+    {
+        CDemoAudioMeetingDlg* pAudioMettingDlg = maindlg->GetDemoAudioMeetingDlg();
+        CHECK_POINTER(pAudioMettingDlg);
+        ::PostMessage(pAudioMettingDlg->GetSafeHwnd(), WM_CONF_CTRL_UI_PLUGIN_CLICK_START_SHARE, NULL, NULL);
+        break;
+    }
+
     default:
         break;
     }

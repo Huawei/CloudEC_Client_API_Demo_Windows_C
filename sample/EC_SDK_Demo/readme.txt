@@ -1,17 +1,18 @@
-´ËÄ¿Â¼½á¹¹ÈçÏÂ£º
-APP_UI£ºDemoµÄ½çÃæ´úÂë¼°×ÊÔ´¡£
+æ­¤ç›®å½•ç»“æž„å¦‚ä¸‹ï¼š
+APP_UIï¼šDemoçš„ç•Œé¢ä»£ç åŠèµ„æºã€‚
 
-CI£º¿½±´½Å±¾£¬ÓÃÓÚ½«sdkÑ¹Ëõ°üÖÐµÄ.dll¡¢.lib¡¢.hÎÄ¼þ¿½±´DebugºÍReleaseÄ¿Â¼ÏÂ¡£
+CIï¼šæ‹·è´è„šæœ¬ï¼Œç”¨äºŽå°†sdkåŽ‹ç¼©åŒ…ä¸­çš„.dllã€.libã€.hæ–‡ä»¶æ‹·è´Debugå’ŒReleaseç›®å½•ä¸‹ã€‚
 
-SDK£º°üº¬Èý¸öÎÄ¼þ¼Ð£ºdll¡¢include¡¢lib¡£ÆäÖÐdllÎÄ¼þ¼ÐÓÃÓÚ´æ·ÅsdkÑ¹Ëõ°üÖÐµÄ.dllÎÄ¼þ£¬includeÎÄ¼þ¼ÐÓÃÓÚ´æ·ÅsdkÑ¹Ëõ°üÖÐµÄ.hÎÄ¼þ£¬libÎÄ¼þ¼ÐÓÃÓÚ´æ·ÅsdkÑ¹Ëõ°üÖÐµÄ.libÎÄ¼þ¡£
+SDKï¼šåŒ…å«ä¸‰ä¸ªæ–‡ä»¶å¤¹ï¼šdllã€includeã€libã€‚å…¶ä¸­dllæ–‡ä»¶å¤¹ç”¨äºŽå­˜æ”¾sdkåŽ‹ç¼©åŒ…ä¸­çš„.dllæ–‡ä»¶ï¼Œincludeæ–‡ä»¶å¤¹ç”¨äºŽå­˜æ”¾sdkåŽ‹ç¼©åŒ…ä¸­çš„.hæ–‡ä»¶ï¼Œlibæ–‡ä»¶å¤¹ç”¨äºŽå­˜æ”¾sdkåŽ‹ç¼©åŒ…ä¸­çš„.libæ–‡ä»¶ã€‚
 
-Service£ºÒµÎñ´¦Àí´úÂë¡£
+Serviceï¼šä¸šåŠ¡å¤„ç†ä»£ç ã€‚
 
-EC_SDK_Demo_vs2012.sln £º demoµÄ½â¾ö·½°¸£¬Ê¹ÓÃvs2012±àÒë¡£
+EC_SDK_Demo_vs2012.sln ï¼š demoçš„è§£å†³æ–¹æ¡ˆï¼Œä½¿ç”¨vs2012ç¼–è¯‘ã€‚
 
-EC_SDK_Demo_vs2015.sln :  demoµÄ½â¾ö·½°¸£¬Ê¹ÓÃvs2015±àÒë¡£
+EC_SDK_Demo_vs2015.sln :  demoçš„è§£å†³æ–¹æ¡ˆï¼Œä½¿ç”¨vs2015ç¼–è¯‘ã€‚
 
 
-DemoÔËÐÐ²½Öè£º
-1¡¢ÏÈ´ÓsupportÍøÕ¾»ñÈ¡eSDK CloudECµÄSDK¿ª·¢°ü£¬²¢½«¿ª·¢°ü½âÑ¹Ëõºó¿½±´ÖÁSDKÎÄ¼þ¼ÐÏÂ¡£
-2¡¢Ñ¡ÔñEC_SDK_Demo_vs2012.sln»òÕßEC_SDK_Demo_vs2015.sln½øÐÐ´úÂë¿ª·¢¡£
+Demoè¿è¡Œæ­¥éª¤ï¼š
+1ã€å…ˆä»Žsupportç½‘ç«™èŽ·å–eSDK CloudECçš„SDKå¼€å‘åŒ…ï¼Œå¹¶å°†å¼€å‘åŒ…è§£åŽ‹ç¼©åŽæ‹·è´è‡³SDKæ–‡ä»¶å¤¹ä¸‹ã€‚
+2ã€é€‰æ‹©EC_SDK_Demo_vs2012.slnæˆ–è€…EC_SDK_Demo_vs2015.slnè¿›è¡Œä»£ç å¼€å‘ã€‚
+

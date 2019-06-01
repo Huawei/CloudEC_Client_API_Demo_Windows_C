@@ -52,6 +52,7 @@ public:
     afx_msg LRESULT OnDataConfASUpdateScreen(WPARAM, LPARAM);
     afx_msg LRESULT OnShareSession(WPARAM, LPARAM);
     afx_msg LRESULT OnShareState(WPARAM, LPARAM);
+    afx_msg LRESULT OnSharePrivilegeStateChange(WPARAM wparam, LPARAM lparam);
 
     afx_msg void OnBnClickedBtShare();
     

@@ -36,6 +36,7 @@ extern "C" {
 	SERVICE_CALLBACK void service_register_login_callback(SERVICE_FN_CALLBACK_PTR fn);
 	SERVICE_CALLBACK void service_register_call_callback(SERVICE_FN_CALLBACK_PTR fn);
 	SERVICE_CALLBACK void service_register_conf_callback(SERVICE_FN_CALLBACK_PTR fn);
+    SERVICE_CALLBACK void service_register_ui_plugin_callback(SERVICE_FN_CALLBACK_PTR fn);
 
 	/**
 	* @brief Authentication and login component Message Notify to UI.
@@ -52,6 +53,7 @@ extern "C" {
 	SERVICE_CALLBACK void service_login_notify_to_ui(unsigned int msg_id, unsigned int param1, unsigned int param2, void*  data);
 	SERVICE_CALLBACK void service_call_notify_to_ui(unsigned int msg_id, unsigned int param1, unsigned int param2, void*  data);
 	SERVICE_CALLBACK void service_conf_notify_to_ui(unsigned int msg_id, unsigned int param1, unsigned int param2, void*  data);
+    SERVICE_CALLBACK void service_ui_plugin_notify_to_ui(unsigned int msg_id, unsigned int param1, unsigned int param2, void*  data);
 
 #ifdef __cplusplus
 #if __cplusplus

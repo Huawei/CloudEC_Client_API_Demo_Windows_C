@@ -57,6 +57,7 @@ public:
     afx_msg LRESULT OnShareSession(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnShareState(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnDataConfASUpdateScreen(WPARAM wparam, LPARAM lparam);
+    afx_msg LRESULT OnSharePrivilegeStateChange(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnDSOpenNew(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnDSPageLoad(WPARAM wparam, LPARAM lparam);
     afx_msg LRESULT OnDSLoaded(WPARAM wparam, LPARAM lparam);

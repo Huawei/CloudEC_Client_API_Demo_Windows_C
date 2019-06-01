@@ -48,6 +48,8 @@ extern "C" {
     **/
     SERVICE_INIT int service_set_config_param(unsigned int isIdoConf);
 
+    SERVICE_INIT int service_is_use_ui_plugin(void);
+
 #ifdef __cplusplus
 #if __cplusplus
 }

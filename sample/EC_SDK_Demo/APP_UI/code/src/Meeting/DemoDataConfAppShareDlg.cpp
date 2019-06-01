@@ -1,4 +1,4 @@
-//
+﻿//
 //  DemoDataConfAppShareDlg.cpp
 //  EC_SDK_DEMO
 //
@@ -56,6 +56,7 @@ BEGIN_MESSAGE_MAP(CDemoDataConfAppShareDlg, CDialogEx)
     ON_MESSAGE(WM_DATACONF_MODULE_SCREEN_DATA, &CDemoDataConfAppShareDlg::OnDataConfASUpdateScreen)
     ON_MESSAGE(WM_DATACONF_MODULE_SHARING_SESSION, &CDemoDataConfAppShareDlg::OnShareSession)
     ON_MESSAGE(WM_DATACONF_MODULE_SHARING_STATE, &CDemoDataConfAppShareDlg::OnShareState)
+    ON_MESSAGE(WM_DATACONF_MODULE_AS_PRIVILEGE_CHANGE, &CDemoDataConfAppShareDlg::OnSharePrivilegeStateChange)
 END_MESSAGE_MAP()
 
 
@@ -223,6 +224,53 @@ LRESULT CDemoDataConfAppShareDlg::OnShareSession(WPARAM wparam, LPARAM lparam)
 }
 
 
+LRESULT CDemoDataConfAppShareDlg::OnSharePrivilegeStateChange(WPARAM wparam, LPARAM lparam)
+{
+    TSDK_E_CONF_AS_PRIVILEGE_INFO* privilegeInfo = (TSDK_E_CONF_AS_PRIVILEGE_INFO*)wparam;
+    CHECK_POINTER_RETURN(privilegeInfo, -1L);
+
+    if (TSDK_E_CONF_SHARE_PRIVILEGE_CONTROL == privilegeInfo->privilege_type)
+    {
+        switch (privilegeInfo->action)
+        {
+        case TSDK_E_CONF_AS_ACTION_DELETE:
+        {
+            //建议弹出提示窗口，控制权限收回或被收回
+            break;
+        }
+
+        case TSDK_E_CONF_AS_ACTION_ADD:
+        {
+            //UI Plugin已处理，无需应用层处理
+            break;
+        }
+
+        case TSDK_E_CONF_AS_ACTION_MODIFY:
+        {
+            break;
+        }
+
+        case TSDK_E_CONF_AS_ACTION_REQUEST:
+        {
+            //其他用户请求进行控制，应用程序根据需要弹出提示窗口，根据用户选择是否授予远程控制权限
+            //当前直接同意请求，授予远程控制权限
+            service_data_conf_app_share_set_privilege(privilegeInfo->attendee.base_info.number, TSDK_E_CONF_SHARE_PRIVILEGE_CONTROL, TSDK_E_CONF_AS_ACTION_ADD);            
+            break;
+        }
+
+        case TSDK_E_CONF_AS_ACTION_REJECT:
+        {
+            break;
+        }
+
+        default:
+            break;
+        }
+    }
+
+    return 0L;
+}
+
 LRESULT CDemoDataConfAppShareDlg::OnShareState(WPARAM wparam, LPARAM lparam)
 {
     TSDK_S_CONF_AS_STATE_INFO* shareState = (TSDK_S_CONF_AS_STATE_INFO*)wparam;
@@ -275,3 +323,4 @@ LRESULT CDemoDataConfAppShareDlg::OnShareState(WPARAM wparam, LPARAM lparam)
     delete (shareState);
     return 0L;
 }
+

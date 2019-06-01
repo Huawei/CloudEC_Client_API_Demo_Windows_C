@@ -74,7 +74,7 @@ void CConnectDlg::OnBnClickedOk()
     CString selfNumber = CTools::GetSipNumber(g_sipNumber);
     TSDK_CHAR strSelfNumber[TSDK_D_MAX_NUMBER_LEN + 1];
     CTools::CString2Char(selfNumber, strSelfNumber, TSDK_D_MAX_NUMBER_LEN);
-    result = service_conf_join(&confJoinParam, strSelfNumber, FALSE, &_callId);
+    result = service_conf_join(&confJoinParam, strSelfNumber, TSDK_TRUE, &_callId);
     if (0 == result)
     {
         g_bIsJoinConf = true;

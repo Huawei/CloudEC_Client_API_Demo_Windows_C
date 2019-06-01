@@ -86,4 +86,11 @@ public:
     afx_msg LRESULT OnConfOperationResult(WPARAM, LPARAM);
     afx_msg LRESULT OnConfSpeakerUpdate(WPARAM, LPARAM);
     afx_msg LRESULT OnConfInfoAndStatusUpdate(WPARAM, LPARAM);
+
+
+    afx_msg LRESULT OnConfUiPluginClickLeaveConf(WPARAM wparam, LPARAM);
+    afx_msg LRESULT OnConfUiPluginClickEndConf(WPARAM wparam, LPARAM);
+    afx_msg LRESULT OnConfUiPluginClickStartShare(WPARAM wparam, LPARAM);
+    
+
 };

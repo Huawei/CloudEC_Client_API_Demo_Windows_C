@@ -21,6 +21,8 @@ extern "C" {
 #endif
 #endif /* __cplusplus */
 
+    int g_use_ui_plugin = 0;
+
     /**
     * tsdk_init的接口参数回调COMPONENT_FN_CALLBACK_PTR
     */
@@ -112,14 +114,15 @@ extern "C" {
         service_memset_s(&app_info, sizeof(app_info), 0, sizeof(app_info));
 
         app_info.client_type = TSDK_E_CLIENT_PC;
-        strcpy_s(app_info.product_name, TSDK_D_MAX_PRODUCT_NAME_LEN + 1, "eSDK-Desktop");
+        strcpy_s(app_info.product_name, TSDK_D_MAX_PRODUCT_NAME_LEN + 1, "WeLink-desktop");
         app_info.support_audio_and_video_call = 1;
         app_info.support_audio_and_video_conf = 1;
         app_info.support_ctd = 1;
         app_info.support_data_conf = 1;
-        app_info.support_rich_media_message = 1;
+        app_info.support_rich_media_message = 0;
         app_info.support_enterprise_address_book = 1;
-        app_info.support_im = 1;
+        app_info.support_im = 0;
+        app_info.use_ui_plugin = g_use_ui_plugin;
 
         ret = tsdk_init(&app_info, COMPONENT_FN_CALLBACK_PTR);
         return ret;
@@ -159,6 +162,12 @@ extern "C" {
             LOG_D_AUTH_LOGIN_INFO("set conf ctrl param failed");
         }
         return ret;
+    }
+
+
+    int service_is_use_ui_plugin(void)
+    {
+        return g_use_ui_plugin;
     }
 
 

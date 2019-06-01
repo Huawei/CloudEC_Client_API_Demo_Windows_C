@@ -461,6 +461,8 @@ extern "C" {
     **/
     SERVICE_CONF int service_data_conf_app_share_start(TSDK_E_CONF_APP_SHARE_TYPE shareType);
 
+    SERVICE_CONF int service_data_conf_app_share_set_privilege(TSDK_CHAR* attendee, TSDK_E_CONF_SHARE_PRIVILEGE_TYPE privilege_type, TSDK_E_CONF_AS_ACTION_TYPE action);
+
 
     //SERVICE_CONF int service_data_conf_request_present();
 

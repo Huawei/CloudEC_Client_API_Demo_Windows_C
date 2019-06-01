@@ -16,6 +16,7 @@
 #include "DemoCommonTools.h"
 #include "DemoData.h"
 #include "DemoApp.h"
+#include "service_init.h"
 #include "service_call_interface.h"
 #include "service_tools.h"
 #include "service_os_adapt.h"
@@ -78,6 +79,9 @@ BEGIN_MESSAGE_MAP(CDemoCallCtrlDlg, CDialogEx)
     ON_MESSAGE(WM_CALL_MODIFY_VIDEO, &CDemoCallCtrlDlg::OnCallModify)
     ON_MESSAGE(WM_CALL_HOLD_SUCESS, &CDemoCallCtrlDlg::OnHoldSucess)
     ON_MESSAGE(WM_CALL_UNHOLD_SUCESS, &CDemoCallCtrlDlg::OnUnHoldSucess)
+
+    ON_MESSAGE(WM_CALL_UI_PLUGIN_CLICK_HANGUP_CALL, &CDemoCallCtrlDlg::OnUiPluginClickHangupCall)
+    
 END_MESSAGE_MAP()
 
 
@@ -86,15 +90,15 @@ END_MESSAGE_MAP()
 //DTMF
 void CDemoCallCtrlDlg::OnBnClickedButtonDtmfPad()
 {
-	CDemoApp* app = (CDemoApp*)AfxGetApp();
-	if (!app)
-	{
-		//窗口已经关闭
-		return;
-	}
-	CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
-	CHECK_POINTER(maindlg);
-	::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_DTMF, NULL, NULL);
+    CDemoApp* app = (CDemoApp*)AfxGetApp();
+    if (!app)
+    {
+        //窗口已经关闭
+        return;
+    }
+    CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
+    CHECK_POINTER(maindlg);
+    ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_DTMF, NULL, NULL);
 }
 
 //忙转
@@ -244,7 +248,7 @@ void CDemoCallCtrlDlg::OnBnClickedBtHangup()
 
 void CDemoCallCtrlDlg::OnClose()
 {
-	CDemoCallCtrlDlg* pCallDlg = (CDemoCallCtrlDlg*)this;
+    CDemoCallCtrlDlg* pCallDlg = (CDemoCallCtrlDlg*)this;
     CallDlgManager::GetInstance().DeleteCallDlgByCallDlg(this);
 }
 
@@ -320,9 +324,13 @@ LRESULT CDemoCallCtrlDlg::OnStartCall(WPARAM wparam, LPARAM lparam)
     if (isVideo)
     {
         m_bt_addVideo.SetWindowText(_T("Del video"));
-		result = service_call_start(&callId, sipnumber.c_str(),TRUE);
-		//创建视频窗口
-        ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)callId, NULL);
+        result = service_call_start(&callId, sipnumber.c_str(),TRUE);
+
+        if (1 != service_is_use_ui_plugin())
+        {
+            //创建视频窗口
+            ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)callId, NULL);
+        }
     }
     else
     {
@@ -410,9 +418,9 @@ LRESULT CDemoCallCtrlDlg::OnAddVideo(WPARAM wParam, LPARAM lparam)
     INT_PTR nResponse = (INT_PTR)wParam;
     if (IDOK == nResponse)
     {
-		//创建视频窗口
+        //创建视频窗口
         ::PostMessage(maindlg->GetSafeHwnd(),WM_CALL_VIDEO_CREATE,(WPARAM)m_CallID,NULL);
-		service_call_reply_add_video(m_CallID, TRUE);
+        service_call_reply_add_video(m_CallID, TRUE);
         CALL_DLG_TYPE type = VIDEO_DLG;
         ChangeDlgType(type);
         m_bt_addVideo.SetWindowText(_T("Del video"));
@@ -459,9 +467,9 @@ LRESULT CDemoCallCtrlDlg::OnHoldSucess(WPARAM, LPARAM)
     SetCallState(CALL_HOLD);
 
     //获取屏幕中间的位置
-	int cxFrame = ::GetSystemMetrics(SM_CXSCREEN);
-	int cyFrame = ::GetSystemMetrics(SM_CYSCREEN);
-	MoveWindow((cxFrame - DLG_WIDE_AUDIO) / 2, (cyFrame - DLG_HEIGHT_AUDIO) / 2, DLG_WIDE_AUDIO, DLG_HEIGHT_AUDIO, TRUE);
+    int cxFrame = ::GetSystemMetrics(SM_CXSCREEN);
+    int cyFrame = ::GetSystemMetrics(SM_CYSCREEN);
+    MoveWindow((cxFrame - DLG_WIDE_AUDIO) / 2, (cyFrame - DLG_HEIGHT_AUDIO) / 2, DLG_WIDE_AUDIO, DLG_HEIGHT_AUDIO, TRUE);
 
     return 0L;
 }
@@ -472,11 +480,17 @@ LRESULT CDemoCallCtrlDlg::OnUnHoldSucess(WPARAM, LPARAM)
     m_bt_hold.SetWindowText(_T("Hold"));
     SetCallState(CALL_CONNECTED);
 
-	//获取屏幕中间的位置
-	int cxFrame = ::GetSystemMetrics(SM_CXSCREEN);
-	int cyFrame = ::GetSystemMetrics(SM_CYSCREEN);
+    //获取屏幕中间的位置
+    int cxFrame = ::GetSystemMetrics(SM_CXSCREEN);
+    int cyFrame = ::GetSystemMetrics(SM_CYSCREEN);
     MoveWindow((cxFrame - DLG_WIDE_AUDIO) / 2, (cyFrame - DLG_HEIGHT_AUDIO) / 2, DLG_WIDE_AUDIO, DLG_HEIGHT_AUDIO, TRUE);
 
+    return 0L;
+}
+
+LRESULT CDemoCallCtrlDlg::OnUiPluginClickHangupCall(WPARAM, LPARAM)
+{
+    OnBnClickedBtHangup();
     return 0L;
 }
 
@@ -544,7 +558,7 @@ void CDemoCallCtrlDlg::AcceptCall(unsigned int isvideo)
     {
         m_bt_addVideo.SetWindowText(_T("Del video"));
 
-		//创建视频窗口
+        //创建视频窗口
         ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)m_CallID, NULL);
     }
     service_call_accept(m_CallID, isvideo);
@@ -555,3 +569,5 @@ void CDemoCallCtrlDlg::ChangeDlgType(CALL_DLG_TYPE& type)
 {
     m_DlgType = type;
 }
+
+

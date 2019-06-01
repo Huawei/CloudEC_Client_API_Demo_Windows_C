@@ -15,8 +15,10 @@
 #include "DemoPromptDlg.h"
 #include "service_conf_handle_global.h"
 #include "service_logout.h"
+#include "service_init.h"
 #include "service_call_interface.h"
 #include "service_conf_interface.h"
+
 
 extern CString g_loginAccount;
 extern CString g_sipNumber;
@@ -181,8 +183,8 @@ void CDemoMainDlg::OnBnClickedBtSysmenu()
     CMenu menu;
     menu.CreatePopupMenu();
     menu.AppendMenu(MF_STRING, ID_MAIN_SETTING_MENU, _T("Setting"));
-    menu.AppendMenu(MF_STRING, ID_MAIN_LOGOUT_MENU, _T("Cancellation"));
-    menu.AppendMenu(MF_STRING, ID_MAIN_EXIT_MENU, _T("Quite"));
+    menu.AppendMenu(MF_STRING, ID_MAIN_LOGOUT_MENU, _T("Logout"));
+    menu.AppendMenu(MF_STRING, ID_MAIN_EXIT_MENU, _T("Quit"));
     menu.TrackPopupMenu(TPM_BOTTOMALIGN, rc.left, rc.top, this);
 }
 
@@ -365,7 +367,7 @@ LRESULT CDemoMainDlg::OnCallAddVideo(WPARAM wParam, LPARAM lParam)
         service_call_reply_add_video(m_callId, TRUE);
         CALL_DLG_TYPE type = VIDEO_DLG;
         pCallDlg->ChangeDlgType(type);
-        pCallDlg->m_bt_addVideo.SetWindowText(_T("Add audio"));
+        pCallDlg->m_bt_addVideo.SetWindowText(_T("Del video"));
     }
     if (IDCANCEL == nResponse || IDCLOSE == nResponse)
     {
@@ -632,6 +634,12 @@ LRESULT CDemoMainDlg::OnOpenDtmfDlg(WPARAM wparam, LPARAM lparam)
 LRESULT CDemoMainDlg::OnCreateVideoDlg(WPARAM wparam, LPARAM lparam)
 {
     m_callId = unsigned int(wparam);
+
+    if (1 == service_is_use_ui_plugin())
+    {
+        return 0;
+    }
+
     if (NULL == m_videoDlg)
     {
         m_videoDlg = new CDemoVideoDlg(this);
@@ -666,6 +674,11 @@ LRESULT CDemoMainDlg::OnCreateCallDlg(WPARAM wparam, LPARAM lparam)
 
 LRESULT CDemoMainDlg::OnCloseVideoDlg(WPARAM wparam, LPARAM lparam)
 {
+    if (1 == service_is_use_ui_plugin())
+    {
+        return 0;
+    }
+
     //if (NULL != m_videoDlg && ::IsWindow(m_videoDlg->GetSafeHwnd()))
     if (NULL != m_videoDlg)
     {
@@ -752,6 +765,7 @@ LRESULT CDemoMainDlg::OnCloseConfDlg(WPARAM, LPARAM)
 
     m_callId = 0;
     m_confHandle = 0;
+
     return 0L;
 }
 

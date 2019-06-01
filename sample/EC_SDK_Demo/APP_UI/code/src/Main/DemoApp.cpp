@@ -131,6 +131,12 @@ BOOL CDemoApp::InitInstance()
     service_register_call_callback(NotifyCallBack::callMsgNotify);
     service_register_conf_callback(NotifyCallBack::confMsgNotify);
 
+    if (1 == service_is_use_ui_plugin())
+    {
+        //创建视频窗口
+        service_register_ui_plugin_callback(NotifyCallBack::uiPluginMsgNotify);
+    }
+ 
     for (;;)
     {
         CDemoLoginDlg  LoginDlg;

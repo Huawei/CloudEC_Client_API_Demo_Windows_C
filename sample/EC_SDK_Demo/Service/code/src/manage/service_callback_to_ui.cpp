@@ -19,10 +19,11 @@ extern "C" {
 #endif
 #endif /* __cplusplus */
 
-    /*static SERVICE_FN_CALLBACK_PTR g_fn_ui_proc;	*/
+    /*static SERVICE_FN_CALLBACK_PTR g_fn_ui_proc;  */
     static SERVICE_FN_CALLBACK_PTR g_login_fn_ui_proc; //Global variables, authentication and login component call back function address
     static SERVICE_FN_CALLBACK_PTR g_call_fn_ui_proc;
     static SERVICE_FN_CALLBACK_PTR g_conf_fn_ui_proc;
+    static SERVICE_FN_CALLBACK_PTR g_ui_plugin_fn_ui_proc;
 
     /**
      * @brief UI set authentication and login component callback functions.
@@ -107,13 +108,38 @@ extern "C" {
         return;
     }
 
+    void service_register_ui_plugin_callback(SERVICE_FN_CALLBACK_PTR fn)
+    {
+
+        CHECK_POINTER(fn);
+
+        LOG_D_CONF_DEBUG("ui plugin component callback function address.[%#x]", fn);
+
+        g_ui_plugin_fn_ui_proc = fn;
+
+        return;
+    }
+
+
+    void service_ui_plugin_notify_to_ui(unsigned int msg_id, unsigned int param1, unsigned int param2, void*  data)
+    {
+        LOG_D_CONF_DEBUG("Notify msg id:%u, param1:%u, param1:%u", msg_id, param1, param2);
+
+        if (g_ui_plugin_fn_ui_proc != NULL)
+        {
+            g_ui_plugin_fn_ui_proc(msg_id, param1, param2, data);
+        }
+
+        return;
+    }
+
     /**
      * @brief Authentication and login component Message Notify to UI.
      *
      * @param [in] unsigned int msg_id      Msg id.
      * @param [in] unsigned int param1      Param1.
      * @param [in] unsigned int param2      Param2.
-     * @param [in] void*  data				Data.
+     * @param [in] void*  data              Data.
      * @retval void
      *
      * @attention Developers can modify the adaptation according to the needs
@@ -133,6 +159,11 @@ extern "C" {
         if ((unsigned int)TSDK_E_CONF_EVT_CONF_BEGIN < msg_id && msg_id < (unsigned int)TSDK_E_CONF_EVT_CONF_BUTT)
         {
             service_conf_notify_to_ui(msg_id, param1, param2, data);
+        }
+
+        if ((unsigned int)TSDK_E_UI_PLUGIN_EVT_BEGIN < msg_id && msg_id < (unsigned int)TSDK_E_UI_PLUGIN_EVT_BUTT)
+        {
+            service_ui_plugin_notify_to_ui(msg_id, param1, param2, data);
         }
     }
 

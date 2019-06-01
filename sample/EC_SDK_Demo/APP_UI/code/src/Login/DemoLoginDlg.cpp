@@ -232,11 +232,19 @@ afx_msg LRESULT CDemoLoginDlg::OnLoginAuthResult(WPARAM wParam, LPARAM lParam)
 
 afx_msg LRESULT CDemoLoginDlg::OnLoginResult(WPARAM wParam, LPARAM lParam)
 {
+    TSDK_E_SERVICE_ACCOUNT_TYPE service_account_type = (TSDK_E_SERVICE_ACCOUNT_TYPE)lParam;
     BOOL bSuccess = (BOOL)wParam;
     if (bSuccess)
     {
-        m_bLoginFlag = true;
-        OnOK();
+        if (service_account_type == TSDK_E_VOIP_SERVICE_ACCOUNT)
+        {
+            m_bLoginFlag = true;
+            OnOK();
+        }
+        else
+        {
+            AfxMessageBox(_T("Login IM Success!"));
+        }
     }
     else
     {

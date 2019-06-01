@@ -34,6 +34,11 @@ extern "C" {
         strncpy_s(bookConf.start_time,TSDK_D_MAX_TIME_FORMATE_LEN + 1,bookConfInfo->start_time,_TRUNCATE);
         bookConf.conf_type =  bookConfInfo->conf_type;
         bookConf.conf_media_type = bookConfInfo->conf_media_type;
+
+        //默认使用高清会议
+        bookConf.is_hd_conf = TSDK_TRUE;
+        //bookConf.is_multi_stream_conf = TSDK_TRUE;
+
         unsigned int attendeenumber = bookConfInfo->attendee_num;
         if (0 == attendeenumber)
         {
@@ -377,6 +382,7 @@ extern "C" {
         return ret;
     }
 
+
     int service_data_conf_app_share_start(TSDK_E_CONF_APP_SHARE_TYPE shareType)
     {
         TSDK_RESULT ret;
@@ -390,6 +396,22 @@ extern "C" {
             LOG_D_CONF_ERROR("share start failed. result=%#x", ret);
         }
         
+        return ret;
+    }
+
+    int service_data_conf_app_share_set_privilege(TSDK_CHAR* attendee, TSDK_E_CONF_SHARE_PRIVILEGE_TYPE privilege_type, TSDK_E_CONF_AS_ACTION_TYPE action)
+    {
+        TSDK_RESULT ret;
+        TSDK_UINT32 confHandle = get_data_conf_handle();
+
+        CHECK_DATA_CONF_HANDLE(confHandle, -1);
+
+        ret = tsdk_app_share_set_privilege(confHandle, attendee, privilege_type, action);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CONF_ERROR("share set privilege failed. result=%#x", ret);
+        }
+
         return ret;
     }
 

@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CDemoDataconfCtrlDlg, CDialogEx)
     ON_MESSAGE(WM_DATACONF_MODULE_WB_PAG_NEW, &CDemoDataconfCtrlDlg::OnWBNewPage)
     ON_MESSAGE(WM_DATACONF_MODULE_WB_DRAW_DATA, &CDemoDataconfCtrlDlg::OnWBDrawData)
     ON_MESSAGE(WM_DATACONF_MODULE_WB_DOC_DEL, &CDemoDataconfCtrlDlg::OnWBDelete)
+    ON_MESSAGE(WM_DATACONF_MODULE_AS_PRIVILEGE_CHANGE, &CDemoDataconfCtrlDlg::OnSharePrivilegeStateChange)
 
 END_MESSAGE_MAP()
 
@@ -248,6 +249,16 @@ LRESULT CDemoDataconfCtrlDlg::OnDataConfASUpdateScreen(WPARAM wparam, LPARAM lpa
     return 0L;
 }
 
+
+LRESULT CDemoDataconfCtrlDlg::OnSharePrivilegeStateChange(WPARAM wparam, LPARAM lparam)
+{
+    if (m_desktopShareDlg)
+    {
+        ::PostMessage(m_desktopShareDlg->GetSafeHwnd(), WM_DATACONF_MODULE_AS_PRIVILEGE_CHANGE, wparam, lparam);
+    }
+    return 0L;
+}
+
 LRESULT CDemoDataconfCtrlDlg::OnDSOpenNew(WPARAM wparam, LPARAM lparam)
 {
     if (m_documentsShareDlg)
@@ -355,3 +366,4 @@ LRESULT CDemoDataconfCtrlDlg::OnWBDelete(WPARAM wparam, LPARAM lparam)
     }
     return 0L;
 }
+

@@ -78,4 +78,6 @@ public:
     LRESULT OnCallModify(WPARAM wParam, LPARAM lparam);
     LRESULT OnHoldSucess(WPARAM wParam, LPARAM lparam);
     LRESULT OnUnHoldSucess(WPARAM wParam, LPARAM lparam);
+
+    LRESULT OnUiPluginClickHangupCall(WPARAM, LPARAM);
 };

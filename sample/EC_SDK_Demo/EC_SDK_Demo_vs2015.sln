@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppUI", "APP_UI\build\project_2015\APP_UI.vcxproj", "{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -12,16 +12,32 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Service", "Service\build\pr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Debug|Win32.Build.0 = Debug|Win32
+		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Debug|x64.ActiveCfg = Debug|Win32
 		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Debug|x86.ActiveCfg = Debug|Win32
 		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Debug|x86.Build.0 = Debug|Win32
+		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Release|Win32.ActiveCfg = Release|Win32
+		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Release|Win32.Build.0 = Release|Win32
+		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Release|x64.ActiveCfg = Release|Win32
 		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Release|x86.ActiveCfg = Release|Win32
 		{16F6AA21-9FFF-4F1D-AF7A-FD6312F896DD}.Release|x86.Build.0 = Release|Win32
+		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Debug|Win32.Build.0 = Debug|Win32
+		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Debug|x64.ActiveCfg = Debug|Win32
 		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Debug|x86.ActiveCfg = Debug|Win32
 		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Debug|x86.Build.0 = Debug|Win32
+		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Release|Win32.ActiveCfg = Release|Win32
+		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Release|Win32.Build.0 = Release|Win32
+		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Release|x64.ActiveCfg = Release|Win32
 		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Release|x86.ActiveCfg = Release|Win32
 		{A89A329B-8168-4449-86D0-DFEAC999BB50}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection

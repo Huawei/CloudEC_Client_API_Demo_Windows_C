@@ -96,6 +96,8 @@ typedef enum
 #define ID_DCONF_WATCH_MENU                      (ID_UI_BEGIN+18)         //选看与会者////
 #define ID_DCONF_BROADCAST_MENU                  (ID_UI_BEGIN+19)         //广播与会者////
 #define ID_DCONF_APPLY_AS_PRESENT_MENU           (ID_UI_BEGIN+20)         //申请为主讲人////
+#define ID_DCONF_REQ_REMOTE_CONTROL_MENU         (ID_UI_BEGIN+21)         //请求远端控制本地屏幕////
+#define ID_DCONF_CANCEL_REMOTE_CONTROL_MENU      (ID_UI_BEGIN+22)         //取消远端控制本地屏幕////
 ////Private Group
 //#define ID_PRIGROUP_MODIFY_MENU                  (ID_UI_BEGIN+17)    //群组中修改按钮////
 //#define ID_PRIGROUP_DEL_MENU                     (ID_UI_BEGIN+18)    //个人通讯录中删除按钮////
@@ -165,6 +167,8 @@ typedef enum
 #define WM_CALL_CONF_CLOSE_DLG                   (WM_CALL_MODULE_BEGIN + 51)
 #define WM_CALL_INCOMMING_DLG_CLOSE              (WM_CALL_MODULE_BEGIN + 52)
 
+#define WM_CALL_UI_PLUGIN_CLICK_HANGUP_CALL      (WM_CALL_MODULE_BEGIN + 55)
+
 ////DataConf Defines
 #define WM_DATACONF_MODULE_BEGIN                 (ID_UI_BEGIN + 200)
 #define WM_DATACONF_MODULE_PARAM                 (WM_DATACONF_MODULE_BEGIN + 1)
@@ -194,6 +198,7 @@ typedef enum
 #define WM_DATACONF_MODULE_DS_NEW                (WM_DATACONF_MODULE_BEGIN + 25)
 #define WM_DATACONF_MODULE_DS_DELETE             (WM_DATACONF_MODULE_BEGIN + 26)
 #define WM_DATACONF_MODULE_DS_PAGE_LOADED        (WM_DATACONF_MODULE_BEGIN + 27)
+#define WM_DATACONF_MODULE_AS_PRIVILEGE_CHANGE   (WM_DATACONF_MODULE_BEGIN + 28)
 
 ///Auth_login Defines
 #define WM_AUTH_LOGIN_MODULE_BEGIN               (ID_UI_BEGIN + 300)
@@ -222,6 +227,9 @@ typedef enum
 #define WM_CONF_CTRL_JOIN_RESULT                 (WM_CONF_CTRL_MODULE_BEGIN + 18)
 #define WM_CONF_CTRL_JOIN_DATACONF_RESULT        (WM_CONF_CTRL_MODULE_BEGIN + 19)
 #define WM_CONF_CTRL_OPERATION_RESULT            (WM_CONF_CTRL_MODULE_BEGIN + 20)
+#define WM_CONF_CTRL_UI_PLUGIN_CLICK_END_CONF    (WM_CONF_CTRL_MODULE_BEGIN + 21)
+#define WM_CONF_CTRL_UI_PLUGIN_CLICK_LEAVE_CONF  (WM_CONF_CTRL_MODULE_BEGIN + 22)
+#define WM_CONF_CTRL_UI_PLUGIN_CLICK_START_SHARE (WM_CONF_CTRL_MODULE_BEGIN + 23)
 
 //IM Defines for EC6.0
 #define WM_IM_BEGIN                              (ID_UI_BEGIN + 500)

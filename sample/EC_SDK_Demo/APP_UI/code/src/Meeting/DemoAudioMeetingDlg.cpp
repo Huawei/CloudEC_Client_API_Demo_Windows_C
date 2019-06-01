@@ -80,10 +80,14 @@ BEGIN_MESSAGE_MAP(CDemoAudioMeetingDlg, CDialogEx)
     ON_BN_CLICKED(IDC_BT_LEAVE_CONF, &CDemoAudioMeetingDlg::OnBnClickedBtLeaveConf)
     ON_CBN_SELCHANGE(IDC_COM_CONF_MODE, &CDemoAudioMeetingDlg::OnCbnSelchangeComboSetConfMode)
     ON_NOTIFY(NM_RCLICK, IDC_MEMBER_LIST, &CDemoAudioMeetingDlg::OnNMRClickMemberList)
-    ON_COMMAND_RANGE(ID_CONF_DEL_MEM_MENU, ID_DCONF_APPLY_AS_PRESENT_MENU, &CDemoAudioMeetingDlg::OnClickListMemMenuItem)
+    ON_COMMAND_RANGE(ID_CONF_DEL_MEM_MENU, ID_DCONF_CANCEL_REMOTE_CONTROL_MENU, &CDemoAudioMeetingDlg::OnClickListMemMenuItem)
     ON_MESSAGE(WM_CONF_CTRL_INFO_AND_STATUS_UPDATE, &CDemoAudioMeetingDlg::OnConfInfoAndStatusUpdate)
     ON_MESSAGE(WM_CONF_CTRL_ADDRESSER_UPDATE_IND, &CDemoAudioMeetingDlg::OnConfSpeakerUpdate)
     ON_MESSAGE(WM_CONF_CTRL_OPERATION_RESULT,&CDemoAudioMeetingDlg::OnConfOperationResult)
+    ON_MESSAGE(WM_CONF_CTRL_UI_PLUGIN_CLICK_LEAVE_CONF, &CDemoAudioMeetingDlg::OnConfUiPluginClickLeaveConf)
+    ON_MESSAGE(WM_CONF_CTRL_UI_PLUGIN_CLICK_END_CONF, &CDemoAudioMeetingDlg::OnConfUiPluginClickEndConf)
+    ON_MESSAGE(WM_CONF_CTRL_UI_PLUGIN_CLICK_START_SHARE, &CDemoAudioMeetingDlg::OnConfUiPluginClickStartShare)
+    
     ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
@@ -227,15 +231,15 @@ void CDemoAudioMeetingDlg::OnBnClickedBtReleaseChairman()
 
 void CDemoAudioMeetingDlg::OnBnClickedBtDtmf()
 {
-	CDemoApp* app = (CDemoApp*)AfxGetApp();
-	if (!app)
-	{
-		//窗口已经关闭
-		return;
-	}
-	CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
-	CHECK_POINTER(maindlg);
-	::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_DTMF, NULL, NULL);
+    CDemoApp* app = (CDemoApp*)AfxGetApp();
+    if (!app)
+    {
+        //窗口已经关闭
+        return;
+    }
+    CDemoMainDlg* maindlg = (CDemoMainDlg*)(app->m_pMainDlgWnd);
+    CHECK_POINTER(maindlg);
+    ::PostMessage(maindlg->GetSafeHwnd(), WM_CALL_DTMF, NULL, NULL);
 }
 
 void CDemoAudioMeetingDlg::OnBnClickedBtEndConf()
@@ -374,6 +378,10 @@ void CDemoAudioMeetingDlg::OnNMRClickMemberList(NMHDR *pNMHDR, LRESULT *pResult)
         //设置为主讲人
         menu.AppendMenu(MF_STRING, ID_DCONF_SETPRESENT_MEM_MENU, _T("To be Present"));
 
+        menu.AppendMenu(MF_STRING, ID_DCONF_REQ_REMOTE_CONTROL_MENU, _T("Request Control"));
+
+        menu.AppendMenu(MF_STRING, ID_DCONF_CANCEL_REMOTE_CONTROL_MENU, _T("Cancel Control"));
+
         menu.TrackPopupMenu(0, pmenu.x, pmenu.y, this);
     }
 }
@@ -455,11 +463,11 @@ void CDemoAudioMeetingDlg::OnClickListMemMenuItem(UINT nID)
         (void)service_conf_hangup_attendee(m_handle, strCallNo.c_str());
         break;
     }
-	case ID_CONF_UNHANDUP_MEM_MENU:
-	{
-		(void)service_conf_handup(m_handle, FALSE, const_cast<char*>(strCallNo.c_str()));
-		break;
-	}
+    case ID_CONF_UNHANDUP_MEM_MENU:
+    {
+        (void)service_conf_handup(m_handle, FALSE, const_cast<char*>(strCallNo.c_str()));
+        break;
+    }
     case ID_DCONF_WATCH_MENU:
     {
         TSDK_S_WATCH_ATTENDEES_INFO watchAttendeesInfo = { 0 };
@@ -498,6 +506,18 @@ void CDemoAudioMeetingDlg::OnClickListMemMenuItem(UINT nID)
     case ID_DCONF_STOP_SHARE_DESKTOP_MEM_MENU:
     {
         (void)service_data_conf_app_share_set_owner(const_cast<char*>(strCallNo.c_str()), TSDK_E_CONF_AS_ACTION_DELETE);
+        break;
+    }
+
+    case ID_DCONF_REQ_REMOTE_CONTROL_MENU:
+    {
+        (void)service_data_conf_app_share_set_privilege(const_cast<char*>(strCallNo.c_str()), TSDK_E_CONF_SHARE_PRIVILEGE_CONTROL, TSDK_E_CONF_AS_ACTION_ADD);
+        break;
+    }
+
+    case ID_DCONF_CANCEL_REMOTE_CONTROL_MENU:
+    {
+        (void)service_data_conf_app_share_set_privilege(const_cast<char*>(strCallNo.c_str()), TSDK_E_CONF_SHARE_PRIVILEGE_CONTROL, TSDK_E_CONF_AS_ACTION_DELETE);
         break;
     }
     default:
@@ -723,31 +743,31 @@ LRESULT CDemoAudioMeetingDlg::OnConfOperationResult(WPARAM wparam, LPARAM)
         break;
     }
     case TSDK_E_CONF_SET_HANDUP:
-	case TSDK_E_CONF_CANCLE_HANDUP:
+    case TSDK_E_CONF_CANCLE_HANDUP:
     {
-		CString csHandup;
-		m_bt_Handup.GetWindowText(csHandup);
-		if (_T("Hand Up") == csHandup)
-		{
-			m_bt_Handup.SetWindowText(_T("unHand Up"));
-		}
-		else
-		{
-			m_bt_Handup.SetWindowText(_T("Hand Up"));
-		}
+        CString csHandup;
+        m_bt_Handup.GetWindowText(csHandup);
+        if (_T("Hand Up") == csHandup)
+        {
+            m_bt_Handup.SetWindowText(_T("unHand Up"));
+        }
+        else
+        {
+            m_bt_Handup.SetWindowText(_T("Hand Up"));
+        }
         
         break;
     }
     case TSDK_E_CONF_REQUEST_CHAIRMAN:
     {
-		ischairman = true;
+        ischairman = true;
         m_bt_Apply.EnableWindow(FALSE);
         m_bt_Release.EnableWindow(TRUE);
         break;
     }
     case TSDK_E_CONF_RELEASE_CHAIRMAN:
     {
-		ischairman = false;
+        ischairman = false;
         m_bt_Apply.EnableWindow(TRUE);
         m_bt_Release.EnableWindow(FALSE);
         break;
@@ -786,6 +806,32 @@ LRESULT CDemoAudioMeetingDlg::OnConfSpeakerUpdate(WPARAM wparam, LPARAM)
     delete notifyInfo;
     return 0L;
 }
+
+
+LRESULT CDemoAudioMeetingDlg::OnConfUiPluginClickLeaveConf(WPARAM wparam, LPARAM)
+{
+    OnBnClickedBtLeaveConf();
+    return 0L;
+}
+
+
+LRESULT CDemoAudioMeetingDlg::OnConfUiPluginClickEndConf(WPARAM wparam, LPARAM)
+{
+    OnBnClickedBtEndConf();
+    return 0L;
+}
+
+
+LRESULT CDemoAudioMeetingDlg::OnConfUiPluginClickStartShare(WPARAM wparam, LPARAM)
+{
+    CString selfNum = CTools::GetSipNumber(g_sipNumber);
+    std::string strSelfNum = CTools::UNICODE2UTF(selfNum);
+
+    (void)service_data_conf_app_share_set_owner(const_cast<char*>(strSelfNum.c_str()), TSDK_E_CONF_AS_ACTION_ADD);
+
+    return 0L;
+}
+
 
 std::string CDemoAudioMeetingDlg::GetUserStatus(TSDK_E_CONF_PARTICIPANT_STATUS status)
 {
@@ -867,3 +913,5 @@ void CDemoAudioMeetingDlg::UpdateAudioConfButtonStatus()
         m_bt_DataConf.EnableWindow(FALSE);
     }
 }
+
+
