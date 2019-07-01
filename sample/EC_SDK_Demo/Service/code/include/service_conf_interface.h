@@ -163,6 +163,8 @@ extern "C" {
     **/
     SERVICE_CONF int service_conf_end(TSDK_UINT32 confHandle);
 
+    SERVICE_CONF int service_conf_release(TSDK_UINT32 confHandle);
+
     /**
     * @ingroup ConfCtrl
     * @brief [en]This interface is invoked by the chairman to add a new participant to a conference.

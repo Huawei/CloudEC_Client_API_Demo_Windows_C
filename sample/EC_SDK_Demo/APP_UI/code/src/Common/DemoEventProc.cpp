@@ -639,10 +639,10 @@ void NotifyCallBack::confMsgNotify(unsigned int msg_id, unsigned int param1, uns
     case TSDK_E_CONF_EVT_AS_PRIVILEGE_CHANGE:
     {
         CHECK_POINTER(data);
-        TSDK_E_CONF_AS_PRIVILEGE_INFO* pResult = (TSDK_E_CONF_AS_PRIVILEGE_INFO*)data;
-        TSDK_E_CONF_AS_PRIVILEGE_INFO* notifyInfo = new TSDK_E_CONF_AS_PRIVILEGE_INFO;
-        service_memset_s(notifyInfo, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO), 0, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO));
-        memcpy_s(notifyInfo, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO), pResult, sizeof(TSDK_E_CONF_AS_PRIVILEGE_INFO));
+        TSDK_S_CONF_AS_PRIVILEGE_INFO* pResult = (TSDK_S_CONF_AS_PRIVILEGE_INFO*)data;
+        TSDK_S_CONF_AS_PRIVILEGE_INFO* notifyInfo = new TSDK_S_CONF_AS_PRIVILEGE_INFO;
+        service_memset_s(notifyInfo, sizeof(TSDK_S_CONF_AS_PRIVILEGE_INFO), 0, sizeof(TSDK_S_CONF_AS_PRIVILEGE_INFO));
+        memcpy_s(notifyInfo, sizeof(TSDK_S_CONF_AS_PRIVILEGE_INFO), pResult, sizeof(TSDK_S_CONF_AS_PRIVILEGE_INFO));
 
         CDemoDataconfCtrlDlg* pDataConfCtrlDlg = maindlg->GetDataConfCtrlDlg();
         CHECK_POINTER(pDataConfCtrlDlg);

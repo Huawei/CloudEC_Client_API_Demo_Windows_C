@@ -226,7 +226,7 @@ LRESULT CDemoDataConfAppShareDlg::OnShareSession(WPARAM wparam, LPARAM lparam)
 
 LRESULT CDemoDataConfAppShareDlg::OnSharePrivilegeStateChange(WPARAM wparam, LPARAM lparam)
 {
-    TSDK_E_CONF_AS_PRIVILEGE_INFO* privilegeInfo = (TSDK_E_CONF_AS_PRIVILEGE_INFO*)wparam;
+    TSDK_S_CONF_AS_PRIVILEGE_INFO* privilegeInfo = (TSDK_S_CONF_AS_PRIVILEGE_INFO*)wparam;
     CHECK_POINTER_RETURN(privilegeInfo, -1L);
 
     if (TSDK_E_CONF_SHARE_PRIVILEGE_CONTROL == privilegeInfo->privilege_type)

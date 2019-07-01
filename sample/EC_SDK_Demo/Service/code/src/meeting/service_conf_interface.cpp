@@ -203,6 +203,13 @@ extern "C" {
         return ret;
     }
 
+    int service_conf_release(TSDK_UINT32 confHandle)
+    {
+        tsdk_release_conference(confHandle);
+
+        return 0;
+    }
+
     int service_conf_delete_attendee(TSDK_UINT32 confHandle, const TSDK_CHAR* attendee)
     {
         TSDK_RESULT ret;

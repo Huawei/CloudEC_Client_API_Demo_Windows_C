@@ -725,8 +725,10 @@ LRESULT CDemoMainDlg::OnRefreshConf(WPARAM wparam, LPARAM lparam)
     return 0L;
 }
 
-LRESULT CDemoMainDlg::OnCloseConfDlg(WPARAM, LPARAM)
+LRESULT CDemoMainDlg::OnCloseConfDlg(WPARAM wparam, LPARAM lparam)
 {
+    (void)service_conf_release(m_confHandle);
+
     if (NULL != m_dataconfCtrlDlg && ::IsWindow(m_dataconfCtrlDlg->GetSafeHwnd()))
     {
         m_dataconfCtrlDlg->SetCallID(0);
