@@ -21,6 +21,8 @@ extern "C" {
 #define SERVICE_LOGIN __declspec(dllimport)
 #endif
 
+    SERVICE_LOGIN int SetProxyInfo(TSDK_S_PROXY_PARAM *proxyParam);
+
 	/**
 	* @brief [en]This interface is used to log in.
 	*        [cn]µÇÂ¼

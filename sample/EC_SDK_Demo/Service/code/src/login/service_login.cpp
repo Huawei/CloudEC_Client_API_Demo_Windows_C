@@ -18,6 +18,10 @@ extern "C" {
 #endif
 #endif /* __cplusplus */
 
+    int SetProxyInfo(TSDK_S_PROXY_PARAM *proxyParam)
+    {
+        return tsdk_set_config_param(TSDK_E_CONFIG_PROXY_PARAM, (TSDK_VOID*)proxyParam);
+    }
 
 	/*****************************************************************************
 	º¯ Êý Ãû  : ServiceLogin

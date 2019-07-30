@@ -672,7 +672,7 @@ extern "C" {
         point.x = x;
         point.y = y;
 
-        ret = tsdk_annotation_create_start(confHandle, &page_base_info, mainType, (TSDK_UINT32)subType, &point);
+        ret = tsdk_annotation_create_start(confHandle, componentId, &page_base_info, mainType, (TSDK_UINT32)subType, &point);
         if (TSDK_SUCCESS != ret)
         {
             LOG_D_CONF_ERROR("annotation create start failed. result=%#x", ret);
@@ -732,6 +732,7 @@ extern "C" {
         service_memset_s(&delete_info, sizeof(TSDK_S_ANNOTATION_DELETE_INFO), 0, sizeof(TSDK_S_ANNOTATION_DELETE_INFO));
         delete_info.annotation_id_list = annotation_id;
         delete_info.count = count;
+        delete_info.component_id = componentId;
         delete_info.doc_page_info.component_id = componentId;
         delete_info.doc_page_info.document_id = document_id;
         delete_info.doc_page_info.page_index = page_index;
@@ -813,6 +814,7 @@ extern "C" {
         CHECK_DATA_CONF_HANDLE(confHandle, -1);
         
         service_memset_s(&annotationSelectInfo, sizeof(TSDK_S_ANNOTATION_SELECT_INFO), 0, sizeof(TSDK_S_ANNOTATION_SELECT_INFO));
+        annotationSelectInfo.component_id = componentId;
         annotationSelectInfo.doc_page_info.component_id = componentId;
         annotationSelectInfo.doc_page_info.document_id = docId;
         annotationSelectInfo.doc_page_info.page_index = pageIndex;
@@ -844,7 +846,7 @@ extern "C" {
         pageInfo.document_id = docId;
         pageInfo.page_index = pageIndex;
 
-        ret = tsdk_annotation_edit_start(confHandle,&pageInfo,(TSDK_UINT32*)annotationId, count,(TSDK_UINT32)refAnnotationId, editType, point);
+        ret = tsdk_annotation_edit_start(confHandle, componentId, &pageInfo,(TSDK_UINT32*)annotationId, count,(TSDK_UINT32)refAnnotationId, editType, point);
         if (TSDK_SUCCESS != ret)
         {
             LOG_D_CONF_ERROR("annotation edit start failed. result=%#x", ret);
@@ -898,6 +900,7 @@ extern "C" {
         CHECK_DATA_CONF_HANDLE(confHandle, -1);
         
         service_memset_s(&testPointInfo, sizeof(TSDK_S_ANNOTATION_HIT_TEST_POINT_INFO), 0, sizeof(TSDK_S_ANNOTATION_HIT_TEST_POINT_INFO));
+        testPointInfo.component_id = componentId;
         testPointInfo.doc_page_info.component_id = componentId;
         testPointInfo.doc_page_info.document_id = docId;
         testPointInfo.doc_page_info.page_index = pageIndex;
@@ -953,7 +956,7 @@ extern "C" {
         
         return ret;
     }
-    
+
 #ifdef __cplusplus
 #if __cplusplus
 }

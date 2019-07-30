@@ -64,6 +64,11 @@ public:
     CString m_Password;
     CString m_ServerAdress;
     unsigned short m_ServerPort;
+    unsigned int m_ProxyEable;
+    CString m_ProxyAccount;
+    CString m_ProxyPassword;
+    CString m_ProxyServerAdress;
+    unsigned short m_ProxyServerPort;
     CDemoLoginSettingDlg *m_pLoginSetting;
     CDemoLoginJoinConfDlg *m_pLoginJoinConf;
 };

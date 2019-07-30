@@ -294,6 +294,32 @@ int CDemoLoginDlg::Login()
     (void)GetPrivateProfileString(_T("ServerConfig"), _T("serverIP"), _T(""), m_ServerAdress.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
     (void)GetPrivateProfileString(_T("ServerConfig"), _T("serverPort"), _T(""), serverPort.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
 
+    CString proxyEnable;
+    CString proxyServerPort;
+    (void)GetPrivateProfileString(_T("ProxyConfig"), _T("ProxyEnable"), _T(""), proxyEnable.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
+    (void)GetPrivateProfileString(_T("ProxyConfig"), _T("ProxyServerIP"), _T(""), m_ProxyServerAdress.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
+    (void)GetPrivateProfileString(_T("ProxyConfig"), _T("ProxyServerPort"), _T(""), proxyServerPort.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
+    (void)GetPrivateProfileString(_T("ProxyConfig"), _T("ProxyAccount"), _T(""), m_ProxyAccount.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
+    (void)GetPrivateProfileString(_T("ProxyConfig"), _T("ProxyPassword"), _T(""), m_ProxyPassword.GetBuffer(MAX_PATH), MAX_PATH, serverParamPath);
+
+    m_ProxyEable = (unsigned int)CTools::str2num(CTools::UNICODE2UTF(proxyEnable));
+    m_ProxyServerPort = (unsigned short)CTools::str2num(CTools::UNICODE2UTF(proxyServerPort));
+    if (1 == m_ProxyEable)
+    {
+        TSDK_S_PROXY_PARAM proxy_param;
+        service_memset_s(&proxy_param, sizeof(proxy_param), 0, sizeof(proxy_param));
+        strncpy_s(proxy_param.user_name, TSDK_D_MAX_ACCOUNT_LEN + 1, CTools::UNICODE2UTF(m_ProxyAccount).c_str(), _TRUNCATE);
+        strncpy_s(proxy_param.password, TSDK_D_MAX_PASSWORD_LENGTH + 1, CTools::UNICODE2UTF(m_ProxyPassword).c_str(), _TRUNCATE);
+        strncpy_s(proxy_param.proxy_uri, TSDK_D_MAX_URL_LENGTH + 1, CTools::UNICODE2UTF(m_ProxyServerAdress).c_str(), _TRUNCATE);
+        proxy_param.proxy_port = m_ProxyServerPort;
+
+        ret = SetProxyInfo(&proxy_param);
+        if (ret != 0)
+        {
+            return ret;
+        }
+    }
+
     string strPort = CTools::UNICODE2UTF(serverPort);
     m_ServerPort = (unsigned short)CTools::str2num(strPort);
 
