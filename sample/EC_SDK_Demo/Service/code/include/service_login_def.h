@@ -25,14 +25,16 @@ extern "C"{
 */
 typedef struct tagSERVICE_S_LOGIN_PARAM
 { 
-	TSDK_CHAR user_name[TSDK_D_MAX_ACCOUNT_LEN + 1];                    /**< [en]Indicates the account username. 
-																			 [cn]账户用户名，鉴权类型为TSDK_E_AUTH_NORMAL时填写 */
-	TSDK_CHAR password[TSDK_D_MAX_PASSWORD_LENGTH + 1];                 /**< [en]Indicates the account password. 
-																			 [cn]账户密码，鉴权类型为TSDK_E_AUTH_NORMAL时填写 */
-	TSDK_CHAR server_addr[TSDK_D_MAX_URL_LENGTH + 1];                   /**< [en]Indicates the server address. 
-																			 [cn]服务器地址 */
-	TSDK_UINT16 server_port;                                            /**< [en]Indicates the server port. 
-																		 	 [cn]服务器端口号 */
+    TSDK_CHAR display_name[TSDK_D_MAX_DISPLAY_NAME_LEN + 1];
+
+    TSDK_CHAR user_name[TSDK_D_MAX_ACCOUNT_LEN + 1];                    /**< [en]Indicates the account username. 
+                                                                             [cn]账户用户名，鉴权类型为TSDK_E_AUTH_NORMAL时填写 */
+    TSDK_CHAR password[TSDK_D_MAX_PASSWORD_LENGTH + 1];                 /**< [en]Indicates the account password. 
+                                                                             [cn]账户密码，鉴权类型为TSDK_E_AUTH_NORMAL时填写 */
+    TSDK_CHAR server_addr[TSDK_D_MAX_URL_LENGTH + 1];                   /**< [en]Indicates the server address. 
+                                                                             [cn]服务器地址 */
+    TSDK_UINT16 server_port;                                            /**< [en]Indicates the server port. 
+                                                                             [cn]服务器端口号 */
 } SERVICE_S_LOGIN_PARAM;
 
 

@@ -485,6 +485,15 @@ extern "C" {
     **/
     SERVICE_CONF int service_data_conf_app_share_get_screen_data(TSDK_S_CONF_AS_SCREEN_DATA *screenData);
 
+
+    SERVICE_CONF int service_data_conf_app_share_attach_window(TSDK_UPTR window_handle);
+
+
+    SERVICE_CONF int service_data_conf_app_share_detach_window(TSDK_VOID);
+
+
+    SERVICE_CONF int service_data_conf_app_share_set_render_view_size(TSDK_INT32 width, TSDK_INT32 high);
+
     /**
     * @ingroup AppShare
     * @brief [en]This interface is used to stop desktop sharing or application sharing.

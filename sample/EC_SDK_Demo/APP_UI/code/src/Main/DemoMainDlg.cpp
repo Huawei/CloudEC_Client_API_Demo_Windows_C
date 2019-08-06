@@ -294,6 +294,11 @@ LRESULT CDemoMainDlg::OnCallIncoming(WPARAM wParam, LPARAM lParam)
     unsigned int is_video = notifyInfo->is_video_call;
     std::string tel_number(notifyInfo->peer_number);
 
+    if (strlen(notifyInfo->peer_display_name) > 0)
+    {
+        tel_number = CT2A(CTools::UTF2UNICODE(notifyInfo->peer_display_name));
+    }
+
     if (NULL == m_incommingdlg)
     {
         m_incommingdlg = new CDemoCallInCommingDlg(this);

@@ -70,6 +70,9 @@ BOOL CDemoDataConfAppShareDlg::OnInitDialog()
 
 LRESULT CDemoDataConfAppShareDlg::OnDataConfASUpdateScreen(WPARAM, LPARAM)
 {
+    return 0L;
+
+#if 0
     TSDK_S_CONF_AS_SCREEN_DATA screendata;
     service_memset_s(&screendata, sizeof(screendata), 0, sizeof(screendata));
 
@@ -100,6 +103,7 @@ LRESULT CDemoDataConfAppShareDlg::OnDataConfASUpdateScreen(WPARAM, LPARAM)
     {
     }
     return 0L;
+#endif
 }
 void CDemoDataConfAppShareDlg::SetBitmapNULL(void)
 {
@@ -293,12 +297,19 @@ LRESULT CDemoDataConfAppShareDlg::OnShareState(WPARAM wparam, LPARAM lparam)
     case TSDK_E_CONF_AS_STATE_NULL:
     {
         cstxt += _T("Status is NULL");
-        SetBitmapNULL();
+        service_data_conf_app_share_detach_window();
+        Invalidate(TRUE);
         break;
     }
     case TSDK_E_CONF_AS_STATE_VIEW:
     {
         cstxt += _T("Status is Viewing");
+        service_data_conf_app_share_attach_window((TSDK_UPTR)m_stcDeskTop.GetSafeHwnd());
+
+        CRect rect;
+        m_stcDeskTop.GetClientRect(&rect);
+        service_data_conf_app_share_set_render_view_size(rect.Width(), rect.Height());
+
         break;
     }
     case TSDK_E_CONF_AS_STATE_START:

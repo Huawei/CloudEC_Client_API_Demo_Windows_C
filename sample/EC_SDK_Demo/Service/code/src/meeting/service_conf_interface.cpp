@@ -37,7 +37,7 @@ extern "C" {
 
         //默认使用高清会议
         bookConf.is_hd_conf = TSDK_TRUE;
-        //bookConf.is_multi_stream_conf = TSDK_TRUE;
+        bookConf.is_multi_stream_conf = TSDK_TRUE;
 
         unsigned int attendeenumber = bookConfInfo->attendee_num;
         if (0 == attendeenumber)
@@ -437,6 +437,61 @@ extern "C" {
         
         return ret;
     }
+
+    int service_data_conf_app_share_attach_window(TSDK_UPTR window_handle)
+    {
+        TSDK_RESULT ret;
+        TSDK_UINT32 confHandle = get_data_conf_handle();
+
+        CHECK_DATA_CONF_HANDLE(confHandle, -1);
+
+        ret = tsdk_app_share_attach_render(confHandle, window_handle);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CONF_ERROR("app share attach window failed. result=%#x", ret);
+        }
+
+        return ret;
+    }
+
+
+    int service_data_conf_app_share_detach_window(TSDK_VOID)
+    {
+        TSDK_RESULT ret;
+        TSDK_UINT32 confHandle = get_data_conf_handle();
+
+        CHECK_DATA_CONF_HANDLE(confHandle, -1);
+
+        ret = tsdk_app_share_detach_render(confHandle);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CONF_ERROR("app share detach window  failed. result=%#x", ret);
+        }
+
+        return ret;
+    }
+
+
+    int service_data_conf_app_share_set_render_view_size(TSDK_INT32 width, TSDK_INT32 high)
+    {
+        TSDK_RESULT ret;
+        TSDK_UINT32 confHandle = get_data_conf_handle();
+
+        CHECK_DATA_CONF_HANDLE(confHandle, -1);
+
+        TSDK_S_SIZE view_size;
+        view_size.width = width;
+        view_size.high = high;
+
+        ret = tsdk_app_share_set_render_view_size(confHandle, &view_size);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CONF_ERROR("app share set render view size  failed. result=%#x", ret);
+        }
+
+        return ret;
+    }
+
 
     int service_data_conf_app_share_stop()
     {

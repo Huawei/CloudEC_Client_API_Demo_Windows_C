@@ -41,6 +41,13 @@ extern "C" {
     int ServiceLogin(SERVICE_S_LOGIN_PARAM *loginInfo)
     {
         int ret;
+
+        TSDK_S_DISPLAY_LOCAL_INFO display_info;
+        service_memset_s(&display_info, sizeof(display_info), 0, sizeof(display_info));
+        strcpy_s(display_info.display_name, TSDK_D_MAX_DISPLAY_NAME_LEN + 1, loginInfo->display_name);
+        ret = tsdk_set_config_param(TSDK_E_CONFIG_DISPLAY_LOCAL_INFO, (TSDK_VOID*)&display_info);
+
+        
         TSDK_S_LOGIN_PARAM login_param;
         service_memset_s(&login_param, sizeof(login_param), 0, sizeof(login_param));
 
