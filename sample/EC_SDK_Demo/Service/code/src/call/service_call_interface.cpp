@@ -20,7 +20,6 @@ extern "C" {
 #endif
 #endif /* __cplusplus */
 
-
     int service_call_start(unsigned int* callid, const char* call_number, unsigned int isVideo)
     {
         TSDK_RESULT ret;
@@ -40,18 +39,51 @@ extern "C" {
         video_window_info[TSDK_E_VIDEO_WND_LOCAL].render = (TSDK_UINT32)local_video_wnd;
         video_window_info[TSDK_E_VIDEO_WND_LOCAL].video_wnd_type = TSDK_E_VIDEO_WND_LOCAL;
         video_window_info[TSDK_E_VIDEO_WND_LOCAL].index = 1;
-        video_window_info[TSDK_E_VIDEO_WND_LOCAL].display_mode = TSDK_E_VIDEO_WND_DISPLAY_FULL;
+        video_window_info[TSDK_E_VIDEO_WND_LOCAL].display_mode = TSDK_E_VIDEO_WND_DISPLAY_ZOOM;
 
         video_window_info[TSDK_E_VIDEO_WND_REMOTE].render = (TSDK_UINT32)remote_video_wnd;
         video_window_info[TSDK_E_VIDEO_WND_REMOTE].video_wnd_type = TSDK_E_VIDEO_WND_REMOTE;
         video_window_info[TSDK_E_VIDEO_WND_REMOTE].index = 0;
-        video_window_info[TSDK_E_VIDEO_WND_REMOTE].display_mode = TSDK_E_VIDEO_WND_DISPLAY_FULL;
+        video_window_info[TSDK_E_VIDEO_WND_REMOTE].display_mode = TSDK_E_VIDEO_WND_DISPLAY_ZOOM;
 
         ret = tsdk_set_video_window(callid, SERVICE_CALL_D_VIDEO_WINDOW_NUM, video_window_info);
         if (TSDK_SUCCESS != ret)
         {
             LOG_D_CALL_ERROR("set video window info failed. result=%#x", ret);
         }
+        return ret;
+    }
+
+    int service_set_svc_video_window(unsigned int callid, unsigned int ssrc_lable, unsigned int local_video_wnd, unsigned int remote_video_wnd)
+    {
+        TSDK_RESULT ret;
+        TSDK_S_VIDEO_WND_INFO video_window_info;
+        memset(&video_window_info, 0, sizeof(TSDK_S_VIDEO_WND_INFO));
+
+        video_window_info.render = (TSDK_UINT32)local_video_wnd;
+        video_window_info.video_wnd_type = TSDK_E_VIDEO_WND_LOCAL;
+        video_window_info.index = 1;
+        video_window_info.display_mode = TSDK_E_VIDEO_WND_DISPLAY_FULL;
+
+        ret = tsdk_set_video_window(callid, 1, &video_window_info);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CALL_ERROR("set video window info failed. result=%#x", ret);
+        }
+
+        TSDK_S_SVC_VIDEO_WND_INFO svc_window;
+        memset(&svc_window, 0, sizeof(TSDK_S_SVC_VIDEO_WND_INFO));
+        svc_window.render = remote_video_wnd;
+        svc_window.label = ssrc_lable;
+        svc_window.width = 1280;
+        svc_window.height = 720;
+
+        ret = tsdk_set_svc_video_window(callid, 1, &svc_window);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CALL_ERROR("set svc video window info failed. result=%#x", ret);
+        }
+
         return ret;
     }
 

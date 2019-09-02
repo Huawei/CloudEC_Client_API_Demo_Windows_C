@@ -19,6 +19,7 @@
 #include "DemoCallDlgManager.h"
 #include "service_tools.h"
 #include "service_os_adapt.h"
+#include "service_call_interface.h"
 
 NotifyCallBack::NotifyCallBack(void)
 {

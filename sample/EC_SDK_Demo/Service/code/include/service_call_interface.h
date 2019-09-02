@@ -59,6 +59,8 @@ extern "C" {
 	*            [cn] 呼叫存在时，call_id填写对应的有效值，呼叫不存在(未建立，主叫呼出时)，call_id填写非法值
 	**/
     SERVICE_CALL int service_set_video_window(unsigned int callid, unsigned int local_video_wnd, unsigned int remote_video_wnd);
+    SERVICE_CALL int service_set_svc_video_window(unsigned int callid, unsigned int ssrc_lable, unsigned int local_video_wnd, unsigned int remote_video_wnd);
+
 
 	/**
 	* @ingroup Call

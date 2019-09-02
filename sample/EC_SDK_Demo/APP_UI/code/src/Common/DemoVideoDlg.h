@@ -10,6 +10,8 @@
 #include "stdafx.h"
 #include "resource.h"
 
+#include "service_call_interface.h"
+
 // CDemoPromptDlg dialog
 
 class CDemoVideoDlg : public CDialogEx
@@ -38,7 +40,7 @@ public:
     CButton m_bt_video_control;
 
 public:
-    void BindVideoWindow();
+    void BindVideoWindow(TSDK_S_JOIN_CONF_IND_INFO* notifyInfo);
     void SetCallID(unsigned int callid) { m_callID = callid; };
 
     afx_msg void OnClickedBtControlVideo();

@@ -474,7 +474,7 @@ LRESULT CDemoMainDlg::OnJoinConf(WPARAM wParam, LPARAM lparam)
 
     if (TSDK_E_CONF_MEDIA_VIDEO == notify->conf_media_type || TSDK_E_CONF_MEDIA_VIDEO_DATA == notify->conf_media_type)
     {
-        ::PostMessage(GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)m_callId, NULL);
+        ::PostMessage(GetSafeHwnd(), WM_CALL_VIDEO_CREATE, (WPARAM)m_callId, (LPARAM)notify);
     }
 
 	CDemoCallCtrlDlg* pCallDlg = CallDlgManager::GetInstance().GetCallDlgByCallID(notify->call_id);
@@ -654,7 +654,7 @@ LRESULT CDemoMainDlg::OnCreateVideoDlg(WPARAM wparam, LPARAM lparam)
         }
     }
     m_videoDlg->SetCallID(m_callId);
-    m_videoDlg->BindVideoWindow();
+    m_videoDlg->BindVideoWindow((TSDK_S_JOIN_CONF_IND_INFO*)lparam);
     m_videoDlg->ShowWindow(SW_NORMAL);
 
     return 0L;

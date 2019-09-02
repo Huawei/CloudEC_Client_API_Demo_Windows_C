@@ -214,7 +214,7 @@ void CDemoCallCtrlDlg::OnClickedBtTransferToConf()
     book_conf_info.attendee_list[0].role = TSDK_E_CONF_ROLE_ATTENDEE;
 
     //与会者个数
-    book_conf_info.attendee_num = 1;
+    book_conf_info.attendee_num = 0;
 
     //转会议
     (void)service_p2p_transfer_to_conference(m_CallID,&book_conf_info);

@@ -9,7 +9,6 @@
 #include "stdafx.h"
 #include "afxdialogex.h"
 #include "DemoVideoDlg.h"
-#include "service_call_interface.h"
 
 
 // CDemoVideoDlg dialog
@@ -51,11 +50,26 @@ BOOL CDemoVideoDlg::OnInitDialog()
 }
 
 
-void CDemoVideoDlg::BindVideoWindow()
+void CDemoVideoDlg::BindVideoWindow(TSDK_S_JOIN_CONF_IND_INFO* conf_ind_info)
 {
     HWND localVideo = m_localVideo.GetSafeHwnd();
     HWND remoteVideo = m_remoteVideo.GetSafeHwnd();
-    (void)service_set_video_window(m_callID, (unsigned int)localVideo, (unsigned int)remoteVideo);
+    if (conf_ind_info == TSDK_NULL_PTR)
+    {
+        (void)service_set_video_window(m_callID, (unsigned int)localVideo, (unsigned int)remoteVideo);
+    }
+    else
+    {
+        if (TSDK_TRUE == conf_ind_info->is_svc_conf)
+        {
+            (void)service_set_svc_video_window(m_callID, conf_ind_info->svc_label[0], (unsigned int)localVideo, (unsigned int)remoteVideo);
+        }
+        else
+        {
+            (void)service_set_video_window(m_callID, (unsigned int)localVideo, (unsigned int)remoteVideo);
+        }
+    }
+    
 }
 
 void CDemoVideoDlg::OnClickedBtControlVideo()

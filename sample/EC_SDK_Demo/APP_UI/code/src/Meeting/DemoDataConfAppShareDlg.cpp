@@ -15,6 +15,7 @@
 #include "service_conf_handle_global.h"
 #include "service_os_adapt.h"
 #include "service_tools.h"
+#include "service_init.h"
 
 extern CString g_sipNumber;
 
@@ -297,18 +298,26 @@ LRESULT CDemoDataConfAppShareDlg::OnShareState(WPARAM wparam, LPARAM lparam)
     case TSDK_E_CONF_AS_STATE_NULL:
     {
         cstxt += _T("Status is NULL");
-        service_data_conf_app_share_detach_window();
+        if (1 != service_is_use_ui_plugin())
+        {
+            service_data_conf_app_share_detach_window();
+        }
+       
         Invalidate(TRUE);
         break;
     }
     case TSDK_E_CONF_AS_STATE_VIEW:
     {
         cstxt += _T("Status is Viewing");
-        service_data_conf_app_share_attach_window((TSDK_UPTR)m_stcDeskTop.GetSafeHwnd());
 
-        CRect rect;
-        m_stcDeskTop.GetClientRect(&rect);
-        service_data_conf_app_share_set_render_view_size(rect.Width(), rect.Height());
+        if (1 != service_is_use_ui_plugin())
+        {
+            service_data_conf_app_share_attach_window((TSDK_UPTR)m_stcDeskTop.GetSafeHwnd());
+
+            CRect rect;
+            m_stcDeskTop.GetClientRect(&rect);
+            service_data_conf_app_share_set_render_view_size(rect.Width(), rect.Height());
+        }
 
         break;
     }
