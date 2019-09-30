@@ -198,8 +198,8 @@ void CDemoCallCtrlDlg::OnClickedBtTransferToConf()
     book_conf_info.is_auto_mute = FALSE;
 
     ////与会者列表
-    //CString strChairmanNum = CTools::GetSipNumber(g_sipNumber);
-    //CString strCalleeNum = CTools::UTF2UNICODE(m_calleeNum);
+    CString strChairmanNum = CTools::GetSipNumber(g_sipNumber);
+    CString strCalleeNum = CTools::UTF2UNICODE(m_calleeNum);
 
     book_conf_info.attendee_list = (TSDK_S_ATTENDEE_BASE_INFO*)malloc(2*sizeof(TSDK_S_ATTENDEE_BASE_INFO));
     if (NULL == book_conf_info.attendee_list)
@@ -208,13 +208,13 @@ void CDemoCallCtrlDlg::OnClickedBtTransferToConf()
         return;
     }
     service_memset_s(book_conf_info.attendee_list, 2*sizeof(TSDK_S_ATTENDEE_BASE_INFO), 0, 2*sizeof(TSDK_S_ATTENDEE_BASE_INFO));
-    //(void)strncpy_s(book_conf_info.attendee_list[0].number, TSDK_D_MAX_PARTICIPANTID_LEN + 1, CTools::UNICODE2UTF(strChairmanNum).c_str(), _TRUNCATE);
-    //book_conf_info.attendee_list[0].role = TSDK_E_CONF_ROLE_CHAIRMAN;
-    //(void)strncpy_s(book_conf_info.attendee_list[1].number, TSDK_D_MAX_PARTICIPANTID_LEN + 1, m_calleeNum.c_str(), _TRUNCATE);
-    book_conf_info.attendee_list[0].role = TSDK_E_CONF_ROLE_ATTENDEE;
+    (void)strncpy_s(book_conf_info.attendee_list[0].number, TSDK_D_MAX_PARTICIPANTID_LEN + 1, CTools::UNICODE2UTF(strChairmanNum).c_str(), _TRUNCATE);
+    book_conf_info.attendee_list[0].role = TSDK_E_CONF_ROLE_CHAIRMAN;
+    (void)strncpy_s(book_conf_info.attendee_list[1].number, TSDK_D_MAX_PARTICIPANTID_LEN + 1, m_calleeNum.c_str(), _TRUNCATE);
+    book_conf_info.attendee_list[1].role = TSDK_E_CONF_ROLE_ATTENDEE;
 
     //与会者个数
-    book_conf_info.attendee_num = 0;
+    book_conf_info.attendee_num = 2;
 
     //转会议
     (void)service_p2p_transfer_to_conference(m_CallID,&book_conf_info);
