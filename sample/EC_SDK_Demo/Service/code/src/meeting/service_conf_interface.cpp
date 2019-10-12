@@ -648,6 +648,23 @@ extern "C" {
         return ret;
     }
 
+    int service_data_conf_ds_share_set_zoom_mode(TSDK_E_COMPONENT_ID componentId, IN TSDK_UINT32 document_id,
+        IN TSDK_E_DOC_SHARE_ZOOM_MODE zoom_mode, IN TSDK_UINT32 zoom_percent, IN TSDK_BOOL is_sync, IN TSDK_BOOL is_redraw)
+    {
+        TSDK_RESULT ret;
+        TSDK_UINT32 confHandle = get_data_conf_handle();
+
+        CHECK_DATA_CONF_HANDLE(confHandle, -1);
+
+        ret = tsdk_doc_share_set_zoom_mode(confHandle, componentId, document_id, zoom_mode, zoom_percent, is_sync, is_redraw);
+        if (TSDK_SUCCESS != ret)
+        {
+            LOG_D_CONF_ERROR("set zoom mode failed. result=%#x", ret);
+        }
+
+        return ret;
+    }
+
     int service_data_conf_wb_share_open_whiteboard(unsigned int* docId)
     {
         TSDK_RESULT ret;

@@ -613,6 +613,10 @@ extern "C" {
     **/
     SERVICE_CONF int service_data_conf_ds_share_set_display_mode(TSDK_E_COMPONENT_ID componentId);
 
+    SERVICE_CONF int service_data_conf_ds_share_set_zoom_mode(TSDK_E_COMPONENT_ID componentId, IN TSDK_UINT32 document_id,
+        IN TSDK_E_DOC_SHARE_ZOOM_MODE zoom_mode, IN TSDK_UINT32 zoom_percent, IN TSDK_BOOL is_sync, IN TSDK_BOOL is_redraw);
+
+
     /**
     * @ingroup WhiteboardShare
     * @brief [en]This interface is used to open a whiteboard.

@@ -491,6 +491,8 @@ void CDemoWhiteboardShareDlg::OnLButtonDown(UINT nFlags, CPoint point)
     m_ptOrg.x = (point.x) * ppiX;
     m_ptOrg.y = (point.y) * ppiY;
     
+    m_ptOrg.x = m_ptOrg.x * ((float)m_cur_page_real_width / (float)(m_rect.Width() * ppiX));
+    m_ptOrg.y = m_ptOrg.y * ((float)m_cur_page_real_height / (float)(m_rect.Height() * ppiX));
 
     int m_Index = m_com_pentype.GetCurSel();
     switch (m_Index)
@@ -767,6 +769,9 @@ void CDemoWhiteboardShareDlg::OnMouseMove(UINT nFlags, CPoint point)
 
     tsdk_point.x = (point.x) * ppiX;
     tsdk_point.y = (point.y) * ppiY;    
+
+    tsdk_point.x = tsdk_point.x * ((float)m_cur_page_real_width / (float)(m_rect.Width() * ppiX));
+    tsdk_point.y = tsdk_point.y * ((float)m_cur_page_real_height / (float)(m_rect.Height() * ppiX));
 
     int m_Index = m_com_pentype.GetCurSel();
     switch (m_Index)
@@ -1126,6 +1131,17 @@ LRESULT CDemoWhiteboardShareDlg::OnWBSetCurrentPageInd(WPARAM wparam, LPARAM lpa
     m_cur_page_index = pageInfo->page_index;
     UpdateWBinfo(m_cur_wb_id, pageInfo->page_count);
     service_data_conf_ds_share_set_current_page(TSDK_E_COMPONENT_WB, m_cur_wb_id, m_cur_page_index, FALSE);
+
+    TSDK_S_DOC_PAGE_DETAIL_INFO info;
+    memset(&info, 0, sizeof(info));
+    int ret = service_data_conf_ds_share_get_syn_document_info(TSDK_E_COMPONENT_WB, &info);
+    if (0 == ret)
+    {
+        m_cur_page_real_width = info.width;
+        m_cur_page_real_height = info.height;
+    }
+
+    (void)service_data_conf_ds_share_set_zoom_mode(TSDK_E_COMPONENT_WB, m_cur_wb_id, TSDK_E_DOC_SHARE_ZOOM_DISP_SIZE, 0, FALSE, TRUE);
     delete (pageInfo);
     return 0L;
 }

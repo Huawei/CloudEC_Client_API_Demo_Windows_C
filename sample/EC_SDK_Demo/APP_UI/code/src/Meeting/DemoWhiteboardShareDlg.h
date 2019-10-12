@@ -83,6 +83,8 @@ private:
     CListCtrl m_whiteboard_list;
     TSDK_S_POINT m_ptOrg;
     std::vector<unsigned int> m_selectAnnots;
+    int m_cur_page_real_width;
+    int m_cur_page_real_height;
 
 public:
     virtual BOOL OnInitDialog();
